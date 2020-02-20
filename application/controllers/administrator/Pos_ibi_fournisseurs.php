@@ -17,7 +17,6 @@ class Pos_ibi_fournisseurs extends Admin
 		parent::__construct();
 
 		$this->load->model('model_pos_ibi_fournisseurs');
-		//$this->load->model('model_eleve');
 	}
 
 	/**
@@ -75,11 +74,11 @@ class Pos_ibi_fournisseurs extends Admin
 			exit;
 		}
 
-		$this->form_validation->set_rules('NOM', 'NOM', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('BP', 'BP', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('TEL', 'TEL', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('EMAIL', 'EMAIL', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('DESCRIPTION', 'DESCRIPTION', 'trim|required');
+		$this->form_validation->set_rules('NOM', 'Nom Du Fournisseur', 'trim|required');
+		$this->form_validation->set_rules('BP', 'Boite Postal(BP)', 'trim|required');
+		$this->form_validation->set_rules('TEL', 'Telephone', 'trim|required');
+		$this->form_validation->set_rules('EMAIL', 'Email', 'trim|required');
+		$this->form_validation->set_rules('DESCRIPTION', 'Desciption', 'trim|required');
 		
 
 		if ($this->form_validation->run()) {
@@ -162,11 +161,11 @@ class Pos_ibi_fournisseurs extends Admin
 			exit;
 		}
 		
-		$this->form_validation->set_rules('NOM', 'NOM', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('BP', 'BP', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('TEL', 'TEL', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('EMAIL', 'EMAIL', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('DESCRIPTION', 'DESCRIPTION', 'trim|required');
+		$this->form_validation->set_rules('NOM', 'Nom Du Fournisseur', 'trim|required');
+		$this->form_validation->set_rules('BP', 'Boite Postal(BP)', 'trim|required');
+		$this->form_validation->set_rules('TEL', 'Telephone', 'trim|required');
+		$this->form_validation->set_rules('EMAIL', 'Email', 'trim|required');
+		$this->form_validation->set_rules('DESCRIPTION', 'Desciption', 'trim|required');
 		
 		if ($this->form_validation->run()) {
 		

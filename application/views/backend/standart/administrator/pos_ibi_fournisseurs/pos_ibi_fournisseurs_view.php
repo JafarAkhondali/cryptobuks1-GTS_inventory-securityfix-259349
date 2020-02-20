@@ -65,7 +65,7 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">NOM </label>
+                        <label for="content" class="col-sm-2 control-label">Nom Du Fournisseur </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_fournisseurs->NOM); ?>
@@ -73,7 +73,7 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">BP </label>
+                        <label for="content" class="col-sm-2 control-label">Boite Postal(BP) </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_fournisseurs->BP); ?>
@@ -81,7 +81,7 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TEL </label>
+                        <label for="content" class="col-sm-2 control-label">Telephone </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_fournisseurs->TEL); ?>
@@ -89,7 +89,7 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">EMAIL </label>
+                        <label for="content" class="col-sm-2 control-label">Email </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_fournisseurs->EMAIL); ?>
@@ -113,15 +113,20 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">AUTHOR </label>
+                        <label for="content" class="col-sm-2 control-label">Auteur </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_ibi_fournisseurs->AUTHOR); ?>
+                           <?php 
+                              $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_fournisseurs->AUTHOR,'id');
+                              foreach ($user as $value) {
+                                echo "".$value->username;
+                              }
+                             ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">DESCRIPTION </label>
+                        <label for="content" class="col-sm-2 control-label">Desciption </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_fournisseurs->DESCRIPTION); ?>

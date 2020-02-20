@@ -94,8 +94,7 @@ class Model_pos_ibi_fournisseurs extends MY_Model {
         
         return $this;
     }
-
-     public function get_user_info($table_name,$id,$contrainte){
+    public function get_user_info($table_name,$id,$contrainte){
     	$get_info=$this->db->query("select * from ".$table_name." where ".$contrainte."=".$id."");
     	if($get_info->num_rows()>0){
     		return $get_info->result();

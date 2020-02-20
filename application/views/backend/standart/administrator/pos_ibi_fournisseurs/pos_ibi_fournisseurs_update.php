@@ -60,52 +60,52 @@
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="NOM" class="col-sm-2 control-label">NOM 
+                            <label for="NOM" class="col-sm-2 control-label">Nom Du Fournisseur 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="NOM" id="NOM" placeholder="NOM" value="<?= set_value('NOM', $pos_ibi_fournisseurs->NOM); ?>">
+                                <input type="text" class="form-control" name="NOM" id="NOM" placeholder="Nom Du Fournisseur" value="<?= set_value('NOM', $pos_ibi_fournisseurs->NOM); ?>">
                                 <small class="info help-block">
-                                <b>Input NOM</b> Max Length : 200.</small>
+                                </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="BP" class="col-sm-2 control-label">BP 
+                            <label for="BP" class="col-sm-2 control-label">Boite Postal(BP) 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="BP" id="BP" placeholder="BP" value="<?= set_value('BP', $pos_ibi_fournisseurs->BP); ?>">
+                                <input type="text" class="form-control" name="BP" id="BP" placeholder="Boite Postal(BP)" value="<?= set_value('BP', $pos_ibi_fournisseurs->BP); ?>">
                                 <small class="info help-block">
-                                <b>Input BP</b> Max Length : 200.</small>
+                                </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TEL" class="col-sm-2 control-label">TEL 
+                            <label for="TEL" class="col-sm-2 control-label">Telephone 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TEL" id="TEL" placeholder="TEL" value="<?= set_value('TEL', $pos_ibi_fournisseurs->TEL); ?>">
+                                <input type="text" class="form-control" name="TEL" id="TEL" placeholder="Telephone" value="<?= set_value('TEL', $pos_ibi_fournisseurs->TEL); ?>">
                                 <small class="info help-block">
-                                <b>Input TEL</b> Max Length : 200.</small>
+                                </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="EMAIL" class="col-sm-2 control-label">EMAIL 
+                            <label for="EMAIL" class="col-sm-2 control-label">Email 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" name="EMAIL" id="EMAIL" placeholder="EMAIL" value="<?= set_value('EMAIL', $pos_ibi_fournisseurs->EMAIL); ?>">
+                                <input type="email" class="form-control" name="EMAIL" id="EMAIL" placeholder="Email" value="<?= set_value('EMAIL', $pos_ibi_fournisseurs->EMAIL); ?>">
                                 <small class="info help-block">
-                                <b>Input EMAIL</b> Max Length : 200.</small>
+                                </small>
                             </div>
                         </div>
                                                  
                          
                                                 <div class="form-group ">
-                            <label for="DESCRIPTION" class="col-sm-2 control-label">DESCRIPTION 
+                            <label for="DESCRIPTION" class="col-sm-2 control-label">Desciption 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">

@@ -80,12 +80,12 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>NOM</th>
-                           <th>BP</th>
-                           <th>TEL</th>
-                           <th>EMAIL</th>
-                           <th>AUTHOR</th>
-                           <th>DESCRIPTION</th>
+                           <th>Nom Du Fournisseur</th>
+                           <th>Boite Postal(BP)</th>
+                           <th>Telephone</th>
+                           <th>Email</th>
+                           <th>Auteur</th>
+                           <th>Desciption</th>
                            <th>Action</th>
                         </tr>
                      </thead>
@@ -100,22 +100,24 @@ jQuery(document).ready(domo);
                            <td><?= _ent($pos_ibi_fournisseurs->BP); ?></td> 
                            <td><?= _ent($pos_ibi_fournisseurs->TEL); ?></td> 
                            <td><?= _ent($pos_ibi_fournisseurs->EMAIL); ?></td> 
-                           <td><?php 
+                           <td>
+                             <?php 
                               $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_fournisseurs->AUTHOR,'id');
                               foreach ($user as $value) {
                                 echo "".$value->username;
                               }
-                             ?></td> 
+                             ?>
+                           </td> 
                            <td><?= _ent($pos_ibi_fournisseurs->DESCRIPTION); ?></td> 
                            <td width="200">
                               <?php is_allowed('pos_ibi_fournisseurs_view', function() use ($pos_ibi_fournisseurs){?>
-                              <a href="<?= site_url('administrator/pos_ibi_fournisseurs/view/' . $pos_ibi_fournisseurs->ID); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/pos_ibi_fournisseurs/view/' . $pos_ibi_fournisseurs->ID); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
                               <?php }) ?>
                               <?php is_allowed('pos_ibi_fournisseurs_update', function() use ($pos_ibi_fournisseurs){?>
-                              <a href="<?= site_url('administrator/pos_ibi_fournisseurs/edit/' . $pos_ibi_fournisseurs->ID); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/pos_ibi_fournisseurs/edit/' . $pos_ibi_fournisseurs->ID); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                               <?php }) ?>
                               <?php is_allowed('pos_ibi_fournisseurs_delete', function() use ($pos_ibi_fournisseurs){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_fournisseurs/delete/' . $pos_ibi_fournisseurs->ID); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_fournisseurs/delete/' . $pos_ibi_fournisseurs->ID); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
                                <?php }) ?>
                            </td>
                         </tr>
