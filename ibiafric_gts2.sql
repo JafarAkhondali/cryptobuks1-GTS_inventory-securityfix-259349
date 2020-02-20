@@ -646,6 +646,50 @@ CREATE TABLE `form_custom_attribute` (
   `attribute_label` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `pos_ibi_fournisseurs` (
+  `ID` int(11) NOT NULL,
+  `NOM` varchar(200) NOT NULL,
+  `BP` varchar(200) NOT NULL,
+  `TEL` varchar(200) NOT NULL,
+  `EMAIL` varchar(200) NOT NULL,
+  `DATE_CREATION` datetime NOT NULL,
+  `DATE_MOD` datetime NOT NULL,
+  `AUTHOR` varchar(200) NOT NULL,
+  `DESCRIPTION` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_ibi_fournisseurs`
+--
+
+INSERT INTO `pos_ibi_fournisseurs` (`ID`, `NOM`, `BP`, `TEL`, `EMAIL`, `DATE_CREATION`, `DATE_MOD`, `AUTHOR`, `DESCRIPTION`) VALUES
+(1, 'VYAGIZIMANA', '1234', '78392018', 'hab@gmail.com', '2020-02-20 10:15:54', '0000-00-00 00:00:00', '', 'hhhhhhhhhhhhhhhhhh'),
+(4, 'BIZOZA', '62781', '78291822', 'biz@gmail.com', '2020-02-20 13:04:06', '2020-02-20 13:05:43', '1', 'Fournisseur de matelas');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_ibi_fournisseurs`
+--
+ALTER TABLE `pos_ibi_fournisseurs`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_ibi_fournisseurs`
+--
+ALTER TABLE `pos_ibi_fournisseurs`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
 -- --------------------------------------------------------
 
 --
