@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/Eleve/add';
+       window.location.href = BASE_URL + '/administrator/Pos_ibi_clients/add';
        return false;
    });
 
@@ -33,26 +33,16 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Espace Enregistrement<small><?= cclang('list_all'); ?></small>
+      Clients<small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Espace Enregistrement</li>
+      <li class="active">Clients</li>
    </ol>
 </section>
 <!-- Main content -->
 <section class="content">
    <div class="row" >
-     <div class="col-md-4">
-    <div class="btn-group">
-        <a class="btn btn-danger" href="#"><span class="fa fa-pencil"></span></a>
-        <a class="btn btn-info" href="#"><span class="fa fa-search"></span></a>
-        <a class="btn btn-warning" href="#"><span class="fa fa-print"></span></a>
-        <a class="btn btn-success" href="#"><span class="fa fa-image"></span></a>
-    </div>
-  </div>
-</div>
-
       
       <div class="col-md-12">
          <div class="box box-warning">
@@ -62,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('eleve_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Eleve']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/eleve/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Eleve']); ?></a>
+                        <?php is_allowed('pos_ibi_clients_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Ibi Clients']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_ibi_clients/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Ibi Clients']); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('eleve_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Eleve" href="<?= site_url('administrator/eleve/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('pos_ibi_clients_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Ibi Clients" href="<?= site_url('administrator/pos_ibi_clients/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                        <?php is_allowed('eleve_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Eleve" href="<?= site_url('administrator/eleve/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('pos_ibi_clients_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Ibi Clients" href="<?= site_url('administrator/pos_ibi_clients/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Espace Enregistrement</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Espace Enregistrement']); ?>  <i class="label bg-yellow"><?= $eleve_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Clients</h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Clients']); ?>  <i class="label bg-yellow"><?= $pos_ibi_clients_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_eleve" id="form_eleve" action="<?= base_url('administrator/eleve/index'); ?>">
+                  <form name="form_pos_ibi_clients" id="form_pos_ibi_clients" action="<?= base_url('administrator/pos_ibi_clients/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -90,47 +80,67 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Nom:</th>
-                           <th>Age:</th>
-                           <th>Classe</th>
-                           <th>Created By</th>
+                           <th>Nom</th>
+                           <th>Prenom</th>
+                           <th>Telephone</th>
+                           <th>Email</th>
+                           <th>Description</th>
+                           <th>Date De Naissance</th>
+                           <th>Ville</th>
+                           <th>Pays</th>
+                           <th>NIF Du Client</th>
+                           <th>Date De Creation</th>
+                           <th>Date De Modification</th>
+                           <th>Assigner A Un Groupe</th>
+                           <th>Auteur</th>
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody_eleve">
-                     <?php foreach($eleves as $eleve): ?>
+                     <tbody id="tbody_pos_ibi_clients">
+                     <?php foreach($pos_ibi_clientss as $pos_ibi_clients): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $eleve->id; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_ibi_clients->ID_CLIENT; ?>">
                            </td>
                            
-                           <td><?= _ent($eleve->nom); ?></td> 
-                           <td><?= _ent($eleve->age); ?></td> 
-                           <td><?= _ent($eleve->title); ?></td>
+                           <td><?= _ent($pos_ibi_clients->NOM_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->PRENOM_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->TEL_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->EMAIL_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->DESCRIPTION_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->DATE_NAISSANCE_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->CITY_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->COUNTRY_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->COMPANY_NAME_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->DATE_CREATION_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->DATE_MOD_CLIENT); ?></td> 
+                           <td><?= _ent($pos_ibi_clients->NAME_GROUP); ?></td>
                              
-                           <td><?php 
-                              $user = $this->model_eleve->get_user_info('aauth_users',$eleve->created_by,'id');
+                           <td>
+                             <?php 
+                              $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_clients->AUTHOR_CLIENT,'id');
                               foreach ($user as $value) {
                                 echo "".$value->username;
                               }
-                             ?></td> 
+                             ?>
+                           </td> 
                            <td width="200">
-                              <?php is_allowed('eleve_view', function() use ($eleve){?>
-                              <a href="<?= site_url('administrator/eleve/view/' . $eleve->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <?php is_allowed('pos_ibi_clients_view', function() use ($pos_ibi_clients){?>
+                              <a href="<?= site_url('administrator/pos_ibi_clients/view/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('eleve_update', function() use ($eleve){?>
-                              <a href="<?= site_url('administrator/eleve/edit/' . $eleve->id); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <?php is_allowed('pos_ibi_clients_update', function() use ($pos_ibi_clients){?>
+                              <a href="<?= site_url('administrator/pos_ibi_clients/edit/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('eleve_delete', function() use ($eleve){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/eleve/delete/' . $eleve->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <?php is_allowed('pos_ibi_clients_delete', function() use ($pos_ibi_clients){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_clients/delete/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
                                <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($eleve_counts == 0) :?>
+                      <?php if ($pos_ibi_clients_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Espace Enregistrement data is not available
+                           Clients data is not available
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -157,10 +167,19 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'nom' ? 'selected' :''; ?> value="nom">Nom</option>
-                           <option <?= $this->input->get('f') == 'age' ? 'selected' :''; ?> value="age">Age</option>
-                           <option <?= $this->input->get('f') == 'classe' ? 'selected' :''; ?> value="classe">Classe</option>
-                           <option <?= $this->input->get('f') == 'created_by' ? 'selected' :''; ?> value="created_by">Created By</option>
+                            <option <?= $this->input->get('f') == 'NOM_CLIENT' ? 'selected' :''; ?> value="NOM_CLIENT">NOM CLIENT</option>
+                           <option <?= $this->input->get('f') == 'PRENOM_CLIENT' ? 'selected' :''; ?> value="PRENOM_CLIENT">PRENOM CLIENT</option>
+                           <option <?= $this->input->get('f') == 'TEL_CLIENT' ? 'selected' :''; ?> value="TEL_CLIENT">TEL CLIENT</option>
+                           <option <?= $this->input->get('f') == 'EMAIL_CLIENT' ? 'selected' :''; ?> value="EMAIL_CLIENT">EMAIL CLIENT</option>
+                           <option <?= $this->input->get('f') == 'DESCRIPTION_CLIENT' ? 'selected' :''; ?> value="DESCRIPTION_CLIENT">DESCRIPTION CLIENT</option>
+                           <option <?= $this->input->get('f') == 'DATE_NAISSANCE_CLIENT' ? 'selected' :''; ?> value="DATE_NAISSANCE_CLIENT">DATE NAISSANCE CLIENT</option>
+                           <option <?= $this->input->get('f') == 'CITY_CLIENT' ? 'selected' :''; ?> value="CITY_CLIENT">CITY CLIENT</option>
+                           <option <?= $this->input->get('f') == 'COUNTRY_CLIENT' ? 'selected' :''; ?> value="COUNTRY_CLIENT">COUNTRY CLIENT</option>
+                           <option <?= $this->input->get('f') == 'COMPANY_NAME_CLIENT' ? 'selected' :''; ?> value="COMPANY_NAME_CLIENT">COMPANY NAME CLIENT</option>
+                           <option <?= $this->input->get('f') == 'DATE_CREATION_CLIENT' ? 'selected' :''; ?> value="DATE_CREATION_CLIENT">DATE CREATION CLIENT</option>
+                           <option <?= $this->input->get('f') == 'DATE_MOD_CLIENT' ? 'selected' :''; ?> value="DATE_MOD_CLIENT">DATE MOD CLIENT</option>
+                           <option <?= $this->input->get('f') == 'REF_GROUP_CLIENT' ? 'selected' :''; ?> value="REF_GROUP_CLIENT">REF GROUP CLIENT</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_CLIENT' ? 'selected' :''; ?> value="AUTHOR_CLIENT">AUTHOR CLIENT</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -169,7 +188,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/eleve');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/pos_ibi_clients');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -221,7 +240,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_eleve').serialize();
+      var serialize_bulk = $('#form_pos_ibi_clients').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -237,7 +256,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/eleve/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/pos_ibi_clients/delete?' + serialize_bulk;      
             }
           });
 

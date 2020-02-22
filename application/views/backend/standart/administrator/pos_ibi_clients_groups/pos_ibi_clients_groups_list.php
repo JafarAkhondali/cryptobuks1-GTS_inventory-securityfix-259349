@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/Eleve/add';
+       window.location.href = BASE_URL + '/administrator/Pos_ibi_clients_groups/add';
        return false;
    });
 
@@ -33,26 +33,16 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Espace Enregistrement<small><?= cclang('list_all'); ?></small>
+      Groups<small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Espace Enregistrement</li>
+      <li class="active">Groups</li>
    </ol>
 </section>
 <!-- Main content -->
 <section class="content">
    <div class="row" >
-     <div class="col-md-4">
-    <div class="btn-group">
-        <a class="btn btn-danger" href="#"><span class="fa fa-pencil"></span></a>
-        <a class="btn btn-info" href="#"><span class="fa fa-search"></span></a>
-        <a class="btn btn-warning" href="#"><span class="fa fa-print"></span></a>
-        <a class="btn btn-success" href="#"><span class="fa fa-image"></span></a>
-    </div>
-  </div>
-</div>
-
       
       <div class="col-md-12">
          <div class="box box-warning">
@@ -62,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('eleve_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Eleve']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/eleve/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Eleve']); ?></a>
+                        <?php is_allowed('pos_ibi_clients_groups_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Ibi Clients Groups']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_ibi_clients_groups/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Ibi Clients Groups']); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('eleve_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Eleve" href="<?= site_url('administrator/eleve/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('pos_ibi_clients_groups_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Ibi Clients Groups" href="<?= site_url('administrator/pos_ibi_clients_groups/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                        <?php is_allowed('eleve_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Eleve" href="<?= site_url('administrator/eleve/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('pos_ibi_clients_groups_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Ibi Clients Groups" href="<?= site_url('administrator/pos_ibi_clients_groups/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Espace Enregistrement</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Espace Enregistrement']); ?>  <i class="label bg-yellow"><?= $eleve_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Groups</h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Groups']); ?>  <i class="label bg-yellow"><?= $pos_ibi_clients_groups_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_eleve" id="form_eleve" action="<?= base_url('administrator/eleve/index'); ?>">
+                  <form name="form_pos_ibi_clients_groups" id="form_pos_ibi_clients_groups" action="<?= base_url('administrator/pos_ibi_clients_groups/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -90,47 +80,59 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Nom:</th>
-                           <th>Age:</th>
-                           <th>Classe</th>
-                           <th>Created By</th>
+                           <th>Nom</th>
+                           <th>Description</th>
+                           <th>Type De Remise</th>
+                           <th>Pourcentange De Remise</th>
+                           <th>Montant De Remise</th>
+                           <th>Activer La Planification</th>
+                           <th>Debut De La Planification</th>
+                           <th>Fin De La Planification</th>
+                           <th>Auteur</th>
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody_eleve">
-                     <?php foreach($eleves as $eleve): ?>
+                     <tbody id="tbody_pos_ibi_clients_groups">
+                     <?php foreach($pos_ibi_clients_groupss as $pos_ibi_clients_groups): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $eleve->id; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_ibi_clients_groups->ID_GROUP; ?>">
                            </td>
                            
-                           <td><?= _ent($eleve->nom); ?></td> 
-                           <td><?= _ent($eleve->age); ?></td> 
-                           <td><?= _ent($eleve->title); ?></td>
+                           <td><?= _ent($pos_ibi_clients_groups->NAME_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->DESCRIPTION_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->type_remise); ?></td>
                              
-                           <td><?php 
-                              $user = $this->model_eleve->get_user_info('aauth_users',$eleve->created_by,'id');
+                           <td><?= _ent($pos_ibi_clients_groups->DISCOUNT_PERCENT_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->DISCOUNT_AMOUNT_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->DISCOUNT_ENABLE_SCHEDULE_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->DISCOUNT_START_GROUP); ?></td> 
+                           <td><?= _ent($pos_ibi_clients_groups->DISCOUNT_END_GROUP); ?></td> 
+                           <td>
+                              <?php 
+                              $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_clients_groups->AUTHOR_GROUP,'id');
                               foreach ($user as $value) {
                                 echo "".$value->username;
                               }
-                             ?></td> 
+                             ?>
+                           </td> 
                            <td width="200">
-                              <?php is_allowed('eleve_view', function() use ($eleve){?>
-                              <a href="<?= site_url('administrator/eleve/view/' . $eleve->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <?php is_allowed('pos_ibi_clients_groups_view', function() use ($pos_ibi_clients_groups){?>
+                              <a href="<?= site_url('administrator/pos_ibi_clients_groups/view/' . $pos_ibi_clients_groups->ID_GROUP); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('eleve_update', function() use ($eleve){?>
-                              <a href="<?= site_url('administrator/eleve/edit/' . $eleve->id); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <?php is_allowed('pos_ibi_clients_groups_update', function() use ($pos_ibi_clients_groups){?>
+                              <a href="<?= site_url('administrator/pos_ibi_clients_groups/edit/' . $pos_ibi_clients_groups->ID_GROUP); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('eleve_delete', function() use ($eleve){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/eleve/delete/' . $eleve->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <?php is_allowed('pos_ibi_clients_groups_delete', function() use ($pos_ibi_clients_groups){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_clients_groups/delete/' . $pos_ibi_clients_groups->ID_GROUP); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
                                <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($eleve_counts == 0) :?>
+                      <?php if ($pos_ibi_clients_groups_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Espace Enregistrement data is not available
+                           Groups data is not available
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -157,10 +159,15 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'nom' ? 'selected' :''; ?> value="nom">Nom</option>
-                           <option <?= $this->input->get('f') == 'age' ? 'selected' :''; ?> value="age">Age</option>
-                           <option <?= $this->input->get('f') == 'classe' ? 'selected' :''; ?> value="classe">Classe</option>
-                           <option <?= $this->input->get('f') == 'created_by' ? 'selected' :''; ?> value="created_by">Created By</option>
+                            <option <?= $this->input->get('f') == 'NAME_GROUP' ? 'selected' :''; ?> value="NAME_GROUP">NAME GROUP</option>
+                           <option <?= $this->input->get('f') == 'DESCRIPTION_GROUP' ? 'selected' :''; ?> value="DESCRIPTION_GROUP">DESCRIPTION GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_TYPE_GROUP' ? 'selected' :''; ?> value="DISCOUNT_TYPE_GROUP">DISCOUNT TYPE GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_PERCENT_GROUP' ? 'selected' :''; ?> value="DISCOUNT_PERCENT_GROUP">DISCOUNT PERCENT GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_AMOUNT_GROUP' ? 'selected' :''; ?> value="DISCOUNT_AMOUNT_GROUP">DISCOUNT AMOUNT GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_ENABLE_SCHEDULE_GROUP' ? 'selected' :''; ?> value="DISCOUNT_ENABLE_SCHEDULE_GROUP">DISCOUNT ENABLE SCHEDULE GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_START_GROUP' ? 'selected' :''; ?> value="DISCOUNT_START_GROUP">DISCOUNT START GROUP</option>
+                           <option <?= $this->input->get('f') == 'DISCOUNT_END_GROUP' ? 'selected' :''; ?> value="DISCOUNT_END_GROUP">DISCOUNT END GROUP</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_GROUP' ? 'selected' :''; ?> value="AUTHOR_GROUP">AUTHOR GROUP</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -169,7 +176,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/eleve');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/pos_ibi_clients_groups');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -221,7 +228,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_eleve').serialize();
+      var serialize_bulk = $('#form_pos_ibi_clients_groups').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -237,7 +244,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/eleve/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/pos_ibi_clients_groups/delete?' + serialize_bulk;      
             }
           });
 
