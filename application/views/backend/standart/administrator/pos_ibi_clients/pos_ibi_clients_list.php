@@ -84,11 +84,10 @@ jQuery(document).ready(domo);
                            <th>Prenom</th>
                            <th>Telephone</th>
                            <th>Email</th>
-                           <th>Description</th>
-                           <th>Date De Naissance</th>
-                           <th>Ville</th>
-                           <th>Pays</th>
-                           <th>NIF Du Client</th>
+                           
+                           
+                           
+                           
                            <th>Date De Creation</th>
                            <th>Date De Modification</th>
                            <th>Assigner A Un Groupe</th>
@@ -107,11 +106,10 @@ jQuery(document).ready(domo);
                            <td><?= _ent($pos_ibi_clients->PRENOM_CLIENT); ?></td> 
                            <td><?= _ent($pos_ibi_clients->TEL_CLIENT); ?></td> 
                            <td><?= _ent($pos_ibi_clients->EMAIL_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->DESCRIPTION_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->DATE_NAISSANCE_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->CITY_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->COUNTRY_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->COMPANY_NAME_CLIENT); ?></td> 
+                           
+                           
+                            
+                            
                            <td><?= _ent($pos_ibi_clients->DATE_CREATION_CLIENT); ?></td> 
                            <td><?= _ent($pos_ibi_clients->DATE_MOD_CLIENT); ?></td> 
                            <td><?= _ent($pos_ibi_clients->NAME_GROUP); ?></td>
