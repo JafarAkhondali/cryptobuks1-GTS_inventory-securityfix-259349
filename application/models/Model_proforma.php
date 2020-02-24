@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_registers extends MY_Model {
+class Model_proforma extends MY_Model {
 
-	private $primary_key 	= 'ID_COMMAND';
-	private $table_name 	= 'pos_store_2_ibi_commandes';
-	private $field_search 	= ['TITRE_COMMAND', 'REF_CLIENT_COMMAND', 'DATE_CREATION_COMMAND', 'DATE_MOD_COMMAND', 'AUTHOR_COMMAND'];
+	private $primary_key 	= 'ID_PROFORMA';
+	private $table_name 	= 'pos_store_2_ibi_proforma';
+	private $field_search 	= ['TITRE_PROFORMA', 'REF_CLIENT_PROFORMA', 'DATE_CREATION_PROFORMA', 'DATE_MOD_PROFORMA', 'AUTHOR_PROFORMA'];
 
 	public function __construct()
 	{
@@ -29,16 +29,16 @@ class Model_registers extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -59,16 +59,16 @@ class Model_registers extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_commandes.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -78,14 +78,14 @@ class Model_registers extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('pos_store_2_ibi_commandes.'.$this->primary_key, "DESC");
+        $this->db->order_by('pos_store_2_ibi_proforma.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
         
 		return $query->result();
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_commandes.REF_CLIENT_COMMAND', 'LEFT');
+        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_proforma.REF_CLIENT_PROFORMA', 'LEFT');
         
         return $this;
     }
@@ -101,7 +101,7 @@ class Model_registers extends MY_Model {
             $datemonth=date('m');
             $maxdate='/'.date('m').'/'.date('Y');
 
-            $lastid = $this->db->query("SELECT LPAD(MAX(Maxcount)+1,5,0) as Maxcounts from (SELECT MAX(CAST(REPLACE(CODE_PROFORMA,'".$maxdate."','') AS UNSIGNED)) as Maxcount from pos_store_1_ibi_proforma p1 WHERE MONTH(p1.DATE_CREATION_PROFORMA)='".$datemonth."' UNION  SELECT MAX(CAST(REPLACE(CODE_PROFORMA,'".$maxdate."','') AS UNSIGNED)) as Maxcount FROM pos_store_2_ibi_proforma p2 WHERE MONTH(p2.DATE_CREATION_PROFORMA)='".$datemonth."')t");
+            $lastid = $this->db->query("SELECT LPAD(MAX(Maxcount)+1,5,0) as Maxcounts from (SELECT MAX(CAST(REPLACE(CODE_PROFORMA,'".$maxdate."','') AS UNSIGNED)) as Maxcount from pos_store_1_ibi_proforma p1 WHERE MONTH(p1.DATE_CREATION)='".$datemonth."' UNION  SELECT MAX(CAST(REPLACE(CODE_PROFORMA,'".$maxdate."','') AS UNSIGNED)) as Maxcount FROM pos_store_2_ibi_proforma p2 WHERE MONTH(p2.DATE_CREATION)='".$datemonth."')t");
             
             
              foreach ($lastid->result_array() as $key => $value) {
@@ -142,37 +142,6 @@ class Model_registers extends MY_Model {
 
         return $randomString;
 
-    }
-    function insert($table,$data){
-
-    $query=$this->db->insert($table,$data);
-    return ($query) ? true : false;
-
-    }
-    function getOne($table, $criteres) {
-        $this->db->where($criteres);
-        $query = $this->db->get($table);
-        return $query->row_array();
-    } 
-    function getList($table,$criteres = array()) {
-        $this->db->where($criteres);
-        $query = $this->db->get($table);
-        return $query->result_array();
-    }
-    function record_countsome($table, $criteres)
-    {
-      $this->db->where($criteres);
-       $query= $this->db->get($table);
-       if($query)
-       {
-           return $query->num_rows();
-       }
-       
-    }
-    function update($table, $criteres, $data) {
-        $this->db->where($criteres);
-        $query = $this->db->update($table, $data);
-        return ($query) ? true : false;
     }
 
 }

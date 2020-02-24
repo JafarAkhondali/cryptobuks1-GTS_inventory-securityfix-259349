@@ -197,7 +197,7 @@
                           <div class="form-group">
                               <label class="col-sm-4">A la livraison</label>
                               <div class="col-sm-8">
-                                  <input type="number" class="form-control" name="typeCond1" id="typeCond">
+                                  <input type="number" class="form-control" name="typeCond2" id="typeCond">
                               </div>
                           </div>
                       </div>

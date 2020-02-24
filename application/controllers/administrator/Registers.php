@@ -75,11 +75,11 @@ class Registers extends Admin
 		}
         if($this->input->post('optradio') == 'is_proforma_client'){
        
-       $this->form_validation->set_rules('titreproforma', 'Intitule proforma', 'trim|required|max_length[11]');
+       $this->form_validation->set_rules('titreproforma', 'Intitule proforma', 'trim|required|max_length[30]');
 
         }else{
     
-       $this->form_validation->set_rules('titrecommande', 'Intitule command', 'trim|required|max_length[11]');
+       $this->form_validation->set_rules('titrecommande', 'Intitule command', 'trim|required|max_length[30]');
         }
 		$this->form_validation->set_rules('ref_client', 'customer', 'trim|required|max_length[11]');
 		
@@ -273,8 +273,14 @@ class Registers extends Admin
 	{
 		$this->is_allowed('registers_update');
 
-		$this->data['registers'] = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
-        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles');
+		$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+		$this->data['type'] = $commandes['TYPE_COMMAND'];
+		$this->data['titre'] = $commandes['TITRE_COMMAND'];
+		$this->data['ref_client'] = $commandes['REF_CLIENT_COMMAND'];
+		
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
+		$this->data['registers'] = $commandes;
+        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_COMMAND_PROD FROM pos_store_2_ibi_commandes_produits WHERE REF_COMMAND_CODE_PROD= "'.$commandes['CODE_COMMAND'].'")', NULL, FALSE);
 
 		$this->template->title('Modifier une commande');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
@@ -294,12 +300,95 @@ class Registers extends Admin
 				]);
 			exit;
 		}
+	
+		if($this->input->post('optradio') == 'is_proforma_client'){
+       
+       $this->form_validation->set_rules('titreproforma', 'Intitule proforma', 'trim|required|max_length[30]');
+
+        }else{
+    
+       $this->form_validation->set_rules('titrecommande', 'Intitule command', 'trim|required|max_length[30]');
+        }
+		$this->form_validation->set_rules('ref_client', 'customer', 'trim|required|max_length[11]');
 		
-		$this->form_validation->set_rules('TITRE', 'TITRE', 'trim|required|max_length[200]');
-		$this->form_validation->set_rules('REF_CLIENT', 'REF CLIENT', 'trim|required|max_length[20]');
 		
 		if ($this->form_validation->run()) {
-		
+
+			$ref_client=$this->input->post('ref_client');
+            $article=$this->input->post('article');
+            $quantite=$this->input->post('search');
+            $price=$this->input->post('price');
+            $temps=$this->input->post('temps');
+            $delai=$this->input->post('delai');
+            $remise=$this->input->post('remise');
+            $name  = $this->input->post('name');
+
+            $condPayer=$this->input->post('condPayer');
+            $typeCond1=$this->input->post('typeCond1');
+
+			$typeCond2=$this->input->post('typeCond2');
+			$validOff=$this->input->post('validOff');
+			$tempsvalid=$_POST['tempsvalid'];
+			if($tempsvalid=='1'){
+			    $validOffrr= ''.$validOff.' jour(s)';
+			}elseif($tempsvalid=='2'){
+			    $validOffrr=  ''.$validOff.' semaine(s)';
+			}
+
+			$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+
+			for ($i=0; $i < count($article) ; $i++) { 
+
+             	$prixtotal=$price[$i]*$quantite[$i];
+	        	$rem=str_replace('%', '@%', $remise[$i]);
+	        	$rems=explode('@', $rem);
+                if($rems[1]=='%'){
+                    $remiseht=$prixtotal*$rems[0]/100;
+                    $prixtotalht=$prixtotal-$remiseht;
+                    $discount_type='percentage';
+                    $discount_amount='0';
+                    $discount_percent=$remiseht;
+                }else{
+                	$remiseht=$rems[0];
+                	$prixtotalht=$prixtotal-$remiseht;
+                	$discount_type='flat';
+                	$discount_amount=$remiseht;
+                    $discount_percent='0';
+                }
+            $produit_count = $this->model_registers->record_countsome('pos_store_2_ibi_commandes_produits',array('REF_PRODUCT_CODEBAR_COMMAND_PROD'=>$article[$i],'REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
+            if($produit_count < 1){
+
+            	$save_data = [
+					'REF_PRODUCT_CODEBAR_COMMAND_PROD' => $article[$i],
+					'REF_COMMAND_CODE_PROD' => $commandes['CODE_COMMAND'],
+					'QUANTITE_COMMAND_PROD' => $quantite[$i],
+					'PRIX_COMMAND_PROD' =>$price[$i],
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
+					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
+					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
+					'NAME_COMMAND_PROD' =>$name[$i],
+								
+				];
+            $total +=$prixtotalht;
+		    $save_commandes_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data);
+                
+            }else{
+            	$criteres['REF_PRODUCT_CODEBAR_COMMAND_PROD'] = $article[$i];
+            	$save_data1 = [
+					'QUANTITE_COMMAND_PROD' => $quantite[$i],
+					'PRIX_COMMAND_PROD' =>$price[$i],
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
+					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
+					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,				
+				];
+            $total +=$prixtotalht;
+		    $update_commandes_produits = $this->model_registers->update('pos_store_2_ibi_commandes_produits',$criteres,$save_data1);
+            }
+            print_r($update_commandes_produits);
+           }
+		exit();
 			$save_data = [
 				'TITRE' => $this->input->post('TITRE'),
 				'REF_CLIENT' => $this->input->post('REF_CLIENT'),
