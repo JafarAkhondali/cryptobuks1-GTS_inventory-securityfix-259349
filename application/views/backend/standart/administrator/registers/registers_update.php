@@ -364,7 +364,8 @@
                           </td>
                           <td style='line-height: 35px;' class='total'><?=$total?></td>
                           <td style='line-height: 28px;'><span class='btn btn-default btn-sm' onclick='toRemise(this)' id='remise<?=$ref_produit_codebar?>'><?=$rPourc?></span><input type='hidden' class='remise<?=$ref_produit_codebar?>' name='remise[]' value='<?=$rPourc?>'></td>
-                          <td width='50'><button type='button' class='btn btn-sm btn-danger' data-toggle='modal' data-target='#exampleModal<?=$ref_produit_codebar?>'><i class='fa fa-remove'></i></button></td>
+                          <!-- <td width='50'><button type='button' class='btn btn-sm btn-danger' data-toggle='modal' data-target='#exampleModal<?=$ref_produit_codebar?>'><i class='fa fa-remove'></i></button></td> -->
+                          <td width='50'><a class='btn btn-sm btn-danger' onclick='toDeleteModal(this)'><i class='fa fa-remove'></i></a></td>
                         </tr>
                       <?php } ?>
                 <div class="modal fade" id="remiseId">
@@ -394,6 +395,21 @@
                       </div>
                     </div>
                   </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        Etes-vous sur de vouloir supprimer ce produit dans la commande ?
+        <input type="text" class="modinput" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger delete">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
                         </tbody>
                       </table>
@@ -554,6 +570,11 @@
     $(data).closest('tr').remove();
     const idex = articleTable.indexOf($(data).closest('tr').attr("id"));
     articleTable.splice(idex, 1);
+  }
+  function toDeleteModal(data){
+    const idart = ($(data).closest('tr').attr('id'));
+    $(".modinput").val(idart);
+    $('#myModal').modal('show');
   }
   function moins(data){
     const initial = stringToNumber($(data).closest('tr').find('td div input').val());

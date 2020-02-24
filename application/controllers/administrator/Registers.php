@@ -322,6 +322,7 @@ class Registers extends Admin
             $delai=$this->input->post('delai');
             $remise=$this->input->post('remise');
             $name  = $this->input->post('name');
+            $titre=$this->input->post('titrecommande');
 
             $condPayer=$this->input->post('condPayer');
             $typeCond1=$this->input->post('typeCond1');
@@ -337,7 +338,9 @@ class Registers extends Admin
 
 			$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
 
-			for ($i=0; $i < count($article) ; $i++) { 
+			$total=0;
+
+			for ($i=0; $i < count($article) ; $i++) {
 
              	$prixtotal=$price[$i]*$quantite[$i];
 	        	$rem=str_replace('%', '@%', $remise[$i]);
@@ -370,11 +373,11 @@ class Registers extends Admin
 					'NAME_COMMAND_PROD' =>$name[$i],
 								
 				];
-            $total +=$prixtotalht;
 		    $save_commandes_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data);
                 
             }else{
             	$criteres['REF_PRODUCT_CODEBAR_COMMAND_PROD'] = $article[$i];
+            	$criteres['REF_COMMAND_CODE_PROD'] = $commandes['CODE_COMMAND'];
             	$save_data1 = [
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
@@ -383,20 +386,26 @@ class Registers extends Admin
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,				
 				];
-            $total +=$prixtotalht;
 		    $update_commandes_produits = $this->model_registers->update('pos_store_2_ibi_commandes_produits',$criteres,$save_data1);
             }
-            print_r($update_commandes_produits);
+            $total +=$prixtotalht; 
            }
-		exit();
-			$save_data = [
-				'TITRE' => $this->input->post('TITRE'),
-				'REF_CLIENT' => $this->input->post('REF_CLIENT'),
-				'DATE_MOD' => date('Y-m-d H:i:s'),
-				'AUTHOR' => get_user_data('id'),			];
 
-			
-			$save_registers = $this->model_registers->change($id, $save_data);
+           $table = "pos_store_2_ibi_commandes";
+           $critereCommande['CODE_COMMAND'] = $commandes['CODE_COMMAND'];
+           $tva=$total * 0.18;
+		   $update_data = [
+				'TITRE_COMMAND' => $titre,
+				'REF_CLIENT_COMMAND' => $ref_client,
+				'TYPE_COMMAND' => 'ibi_order_attente',
+				'DATE_MOD_COMMAND' => date('Y-m-d H:i:s'),
+				'AUTHOR_COMMAND' => get_user_data('id'),
+				'TOTAL_COMMAND' => $total,
+				'TVA_COMMAND' => $tva,
+							
+			];
+
+			$save_registers = $this->model_registers->update($table,$critereCommande,$update_data);
 
 			if ($save_registers) {
 				if ($this->input->post('save_type') == 'stay') {
