@@ -174,6 +174,11 @@ class Model_registers extends MY_Model {
         $query = $this->db->update($table, $data);
         return ($query) ? true : false;
     }
+    function delete($table,$criteres){
+        $this->db->where($criteres);
+        $query = $this->db->delete($table);
+        return ($query) ? true : false;
+    }
 
 }
 

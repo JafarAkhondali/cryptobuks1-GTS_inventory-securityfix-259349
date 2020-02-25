@@ -33,7 +33,7 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Liste des commandes <small><?= cclang('list_all'); ?></small>
+      Liste des commandes <small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -53,21 +53,21 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('registers_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store Ibi Commandes']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store Ibi Commandes']); ?></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store Ibi Commandes" href="<?= site_url('administrator/registers/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <a class="btn btn-flat btn-success" ttitle="Export XLS" href="<?= site_url('administrator/registers/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store Ibi Commandes" href="<?= site_url('administrator/registers/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/registers/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store Ibi Commandes</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Store Ibi Commandes']); ?>  <i class="label bg-yellow"><?= $registers_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Commandes</h3>
+                     <h5 class="widget-user-desc">Liste de données du commande<i class="label bg-yellow"><?= $registers_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_registers" id="form_registers" action="<?= base_url('administrator/registers/index'); ?>">

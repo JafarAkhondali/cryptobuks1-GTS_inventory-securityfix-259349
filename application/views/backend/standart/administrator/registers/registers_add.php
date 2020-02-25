@@ -268,13 +268,14 @@
 
 
               </div>
-                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du produit, la reference">
+                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du produit, le code barre">
                 <div id="list" hidden>
                   <ul id="myUL">
                         <?php
                           foreach ( $getProduit as $articles) { 
                             ?>
-                            <li><a class="articleOption" articleId="<?=$articles['ID_ARTICLE'] ?>" id="<?=$articles['CODEBAR_ARTICLE'] ?>" quantRest="<?=$articles['QUANTITE_RESTANTE_ARTICLE'] ?>" price="<?=$articles['PRIX_DE_VENTE_ARTICLE']?>" design="<?=$articles['DESIGN_ARTICLE']?>"><?php echo $articles['DESIGN_ARTICLE'].' - Réf: '.$articles['SKU_ARTICLE']; ?></a></li>
+                            <li><a class="articleOption" articleId="<?=$articles['ID_ARTICLE'] ?>" id="<?=$articles['CODEBAR_ARTICLE'] ?>" quantRest="<?=$articles['QUANTITE_RESTANTE_ARTICLE'] ?>" price="<?=$articles['PRIX_DE_VENTE_ARTICLE']?>" design="<?=$articles['DESIGN_ARTICLE']?>"><?php echo $articles['DESIGN_ARTICLE'].' - '.$articles['CODEBAR_ARTICLE']; ?></a></li>
+
                         <?php }
                         ?>
                       </ul>
@@ -329,12 +330,49 @@
                     </div>
                   </div>
 
+                  
+
                         </tbody>
                       </table>
                       <!-- <div>Total price: $<span class="total-cart"></span></div> -->
                 
 
-
+<div class="modal fade" id="myModalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body" style="overflow-x: hidden;">
+                          <div class="bootbox-body">
+                            <div class="saveboxwrapper">
+                              <table class="table table-bordered cart-status-for-save">
+                                <thead>
+                                  <tr>
+                                    <td>Détails de l'article</td><td>Libellé</td>
+                                  </tr>
+                                </thead>
+                                <tbody class="cart-status-fs-tbody">
+                                  <tr>
+                                    <td>Stock en vente</td><td><strong></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Stock reservé</td><td><strong></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Quantité en stock</td><td><strong><span id="quantRestDetail"></span></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Prix de vente</td><td><strong><span id="priceDetail"></span></strong></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-shopping-cart default"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
                     </div>
                   </div>
@@ -656,6 +694,10 @@
       const name = $(this).text();
       const design = $(this).attr("design");
       const remise = '0%';
+
+      $('#quantRestDetail').text(quantRest);
+      $('#priceDetail').text(price);
+      $('#myModalDetail').modal('show');
    
       if(articleTable.indexOf(name) > -1){
         alert("Cet produit existe deja dans le tableau");

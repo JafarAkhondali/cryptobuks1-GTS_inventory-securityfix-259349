@@ -110,12 +110,15 @@
                                   $checkeds="";
                                   if($type == 'ibi_order_attente'){
                                     $checked = "checked";
+                                    $checkedtype = "is_commande_client";
                                   }else{
                                     $checkeds = "checked";
+                                    $checkedtype = "is_proforma_client";
                                   }
                                     ?>
                                      <label class="radio-inline"><input type="radio" value="is_commande_client" id="checkentente" <?=$checked?> name="optradio">En attente</label>
                                      <label class="radio-inline"><input type="radio" value="is_proforma_client" id="proformaclient" <?=$checkeds?> name="optradio">Proforma</label>
+                                     <input type="hidden" class="checkedRadio" value="<?=$checkedtype?>">
             
 
                         </div>
@@ -169,7 +172,7 @@
 
                             <div class="col-sm-9">
 
-                                <input type="text" class="form-control" name="titreproforma" placeholder="Intitulé du proforma" value="<?= set_value('titreproforma'); ?>">
+                                <input type="text" class="form-control" name="titreproforma" placeholder="Intitulé du proforma" value="<?= set_value('$titre', $titre); ?>">
 
                             </div>
 
@@ -293,13 +296,13 @@
 
 
               </div>
-                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du produit, la reference">
+                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du produit, le code barre">
                 <div id="list" hidden>
                   <ul id="myUL">
                         <?php
                           foreach ( $getProduit as $articles) { 
                             ?>
-                            <li><a class="articleOption" articleId="<?=$articles['ID_ARTICLE'] ?>" id="<?=$articles['CODEBAR_ARTICLE'] ?>" quantRest="<?=$articles['QUANTITE_RESTANTE_ARTICLE'] ?>" price="<?=$articles['PRIX_DE_VENTE_ARTICLE']?>" design="<?=$articles['DESIGN_ARTICLE']?>"><?php echo $articles['DESIGN_ARTICLE'].' - Réf: '.$articles['SKU_ARTICLE']; ?></a></li>
+                            <li><a class="articleOption" articleId="<?=$articles['ID_ARTICLE'] ?>" id="<?=$articles['CODEBAR_ARTICLE'] ?>" quantRest="<?=$articles['QUANTITE_RESTANTE_ARTICLE'] ?>" price="<?=$articles['PRIX_DE_VENTE_ARTICLE']?>" design="<?=$articles['DESIGN_ARTICLE']?>"><?php echo $articles['DESIGN_ARTICLE'].' - '.$articles['CODEBAR_ARTICLE']; ?></a></li>
                         <?php }
                         ?>
                       </ul>
@@ -315,7 +318,6 @@
                 <div class="box-header" style="text-align: center">Liste</div>
                 <div class="box-body no-padding"><input type="hidden" class="rowcount">
                     <table class="table table-bordered table-striped" id="tableId">
-                      
                         <thead>
                             <tr>
                                 <td>Nom de l'article</td>
@@ -348,12 +350,26 @@
 
                           }else{
 
+                      $ref_produit_codebar = $getgetposProduits['REF_PRODUCT_CODEBAR_PROFORMA_PROD'];
+                      $name = $getgetposProduits['NAME_PROFORMA_PROD'];
+                      $prix = $getgetposProduits['PRIX_PROFORMA_PROD'];
+                      $quantite = $getgetposProduits['QUANTITE_PROFORMA_PROD'];
+                      $total = $getgetposProduits['PRIX_TOTAL_PROFORMA_PROD'];
+
+                          if($getgetposProduits['DISCOUNT_TYPE_PROFORMA_PROD'] == 'percentage'){
+
+                              $rPourc = $getgetposProduits['DISCOUNT_PERCENT_PROFORMA_PROD'] * 100 / $getgetposProduits['PRIX_PROFORMA_PROD'].'%';
+                      
+                            }elseif($getgetposProduits['DISCOUNT_TYPE_PROFORMA_PROD'] == 'flat'){
+                              $rPourc = $getgetposProduits['DISCOUNT_AMOUNT_PROFORMA_PROD'];
+                            }
+
                           }
                                   
                             ?>
                       <tr id="<?=$ref_produit_codebar?>">
                           <td style='line-height: 35px;'>
-                            <input type='hidden' name='article[]' value='<?=$ref_produit_codebar?>'><input type='hidden' name='name[]' value='<?=$name?>'><?=$name?> - Catégorie: "+categorie+"
+                            <input type='hidden' name='article[]' value='<?=$ref_produit_codebar?>'><input type='hidden' name='name[]' value='<?=$name?>'><?=$name?> - <?=$ref_produit_codebar?>
                           </td>
                           <td style='line-height: 35px;' class='price'><input type='hidden' name='price[]' value='<?=$prix?>'><?=$prix?>
                           </td>
@@ -396,24 +412,62 @@
                     </div>
                   </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        Etes-vous sur de vouloir supprimer ce produit dans la commande ?
-        <input type="text" class="modinput" value="">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger delete">Supprimer</button>
-      </div>
-    </div>
-  </div>
-</div>
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          Etes-vous sur de vouloir supprimer ce produit dans la commande faite?
+                          <input type="hidden" class="ref_code_produit">
+                          <input type="hidden" class="code_command" value="<?=$code_commande?>">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-danger delete">Supprimer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                         </tbody>
                       </table>
                       <!-- <div>Total price: $<span class="total-cart"></span></div> -->
+
+      <div class="modal fade" id="myModalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body" style="overflow-x: hidden;">
+                          <div class="bootbox-body">
+                            <div class="saveboxwrapper">
+                              <table class="table table-bordered cart-status-for-save">
+                                <thead>
+                                  <tr>
+                                    <td>Détails de l'article</td><td>Libellé</td>
+                                  </tr>
+                                </thead>
+                                <tbody class="cart-status-fs-tbody">
+                                  <tr>
+                                    <td>Stock en vente</td><td><strong></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Stock reservé</td><td><strong></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Quantité en stock</td><td><strong><span id="quantRestDetail"></span></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Prix de vente</td><td><strong><span id="priceDetail"></span></strong></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-shopping-cart default"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
                 
 
 
@@ -573,7 +627,7 @@
   }
   function toDeleteModal(data){
     const idart = ($(data).closest('tr').attr('id'));
-    $(".modinput").val(idart);
+    $(".ref_code_produit").val(idart);
     $('#myModal').modal('show');
   }
   function moins(data){
@@ -731,11 +785,18 @@
 
     $(".articleOption").on("click", function(){
 
+      const quantRest = $(this).attr("quantRest");
       const articleId = $(this).attr("id");
       const codebar = $(this).attr("id");
       const price = $(this).attr("price");
       const name = $(this).text();
       const remise = '0%';
+
+      $('#quantRestDetail').text(quantRest);
+      $('#priceDetail').text(price);
+      $('#myModalDetail').modal('show');
+
+
       if(articleTable.indexOf(name) > -1){
         alert("Cet produit existe deja dans le tableau");
       }else {
@@ -773,6 +834,29 @@
   
 
     });
+
+    $('.delete').on('click', function () {
+
+          const ref_code_produit = $('.ref_code_produit').val();
+          const code_command = $('.code_command').val();
+          const id = '<?=$this->uri->segment(4)?>';
+          const checkedRadio = $('.checkedRadio').val();
+   
+          $.ajax({
+                    url: '<?=base_url()?>/administrator/registers/delete_produit_cart',
+                    method: "POST",
+                    data: {ref_code_produit:ref_code_produit,code_command,code_command,id:id,checkedRadio:checkedRadio},
+                    dataType: "JSON",
+                    success: function (data) {
+                    if (data.message == 'success') {
+                      $('#myModalDetail').modal('hide');
+                      window.location.href = data.redirect;
+                      }else{
+                        alert("#ERROR");
+                      }
+                    }
+                });
+         });
 
     $('#checkentente').on('click', function () {
       

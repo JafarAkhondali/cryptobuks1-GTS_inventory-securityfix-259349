@@ -33,7 +33,7 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Liste des proforma <small><?= cclang('list_all'); ?></small>
+      Liste des proforma <small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -47,27 +47,27 @@ jQuery(document).ready(domo);
       <div class="col-md-12">
          <div class="box box-warning">
             <div class="box-body ">
-               <!-- Widget: user widget style 1 -->s
+               <!-- Widget: user widget style 1 -->
                <div class="box box-widget widget-user-2">
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('proforma_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store Ibi proforma']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store Ibi proforma']); ?></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store Ibi proforma" href="<?= site_url('administrator/proforma/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/proforma/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store Ibi proforma" href="<?= site_url('administrator/proforma/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/proforma/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store Ibi proforma</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Store Ibi proforma']); ?>  <i class="label bg-yellow"><?= $proforma_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Proforma</h3>
+                     <h5 class="widget-user-desc">Liste de données du proforma<i class="label bg-yellow"><?= $proforma_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_proforma" id="form_proforma" action="<?= base_url('administrator/proforma/index'); ?>">
@@ -101,6 +101,8 @@ jQuery(document).ready(domo);
                           $type_proforma = "Proforma point de vente";
                       }elseif($proforma->TYPE_PROFORMA == 'ibi_proforma_devis'){
                           $type_proforma = "Proforma devis";
+                      }else{
+                          $type_proforma = "Aucun";
                       }
 
                       ?>

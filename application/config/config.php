@@ -76,7 +76,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'french';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -438,9 +438,9 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = '__g4o0gkwscs88go48g40g8kskckccsgckwccc0k4k';
-$config['csrf_cookie_name'] = '__o4wogg4k4w4w4wccccs84kccgs44cs84kgs4swgo';
+$config['csrf_protection'] = FALSE;
+$config['csrf_token_name'] = '__g4sg84w0sgk8swoo4g4c04s8c80oo88c4ock4g08';
+$config['csrf_cookie_name'] = '__oc4ows0oo4kk4scwo8o48kc4k8wk8s40488k8o4k';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array();

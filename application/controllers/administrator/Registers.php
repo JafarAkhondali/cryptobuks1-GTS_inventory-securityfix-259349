@@ -277,7 +277,7 @@ class Registers extends Admin
 		$this->data['type'] = $commandes['TYPE_COMMAND'];
 		$this->data['titre'] = $commandes['TITRE_COMMAND'];
 		$this->data['ref_client'] = $commandes['REF_CLIENT_COMMAND'];
-		
+		$this->data['code_commande'] = $commandes['CODE_COMMAND'];
 		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
 		$this->data['registers'] = $commandes;
         $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_COMMAND_PROD FROM pos_store_2_ibi_commandes_produits WHERE REF_COMMAND_CODE_PROD= "'.$commandes['CODE_COMMAND'].'")', NULL, FALSE);
@@ -285,12 +285,31 @@ class Registers extends Admin
 		$this->template->title('Modifier une commande');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
 	}
+	public function delete_produit_cart(){
+		$id = $this->input->post('id');
+	
+		if($this->input->post('checkedRadio') == 'is_proforma_client'){
+		$link = "proforma";
+		$criteres['REF_PRODUCT_CODEBAR_PROFORMA_PROD'] = $this->input->post('ref_code_produit');
+		$criteres['REF_PROFORMA_CODE_PROD'] = $this->input->post('code_command');
+		$table = "pos_store_2_ibi_proforma_produits";
 
-	/**
-	* Update Pos Store Ibi Commandess
-	*
-	* @var $id String
-	*/
+		}else{
+
+        $link = "registers";
+		$criteres['REF_PRODUCT_CODEBAR_COMMAND_PROD'] = $this->input->post('ref_code_produit');
+		$criteres['REF_COMMAND_CODE_PROD'] = $this->input->post('code_command');
+		$table = "pos_store_2_ibi_commandes_produits";
+	   }
+	  
+		$delete_cart = $this->model_registers->delete($table,$criteres);
+		if ($delete_cart) {
+			$this->data['message'] = 'success';
+			$this->data['redirect'] = base_url('administrator/'.$link.'/edit/'.$id.'');
+		}
+		echo json_encode($this->data);
+
+	}
 	public function edit_save($id)
 	{
 		if (!$this->is_allowed('registers_update', false)) {
@@ -322,7 +341,6 @@ class Registers extends Admin
             $delai=$this->input->post('delai');
             $remise=$this->input->post('remise');
             $name  = $this->input->post('name');
-            $titre=$this->input->post('titrecommande');
 
             $condPayer=$this->input->post('condPayer');
             $typeCond1=$this->input->post('typeCond1');
@@ -336,6 +354,83 @@ class Registers extends Admin
 			    $validOffrr=  ''.$validOff.' semaine(s)';
 			}
 
+			if($this->input->post('optradio') == 'is_proforma_client'){
+                
+                $titre=$this->input->post('titreproforma');
+                $link='proforma';
+			$proformas = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+
+			$total=0;
+
+			for ($i=0; $i < count($article) ; $i++) {
+
+             	$prixtotal=$price[$i]*$quantite[$i];
+	        	$rem=str_replace('%', '@%', $remise[$i]);
+	        	$rems=explode('@', $rem);
+                if($rems[1]=='%'){
+                    $remiseht=$prixtotal*$rems[0]/100;
+                    $prixtotalht=$prixtotal-$remiseht;
+                    $discount_type='percentage';
+                    $discount_amount='0';
+                    $discount_percent=$remiseht;
+                }else{
+                	$remiseht=$rems[0];
+                	$prixtotalht=$prixtotal-$remiseht;
+                	$discount_type='flat';
+                	$discount_amount=$remiseht;
+                    $discount_percent='0';
+                }
+            $produit_count = $this->model_registers->record_countsome('pos_store_2_ibi_proforma_produits',array('REF_PRODUCT_CODEBAR_PROFORMA_PROD'=>$article[$i],'REF_PROFORMA_CODE_PROD'=>$proformas['CODE_PROFORMA']));
+            if($produit_count < 1){
+
+            	$save_data = [
+					'REF_PRODUCT_CODEBAR_PROFORMA_PROD' => $article[$i],
+					'REF_PROFORMA_CODE_PROD' => $proformas['CODE_PROFORMA'],
+					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
+					'PRIX_PROFORMA_PROD' =>$price[$i],
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
+					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
+					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,
+					'NAME_PROFORMA_PROD' =>$name[$i],
+								
+				];
+		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_proforma_produits',$save_data);
+                
+            }else{
+            	$criteres['REF_PRODUCT_CODEBAR_PROFORMA_PROD'] = $article[$i];
+            	$criteres['REF_PROFORMA_CODE_PROD'] = $proformas['CODE_PROFORMA'];
+            	$save_data1 = [
+					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
+					'PRIX_PROFORMA_PROD' =>$price[$i],
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
+					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
+					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,				
+				];
+		    $update_proforma_produits = $this->model_registers->update('pos_store_2_ibi_proforma_produits',$criteres,$save_data1);
+            }
+            $total +=$prixtotalht; 
+           }
+
+           $table = "pos_store_2_ibi_proforma";
+           $critereCommande['CODE_PROFORMA'] = $proformas['CODE_PROFORMA'];
+           $tva=$total * 0.18;
+		   $update_data = [
+				'TITRE_PROFORMA' => $titre,
+				'REF_CLIENT_PROFORMA' => $ref_client,
+				'TYPE_PROFORMA' => 'ibi_proforma_pv',
+				'DATE_MOD_PROFORMA' => date('Y-m-d H:i:s'),
+				'AUTHOR_PROFORMA' => get_user_data('id'),
+				'TOTAL_PROFORMA' => $total,
+				'TVA_PROFORMA' => $tva,
+							
+			];
+
+            }else{
+
+            $titre=$this->input->post('titrecommande');
+            $link='registers';
 			$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
 
 			$total=0;
@@ -405,6 +500,8 @@ class Registers extends Admin
 							
 			];
 
+		}
+
 			$save_registers = $this->model_registers->update($table,$critereCommande,$update_data);
 
 			if ($save_registers) {
@@ -412,7 +509,7 @@ class Registers extends Admin
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
 					$this->data['message'] = cclang('success_update_data_stay', [
-						anchor('administrator/registers', ' Go back to list')
+						anchor('administrator/'.$link.'', ' Go back to list')
 					]);
 				} else {
 					set_message(
@@ -420,7 +517,7 @@ class Registers extends Admin
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/'.$link.'');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -429,7 +526,7 @@ class Registers extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/'.$link.'');
 				}
 			}
 		} else {

@@ -41,7 +41,22 @@ class Proforma extends Admin
 		$this->template->title('Liste de proforma');
 		$this->render('backend/standart/administrator/proforma/proforma_list', $this->data);
 	}
-	
+	public function edit($id)
+	{
+		$this->is_allowed('registers_update');
+
+		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$this->data['type'] = $proforma['TYPE_PROFORMA'];
+		$this->data['titre'] = $proforma['TITRE_PROFORMA'];
+		$this->data['ref_client'] = $proforma['REF_CLIENT_PROFORMA'];
+		$this->data['code_commande'] = $proforma['CODE_PROFORMA'];
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
+		$this->data['registers'] = $proforma;
+        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_PROFORMA_PROD FROM pos_store_2_ibi_proforma_produits WHERE REF_PROFORMA_CODE_PROD= "'.$proforma['CODE_PROFORMA'].'")', NULL, FALSE);
+
+		$this->template->title('Modifier le proforma');
+		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
+	}
 	
 
 	
