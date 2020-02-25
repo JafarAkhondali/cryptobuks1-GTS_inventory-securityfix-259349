@@ -1,3 +1,3 @@
 <?php
-header('Location: /administrator/crud');
+header('Location: /GTS_inventory/administrator/crud');
 ?>
