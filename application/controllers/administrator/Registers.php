@@ -303,6 +303,7 @@ class Registers extends Admin
 	   }
 	  
 		$delete_cart = $this->model_registers->delete($table,$criteres);
+		
 		if ($delete_cart) {
 			$this->data['message'] = 'success';
 			$this->data['redirect'] = base_url('administrator/'.$link.'/edit/'.$id.'');
