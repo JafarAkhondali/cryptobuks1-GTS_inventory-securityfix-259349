@@ -1,3 +1,0 @@
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_clients.php
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_clients_groups.php
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_fournisseurs.php
