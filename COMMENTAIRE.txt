@@ -1,0 +1,15 @@
+BASE DE DONNEE
+
+1. importer les tables pos_store_1_ibi_commandes et pos_store_2_ibi_commandes
+2. importer les tables pos_store_1_ibi_commandes_produits et pos_store_2_ibi_commandes_produits
+3. importer les tables pos_store_1_ibi_proforma et pos_store_2_ibi_proforma
+4. importer les tables pos_store_1_ibi_proforma_produits et pos_store_2_ibi_proforma_produits
+
+
+
+new file:   COMMENTAIRE.txt
+        new file:   application/controllers/administrator/Registers.php
+        new file:   application/models/Model_registers.php
+        new file:   application/views/backend/standart/administrator/registers/registers_add.php
+        new file:   application/views/backend/standart/administrator/registers/registers_list.php
+        new file:   application/views/backend/standart/administrator/registers/registers_update.php
