@@ -100,7 +100,7 @@ class Model_pos_ibi_fournisseurs extends MY_Model {
     		return $get_info->result();
     	}
     	else{
-    		return null;
+    		return 0;
     	}
     }
 
