@@ -1,0 +1,154 @@
+CREATE TABLE `pos_store_2_ibi_commande` (
+  `commande_id` int(11) NOT NULL,
+  `commande_numero` varchar(255) NOT NULL,
+  `commande_article_decription` varchar(255) NOT NULL,
+  `commande_client_id` int(11) NOT NULL,
+  `commande_user_id` int(11) NOT NULL,
+  `commande_categorie_id` int(11) NOT NULL,
+  `delai` int(11) NOT NULL,
+  `delai_value` int(11) NOT NULL,
+  `validite` int(11) NOT NULL,
+  `validite_value` int(11) NOT NULL,
+  `a_la_commande` int(11) DEFAULT NULL,
+  `a_la_livraison` int(11) DEFAULT NULL,
+  `commande_status` tinyint(1) NOT NULL,
+  `commande_suppression_status` tinyint(1) NOT NULL,
+  `commande_date` datetime NOT NULL,
+  `commande_date_modification` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `pos_store_2_ibi_commande`
+  ADD PRIMARY KEY (`commande_id`);
+
+
+ALTER TABLE `pos_store_2_ibi_commande`
+  MODIFY `commande_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+
+
+
+
+
+CREATE TABLE `pos_store_2_ibi_commande_detail` (
+  `commande_detail_id` int(11) NOT NULL,
+  `id_commandes` int(11) NOT NULL,
+  `commande_article` varchar(255) NOT NULL,
+  `commande_prix` int(11) NOT NULL,
+  `commande_quantite` int(11) NOT NULL,
+  `commande_unite` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `pos_store_2_ibi_commande_detail`
+  ADD PRIMARY KEY (`commande_detail_id`);
+
+
+ALTER TABLE `pos_store_2_ibi_commande_detail`
+  MODIFY `commande_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+
+
+CREATE TABLE `pos_store_2_ibi_fiche_travail` (
+  `fiche_id` int(11) NOT NULL,
+  `fiche_numero` varchar(255) NOT NULL,
+  `fiche_description_article` varchar(255) NOT NULL,
+  `fiche_article_categorie_id` int(11) NOT NULL,
+  `fiche_client_id` int(11) NOT NULL,
+  `fiche_user_id` int(11) NOT NULL,
+  `fiche_stutus` tinyint(1) NOT NULL,
+  `fiche_suppresion_status` tinyint(1) NOT NULL,
+  `fiche_date` datetime NOT NULL,
+  `fiche_date_modification` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `pos_store_2_ibi_fiche_travail`
+  ADD PRIMARY KEY (`fiche_id`);
+
+ALTER TABLE `pos_store_2_ibi_fiche_travail`
+  MODIFY `fiche_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+
+
+
+
+
+CREATE TABLE `pos_store_2_ibi_fiche_travail_detail` (
+  `fiche_travail_detail_fiche_id` int(11) NOT NULL,
+  `id_fiche` int(11) NOT NULL,
+  `fiche_article` varchar(255) NOT NULL,
+  `fiche_prix` float NOT NULL,
+  `fiche_quantite` float NOT NULL,
+  `fiche_unite` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+ALTER TABLE `pos_store_2_ibi_fiche_travail_detail`
+  ADD PRIMARY KEY (`fiche_travail_detail_fiche_id`);
+
+ALTER TABLE `pos_store_2_ibi_fiche_travail_detail`
+  MODIFY `fiche_travail_detail_fiche_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+
+
+
+
+
+CREATE TABLE `menu` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `label` varchar(200) DEFAULT NULL,
+  `type` varchar(200) DEFAULT NULL,
+  `icon_color` varchar(200) DEFAULT NULL,
+  `link` varchar(200) DEFAULT NULL,
+  `sort` int(11) NOT NULL,
+  `parent` int(11) NOT NULL,
+  `icon` varchar(50) DEFAULT NULL,
+  `menu_type_id` int(11) NOT NULL,
+  `active` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+INSERT INTO `menu` (`id`, `label`, `type`, `icon_color`, `link`, `sort`, `parent`, `icon`, `menu_type_id`, `active`) VALUES
+(1, 'MAIN NAVIGATION', 'label', '', 'administrator/dashboard', 1, 0, '', 1, 1),
+(2, 'Dashboard', 'menu', '', 'administrator/dashboard', 2, 0, 'fa-dashboard', 1, 1),
+(3, 'CRUD Builder', 'menu', '', 'administrator/crud', 11, 0, 'fa-table', 1, 1),
+(4, 'API Builder', 'menu', '', 'administrator/rest', 12, 0, 'fa-code', 1, 1),
+(5, 'Page Builder', 'menu', '', 'administrator/page', 13, 0, 'fa-file-o', 1, 1),
+(6, 'Form Builder', 'menu', '', 'administrator/form', 14, 0, 'fa-newspaper-o', 1, 1),
+(7, 'Blog', 'menu', '', 'administrator/blog', 15, 0, 'fa-file-text-o', 1, 1),
+(8, 'Menu', 'menu', '', 'administrator/menu', 16, 0, 'fa-bars', 1, 1),
+(9, 'Auth', 'menu', '', '', 17, 0, 'fa-shield', 1, 1),
+(10, 'User', 'menu', '', 'administrator/user', 18, 9, '', 1, 1),
+(11, 'Groups', 'menu', '', 'administrator/group', 19, 9, '', 1, 1),
+(12, 'Access', 'menu', '', 'administrator/access', 20, 9, '', 1, 1),
+(13, 'Permission', 'menu', '', 'administrator/permission', 21, 9, '', 1, 1),
+(14, 'API Keys', 'menu', '', 'administrator/keys', 22, 9, '', 1, 1),
+(15, 'Extension', 'menu', '', 'administrator/extension', 23, 0, 'fa-puzzle-piece', 1, 1),
+(16, 'OTHER', 'label', '', '', 24, 0, '', 1, 1),
+(17, 'Settings', 'menu', 'text-red', 'administrator/setting', 25, 0, 'fa-circle-o', 1, 1),
+(18, 'Web Documentation', 'menu', 'text-blue', 'administrator/doc/web', 26, 0, 'fa-circle-o', 1, 1),
+(19, 'API Documentation', 'menu', 'text-yellow', 'administrator/doc/api', 27, 0, 'fa-circle-o', 1, 1),
+(20, 'Home', 'menu', '', '/', 1, 0, '', 2, 1),
+(21, 'Blog', 'menu', '', 'blog', 4, 0, '', 2, 1),
+(22, 'Dashboard', 'menu', '', 'administrator/dashboard', 5, 0, '', 2, 1),
+(23, 'Boutiques', 'menu', 'default', 'administrator/Pos_ibi_stores', 10, 0, 'fa-cubes', 1, 1),
+(24, 'Article', 'menu', 'default', '#', 3, 0, '', 1, 1),
+(25, 'catégorie', 'menu', 'default', 'administrator/pos_store_2_categorie', 4, 24, '', 1, 1),
+(26, 'Sous-catégorie', NULL, 'default', 'administrator/pos_store_2_sous_categorie', 5, 24, '', 1, 1),
+(27, 'article', 'menu', 'default', 'administrator/pos_store_2_articles', 6, 24, '', 1, 1),
+(28, 'Emplacement', '', NULL, 'administrator/pos_store_2_emplacements', 7, 24, '', 1, 1),
+(29, 'Devis', 'menu', 'default', '#', 8, 0, 'fa-object-group', 1, 1),
+(30, 'Nouveau devis', 'menu', 'default', 'administrator/pos_store_2_ibi_commande/add', 9, 29, '', 1, 1),
+(31, 'Commande', 'menu', 'default', 'administrator/pos_store_2_ibi_commande/', 30, 29, '', 1, 1),
+(32, 'Fiche de travail', 'menu', 'default', 'administrator/pos_store_2_ibi_fiche_travail', 31, 29, '', 1, 1);
+
+
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `menu`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+
