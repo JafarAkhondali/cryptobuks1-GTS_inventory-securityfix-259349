@@ -57,7 +57,30 @@ class Proforma extends Admin
 		$this->template->title('Modifier le proforma');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
 	}
-	
+	public function view($id)
+	{
+		$pp = $this->is_allowed('proforma_view');
+
+		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
+        // print_r($this->data['proforma']);
+		// $this->data['proforma'] = $this->model_proforma->join_avaiable()->filter_avaiable()->find($id);
+
+		$this->template->title('Proforma detail');
+		$this->render('backend/standart/administrator/proforma/proforma_view', $this->data);
+	}
+	public function bon_commande($id){
+
+		$this->is_allowed('bon_commande_view');
+
+		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$this->data['client_data'] = $this->model_registers->getOne('pos_ibi_clients',array('ID_CLIENT'=>$proforma['REF_CLIENT_PROFORMA']));
+		$this->data['proforma'] = $proforma;
+
+		$this->template->title('Proforma detail');
+		$this->render('backend/standart/administrator/proforma/bon_commande_view', $this->data);
+     
+	}
 
 	
 	private function _remove($id)
