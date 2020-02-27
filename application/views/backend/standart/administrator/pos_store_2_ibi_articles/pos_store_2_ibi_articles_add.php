@@ -95,8 +95,8 @@
                             <div class="col-sm-8">
                                 <select  class="form-control chosen chosen-select-deselect" name="REF_RAYON" id="REF_RAYON" data-placeholder="Select REF RAYON" >
                                     <option value=""></option>
-                                    <?php foreach (db_get_all_data('emplacement') as $row): ?>
-                                    <option value="<?= $row->id_emplacement ?>"><?= $row->Nom_emplacement; ?></option>
+                                    <?php foreach (db_get_all_data('pos_store_2_ibi_rayons') as $row): ?>
+                                    <option value="<?= $row->ID_RAYON ?>"><?= $row->TITRE_RAYON; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
