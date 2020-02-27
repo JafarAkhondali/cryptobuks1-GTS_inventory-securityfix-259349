@@ -80,6 +80,8 @@ class Pos_ibi_clients extends Admin
 		$this->form_validation->set_rules('TEL_CLIENT', 'Telephone', 'trim|required');
 		$this->form_validation->set_rules('EMAIL_CLIENT', 'Email', 'trim|required');
 		$this->form_validation->set_rules('DATE_NAISSANCE_CLIENT', 'Date De Naissance', 'trim|required');
+		
+		$this->form_validation->set_rules('ADRESSE_CLIENT', 'Adresse', 'trim|required');
 		$this->form_validation->set_rules('CITY_CLIENT', 'Ville', 'trim|required');
 		$this->form_validation->set_rules('COUNTRY_CLIENT', 'Pays', 'trim|required');
 		$this->form_validation->set_rules('COMPANY_NAME_CLIENT', 'NIF Du Client', 'trim|required');
@@ -94,6 +96,7 @@ class Pos_ibi_clients extends Admin
 				'EMAIL_CLIENT' => $this->input->post('EMAIL_CLIENT'),
 				'DESCRIPTION_CLIENT' => $this->input->post('DESCRIPTION_CLIENT'),
 				'DATE_NAISSANCE_CLIENT' => $this->input->post('DATE_NAISSANCE_CLIENT'),
+				'ADRESSE_CLIENT' => $this->input->post('ADRESSE_CLIENT'),
 				'CITY_CLIENT' => $this->input->post('CITY_CLIENT'),
 				'COUNTRY_CLIENT' => $this->input->post('COUNTRY_CLIENT'),
 				'COMPANY_NAME_CLIENT' => $this->input->post('COMPANY_NAME_CLIENT'),
@@ -176,6 +179,7 @@ class Pos_ibi_clients extends Admin
 		$this->form_validation->set_rules('TEL_CLIENT', 'Telephone', 'trim|required');
 		$this->form_validation->set_rules('EMAIL_CLIENT', 'Email', 'trim|required');
 		$this->form_validation->set_rules('DATE_NAISSANCE_CLIENT', 'Date De Naissance', 'trim|required');
+		$this->form_validation->set_rules('ADRESSE_CLIENT', 'Adresse', 'trim|required');
 		$this->form_validation->set_rules('CITY_CLIENT', 'Ville', 'trim|required');
 		$this->form_validation->set_rules('COUNTRY_CLIENT', 'Pays', 'trim|required');
 		$this->form_validation->set_rules('COMPANY_NAME_CLIENT', 'NIF Du Client', 'trim|required');
@@ -189,6 +193,7 @@ class Pos_ibi_clients extends Admin
 				'EMAIL_CLIENT' => $this->input->post('EMAIL_CLIENT'),
 				'DESCRIPTION_CLIENT' => $this->input->post('DESCRIPTION_CLIENT'),
 				'DATE_NAISSANCE_CLIENT' => $this->input->post('DATE_NAISSANCE_CLIENT'),
+				'ADRESSE_CLIENT' => $this->input->post('ADRESSE_CLIENT'),
 				'CITY_CLIENT' => $this->input->post('CITY_CLIENT'),
 				'COUNTRY_CLIENT' => $this->input->post('COUNTRY_CLIENT'),
 				'COMPANY_NAME_CLIENT' => $this->input->post('COMPANY_NAME_CLIENT'),

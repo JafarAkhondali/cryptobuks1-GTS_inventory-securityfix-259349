@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/Pos_ibi_clients/add';
+       window.location.href = BASE_URL + '/administrator/Pos_store_2_ibi_articles/add';
        return false;
    });
 
@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Clients<small><?= cclang('list_all'); ?></small>
+      Articles<small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Clients</li>
+      <li class="active">Articles</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -52,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('pos_ibi_clients_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Ibi Clients']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_ibi_clients/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Ibi Clients']); ?></a>
+                        <?php is_allowed('pos_store_2_ibi_articles_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Articles']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_store_2_ibi_articles/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Articles']); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('pos_ibi_clients_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Ibi Clients" href="<?= site_url('administrator/pos_ibi_clients/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('pos_store_2_ibi_articles_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store 2 Ibi Articles" href="<?= site_url('administrator/pos_store_2_ibi_articles/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                        <?php is_allowed('pos_ibi_clients_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Ibi Clients" href="<?= site_url('administrator/pos_ibi_clients/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('pos_store_2_ibi_articles_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store 2 Ibi Articles" href="<?= site_url('administrator/pos_store_2_ibi_articles/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Clients</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Clients']); ?>  <i class="label bg-yellow"><?= $pos_ibi_clients_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Articles</h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Articles']); ?>  <i class="label bg-yellow"><?= $pos_store_2_ibi_articles_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_pos_ibi_clients" id="form_pos_ibi_clients" action="<?= base_url('administrator/pos_ibi_clients/index'); ?>">
+                  <form name="form_pos_store_2_ibi_articles" id="form_pos_store_2_ibi_articles" action="<?= base_url('administrator/pos_store_2_ibi_articles/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -80,65 +80,68 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Nom</th>
-                           <th>Prenom</th>
-                           <th>Telephone</th>
-                           <th>Email</th>
-                           
-                           
-                           
-                           
-                           <th>Date De Creation</th>
-                           <th>Date De Modification</th>
-                           <th>Assigner A Un Groupe</th>
+                           <th>Nom Du Produit</th>
+                           <th>Categorie</th>
+                           <th>Sous categorie</th>
+                           <th>Part N0</th>
+                           <th>Prix De Vente</th>
                            <th>Auteur</th>
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody_pos_ibi_clients">
-                     <?php foreach($pos_ibi_clientss as $pos_ibi_clients): ?>
+                     <tbody id="tbody_pos_store_2_ibi_articles">
+                     <?php foreach($pos_store_2_ibi_articless as $pos_store_2_ibi_articles): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_ibi_clients->ID_CLIENT; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_articles->ID; ?>">
                            </td>
                            
-                           <td><?= _ent($pos_ibi_clients->NOM_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->PRENOM_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->TEL_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->EMAIL_CLIENT); ?></td> 
-                           
-                           
-                            
-                            
-                           <td><?= _ent($pos_ibi_clients->DATE_CREATION_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->DATE_MOD_CLIENT); ?></td> 
-                           <td><?= _ent($pos_ibi_clients->NAME_GROUP); ?></td>
-                             
+                           <td><?= _ent($pos_store_2_ibi_articles->DESIGN); ?></td> 
                            <td>
                              <?php 
-                              $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_clients->AUTHOR_CLIENT,'id');
-                              foreach ($user as $value) {
-                                echo "".$value->username;
-                              }
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_CATEGORIE,'ID_CATEGORIE');
+                              if($user>0)
+                                {
+
+                                  foreach ($user as $value) 
+                                    {
+                                    
+                                      echo "".$value->NOM_CATEGORIE;
+                                    
+                                    }
+                                }
                              ?>
+                           </td>
+                             
+                           <td><?= _ent($pos_store_2_ibi_articles->NOM_CATEGORIE); ?></td>
+                             
+                           <td><?= _ent($pos_store_2_ibi_articles->REF_PROVIDER); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->PRIX_DE_VENTE); ?></td> 
+                           <td>
+                              <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_store_2_ibi_articles->AUTHOR,'id');
+                                foreach ($user as $value) {
+                                  echo "".$value->username;
+                                }
+                               ?>
                            </td> 
                            <td width="200">
-                              <?php is_allowed('pos_ibi_clients_view', function() use ($pos_ibi_clients){?>
-                              <a href="<?= site_url('administrator/pos_ibi_clients/view/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
+                              <?php is_allowed('pos_store_2_ibi_articles_view', function() use ($pos_store_2_ibi_articles){?>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/view/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('pos_ibi_clients_update', function() use ($pos_ibi_clients){?>
-                              <a href="<?= site_url('administrator/pos_ibi_clients/edit/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <?php is_allowed('pos_store_2_ibi_articles_update', function() use ($pos_store_2_ibi_articles){?>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/edit/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                               <?php }) ?>
-                              <?php is_allowed('pos_ibi_clients_delete', function() use ($pos_ibi_clients){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_clients/delete/' . $pos_ibi_clients->ID_CLIENT); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
+                              <?php is_allowed('pos_store_2_ibi_articles_delete', function() use ($pos_store_2_ibi_articles){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_articles/delete/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
                                <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($pos_ibi_clients_counts == 0) :?>
+                      <?php if ($pos_store_2_ibi_articles_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Clients data is not available
+                           Articles data is not available
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -165,24 +168,12 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'NOM_CLIENT' ? 'selected' :''; ?> value="NOM_CLIENT">NOM CLIENT</option>
-                           <option <?= $this->input->get('f') == 'PRENOM_CLIENT' ? 'selected' :''; ?> value="PRENOM_CLIENT">PRENOM CLIENT</option>
-                           <option <?= $this->input->get('f') == 'TEL_CLIENT' ? 'selected' :''; ?> value="TEL_CLIENT">TEL CLIENT</option>
-                           <option <?= $this->input->get('f') == 'EMAIL_CLIENT' ? 'selected' :''; ?> value="EMAIL_CLIENT">EMAIL CLIENT</option>
-                           <option <?= $this->input->get('f') == 'DESCRIPTION_CLIENT' ? 'selected' :''; ?> value="DESCRIPTION_CLIENT">DESCRIPTION CLIENT</option>
-                           <option <?= $this->input->get('f') == 'DATE_NAISSANCE_CLIENT' ? 'selected' :''; ?> value="DATE_NAISSANCE_CLIENT">DATE NAISSANCE CLIENT</option>
-
-
-
-                           <option <?= $this->input->get('f') == 'ADRESSE_CLIENT' ? 'selected' :''; ?> value="ADRESSE_CLIENT">ADRESSE CLIENT</option>
-
-                           <option <?= $this->input->get('f') == 'CITY_CLIENT' ? 'selected' :''; ?> value="CITY_CLIENT">CITY CLIENT</option>
-                           <option <?= $this->input->get('f') == 'COUNTRY_CLIENT' ? 'selected' :''; ?> value="COUNTRY_CLIENT">COUNTRY CLIENT</option>
-                           <option <?= $this->input->get('f') == 'COMPANY_NAME_CLIENT' ? 'selected' :''; ?> value="COMPANY_NAME_CLIENT">COMPANY NAME CLIENT</option>
-                           <option <?= $this->input->get('f') == 'DATE_CREATION_CLIENT' ? 'selected' :''; ?> value="DATE_CREATION_CLIENT">DATE CREATION CLIENT</option>
-                           <option <?= $this->input->get('f') == 'DATE_MOD_CLIENT' ? 'selected' :''; ?> value="DATE_MOD_CLIENT">DATE MOD CLIENT</option>
-                           <option <?= $this->input->get('f') == 'REF_GROUP_CLIENT' ? 'selected' :''; ?> value="REF_GROUP_CLIENT">REF GROUP CLIENT</option>
-                           <option <?= $this->input->get('f') == 'AUTHOR_CLIENT' ? 'selected' :''; ?> value="AUTHOR_CLIENT">AUTHOR CLIENT</option>
+                            <option <?= $this->input->get('f') == 'DESIGN' ? 'selected' :''; ?> value="DESIGN">DESIGN</option>
+                           <option <?= $this->input->get('f') == 'REF_CATEGORIE' ? 'selected' :''; ?> value="REF_CATEGORIE">REF CATEGORIE</option>
+                           <option <?= $this->input->get('f') == 'REF_SOUS_CATEGORIE' ? 'selected' :''; ?> value="REF_SOUS_CATEGORIE">REF SOUS CATEGORIE</option>
+                           <option <?= $this->input->get('f') == 'REF_PROVIDER' ? 'selected' :''; ?> value="REF_PROVIDER">REF PROVIDER</option>
+                           <option <?= $this->input->get('f') == 'PRIX_DE_VENTE' ? 'selected' :''; ?> value="PRIX_DE_VENTE">PRIX DE VENTE</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR' ? 'selected' :''; ?> value="AUTHOR">AUTHOR</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -191,7 +182,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/pos_ibi_clients');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/pos_store_2_ibi_articles');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -243,7 +234,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_pos_ibi_clients').serialize();
+      var serialize_bulk = $('#form_pos_store_2_ibi_articles').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -259,7 +250,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/pos_ibi_clients/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/pos_store_2_ibi_articles/delete?' + serialize_bulk;      
             }
           });
 

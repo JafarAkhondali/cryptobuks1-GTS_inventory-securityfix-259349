@@ -126,7 +126,21 @@
                             </small>
                             </div>
                         </div>
-                                                 
+                                  
+
+                                           <div class="form-group ">
+                            <label for="ADRESSE_CLIENT" class="col-sm-2 control-label">Adresse 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="ADRESSE_CLIENT" id="ADRESSE_CLIENT" placeholder="Adresse" value="<?= set_value('ADRESSE_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+
+
+
                                                 <div class="form-group ">
                             <label for="CITY_CLIENT" class="col-sm-2 control-label">Ville 
                             <i class="required">*</i>

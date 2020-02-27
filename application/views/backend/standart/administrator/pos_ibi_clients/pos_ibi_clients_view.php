@@ -111,7 +111,16 @@ jQuery(document).ready(domo);
                            <?= _ent($pos_ibi_clients->DATE_NAISSANCE_CLIENT); ?>
                         </div>
                     </div>
-                                         
+                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Adresse </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_ibi_clients->ADRESSE_CLIENT); ?>
+                        </div>
+                    </div>
+
+
                     <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Ville </label>
 
