@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pos_store_2_ibi_articles extends MY_Model {
+class Model_pos_store_2_ibi_rayons extends MY_Model {
 
-	private $primary_key 	= 'ID';
-	private $table_name 	= 'pos_store_2_ibi_articles';
-	private $field_search 	= ['DESIGN', 'REF_CATEGORIE', 'REF_SOUS_CATEGORIE', 'REF_PROVIDER', 'PRIX_DE_VENTE', 'AUTHOR'];
+	private $primary_key 	= 'ID_RAYON';
+	private $table_name 	= 'pos_store_2_ibi_rayons';
+	private $field_search 	= ['TITRE_RAYON', 'DESCRIPTION_RAYON', 'AUTHOR_RAYON'];
 
 	public function __construct()
 	{
@@ -29,16 +29,16 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -59,16 +59,16 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_rayons.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -78,27 +78,24 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('pos_store_2_ibi_articles.'.$this->primary_key, "DESC");
+        $this->db->order_by('pos_store_2_ibi_rayons.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
 
 		return $query->result();
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_store_2_ibi_rayons', 'pos_store_2_ibi_rayons.ID_RAYON = pos_store_2_ibi_articles.REF_RAYON', 'LEFT');
-        $this->db->join('pos_ibi_categories', 'pos_ibi_categories.ID_CATEGORIE = pos_store_2_ibi_articles.REF_CATEGORIE', 'LEFT');
-        $this->db->join('pos_ibi_categories pos_ibi_categories1', 'pos_ibi_categories1.ID_CATEGORIE = pos_store_2_ibi_articles.REF_SOUS_CATEGORIE', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
-    	$this->db->where('AUTHOR', get_user_data('id'));
+        $this->db->where('AUTHOR_RAYON', get_user_data('id'));
         
         return $this;
     }
 
 }
 
-/* End of file Model_pos_store_2_ibi_articles.php */
-/* Location: ./application/models/Model_pos_store_2_ibi_articles.php */
+/* End of file Model_pos_store_2_ibi_rayons.php */
+/* Location: ./application/models/Model_pos_store_2_ibi_rayons.php */

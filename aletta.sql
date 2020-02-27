@@ -310,3 +310,40 @@ ALTER TABLE `pos_store_2_ibi_articles`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pos_store_2_ibi_rayons` (
+  `ID_RAYON` int(11) NOT NULL,
+  `TITRE_RAYON` varchar(200) NOT NULL,
+  `DESCRIPTION_RAYON` text NOT NULL,
+  `DATE_CREATION_RAYON` datetime NOT NULL,
+  `DATE_MOD_RAYON` datetime NOT NULL,
+  `AUTHOR_RAYON` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_store_2_ibi_rayons`
+--
+
+INSERT INTO `pos_store_2_ibi_rayons` (`ID_RAYON`, `TITRE_RAYON`, `DESCRIPTION_RAYON`, `DATE_CREATION_RAYON`, `DATE_MOD_RAYON`, `AUTHOR_RAYON`) VALUES
+(2, 'A20', '6', '2020-02-27 11:11:36', '0000-00-00 00:00:00', 1),
+(3, 'A89', 'j', '2020-02-27 11:12:52', '0000-00-00 00:00:00', 1);
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_store_2_ibi_rayons`
+--
+ALTER TABLE `pos_store_2_ibi_rayons`
+  ADD PRIMARY KEY (`ID_RAYON`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_store_2_ibi_rayons`
+--
+ALTER TABLE `pos_store_2_ibi_rayons`
+  MODIFY `ID_RAYON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
