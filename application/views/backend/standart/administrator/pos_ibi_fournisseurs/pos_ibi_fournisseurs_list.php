@@ -72,7 +72,7 @@ jQuery(document).ready(domo);
 
                   <form name="form_pos_ibi_fournisseurs" id="form_pos_ibi_fournisseurs" action="<?= base_url('administrator/pos_ibi_fournisseurs/index'); ?>">
                   
-
+<!-- gsdfgsfdgsgf -->
                   <div class="table-responsive"> 
                   <table class="table table-bordered table-striped dataTable">
                      <thead>

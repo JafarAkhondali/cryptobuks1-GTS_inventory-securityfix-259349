@@ -20,6 +20,7 @@
        });
         
     }
+    // jjjfj
     
     jQuery(document).ready(domo);
 </script>
