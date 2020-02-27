@@ -347,3 +347,40 @@ ALTER TABLE `pos_store_2_ibi_rayons`
 --
 ALTER TABLE `pos_store_2_ibi_rayons`
   MODIFY `ID_RAYON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+  CREATE TABLE `pos_ibi_taxes` (
+  `ID_TAXE` int(11) NOT NULL,
+  `NAME_TAXE` varchar(200) NOT NULL,
+  `DESCRIPTION_TAXE` text NOT NULL,
+  `RATE_TAXE` float NOT NULL,
+  `AUTHOR_TAXE` int(11) NOT NULL,
+  `DATE_CREATION_TAXE` datetime NOT NULL,
+  `DATE_MOD_TAXE` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_ibi_taxes`
+--
+
+INSERT INTO `pos_ibi_taxes` (`ID_TAXE`, `NAME_TAXE`, `DESCRIPTION_TAXE`, `RATE_TAXE`, `AUTHOR_TAXE`, `DATE_CREATION_TAXE`, `DATE_MOD_TAXE`) VALUES
+(1, 'tva', 'j', 12, 1, '2020-02-27 15:29:44', '0000-00-00 00:00:00');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_ibi_taxes`
+--
+ALTER TABLE `pos_ibi_taxes`
+  ADD PRIMARY KEY (`ID_TAXE`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_ibi_taxes`
+--
+ALTER TABLE `pos_ibi_taxes`
+  MODIFY `ID_TAXE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;

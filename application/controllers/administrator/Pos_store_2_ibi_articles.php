@@ -114,6 +114,7 @@ class Pos_store_2_ibi_articles extends Admin
 				'DATE_CREATION' => date('Y-m-d H:i:s'),
 				'AUTHOR' => get_user_data('id'),
 			];
+			
 
 			if (!is_dir(FCPATH . '/uploads/pos_store_2_ibi_articles/')) {
 				mkdir(FCPATH . '/uploads/pos_store_2_ibi_articles/');

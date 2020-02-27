@@ -122,7 +122,7 @@ jQuery(document).ready(domo);
                         <div class="col-sm-8">
                            <?php $type=$pos_store_2_ibi_articles->TYPE; 
 
-                              if($type=1){
+                              if($type==1){
                                 echo"Article numerique";
                               }
                               else{
@@ -138,7 +138,7 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                            <?php $status=$pos_store_2_ibi_articles->STATUS; 
-                              if($status=1){
+                              if($status==1){
                                 echo "En vente";
                               }
                               else
@@ -155,7 +155,7 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                            <?php $stock_enabled=$pos_store_2_ibi_articles->STOCK_ENABLED; 
-                              if($stock_enabled=1){
+                              if($stock_enabled==1){
                                 echo"Active";
                               }
                               else{
