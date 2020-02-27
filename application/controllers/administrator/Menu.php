@@ -339,7 +339,7 @@ class Menu extends Admin
 	* @return JSON
 	*/
 	public function set_status()
-	{
+	{ 
 		if (!$this->is_allowed('menu_update', false)) {
 			return $this->response([
 				'success' => false,
