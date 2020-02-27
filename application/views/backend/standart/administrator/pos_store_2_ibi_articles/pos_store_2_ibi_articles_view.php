@@ -76,7 +76,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Emplacement </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->Nom_emplacement); ?>
+                           <?= _ent($pos_store_2_ibi_articles->TITRE_RAYON); ?>
                         </div>
                     </div>
                                          
@@ -180,6 +180,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Unite </label>
 
                         <div class="col-sm-8">
+                        
                            <?= _ent($pos_store_2_ibi_articles->POIDS); ?>
                         </div>
                     </div>
@@ -262,7 +263,12 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Auteur </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->AUTHOR); ?>
+                           <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_store_2_ibi_articles->AUTHOR,'id');
+                                foreach ($user as $value) {
+                                  echo "".$value->username;
+                                }
+                               ?>
                         </div>
                     </div>
                                         

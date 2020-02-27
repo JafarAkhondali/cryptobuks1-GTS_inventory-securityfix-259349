@@ -222,3 +222,128 @@ ALTER TABLE `pos_ibi_categories`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pos_store_2_ibi_articles` (
+  `ID` int(11) NOT NULL,
+  `DESIGN` varchar(200) NOT NULL,
+  `REF_RAYON` int(11) NOT NULL,
+  `REF_SHIPPING` int(11) NOT NULL,
+  `REF_CATEGORIE` int(11) NOT NULL,
+  `REF_SOUS_CATEGORIE` int(11) DEFAULT NULL,
+  `REF_PROVIDER` int(11) NOT NULL,
+  `REF_TAXE` int(11) NOT NULL,
+  `QUANTITY` int(11) NOT NULL,
+  `SKU` varchar(200) NOT NULL,
+  `QUANTITE_RESTANTE` int(11) NOT NULL,
+  `QUANTITE_VENDU` int(11) NOT NULL,
+  `DEFECTUEUX` int(11) NOT NULL,
+  `PRIX_DACHAT` float NOT NULL,
+  `FRAIS_ACCESSOIRE` float NOT NULL,
+  `COUT_DACHAT` float NOT NULL,
+  `TAUX_DE_MARGE` float NOT NULL,
+  `PRIX_DE_VENTE` float NOT NULL,
+  `PRIX_DE_VENTE_TTC` float NOT NULL,
+  `SHADOW_PRICE` float NOT NULL,
+  `TAILLE` varchar(200) NOT NULL,
+  `POIDS` varchar(200) NOT NULL,
+  `COULEUR` varchar(200) NOT NULL,
+  `HAUTEUR` varchar(200) NOT NULL,
+  `LARGEUR` varchar(200) NOT NULL,
+  `PRIX_PROMOTIONEL` float NOT NULL,
+  `SPECIAL_PRICE_START_DATE` datetime NOT NULL,
+  `SPECIAL_PRICE_END_DATE` datetime NOT NULL,
+  `DESCRIPTION` text NOT NULL,
+  `APERCU` varchar(200) NOT NULL,
+  `CODEBAR` varchar(200) NOT NULL,
+  `DATE_CREATION` datetime NOT NULL,
+  `DATE_MOD` datetime NOT NULL,
+  `AUTHOR` varchar(200) NOT NULL,
+  `TYPE` int(11) NOT NULL COMMENT 'pour Article physique la valeur est 0 et pour les articles numeriques c''est 0',
+  `STATUS` int(11) NOT NULL COMMENT 'pour l''etat en vente c''est 1 et pour indisponible c''est 0',
+  `STOCK_ENABLED` int(11) NOT NULL COMMENT 'Losque la valeur est 1 c''est a dire que c''est active et si on 0 c''est a dire que c''est desactive ',
+  `AUTO_BARCODE` int(11) NOT NULL,
+  `BARCODE_TYPE` varchar(200) NOT NULL,
+  `USE_VARIATION` int(11) NOT NULL,
+  `MINIMUM_QUANTITY` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_store_2_ibi_articles`
+--
+
+INSERT INTO `pos_store_2_ibi_articles` (`ID`, `DESIGN`, `REF_RAYON`, `REF_SHIPPING`, `REF_CATEGORIE`, `REF_SOUS_CATEGORIE`, `REF_PROVIDER`, `REF_TAXE`, `QUANTITY`, `SKU`, `QUANTITE_RESTANTE`, `QUANTITE_VENDU`, `DEFECTUEUX`, `PRIX_DACHAT`, `FRAIS_ACCESSOIRE`, `COUT_DACHAT`, `TAUX_DE_MARGE`, `PRIX_DE_VENTE`, `PRIX_DE_VENTE_TTC`, `SHADOW_PRICE`, `TAILLE`, `POIDS`, `COULEUR`, `HAUTEUR`, `LARGEUR`, `PRIX_PROMOTIONEL`, `SPECIAL_PRICE_START_DATE`, `SPECIAL_PRICE_END_DATE`, `DESCRIPTION`, `APERCU`, `CODEBAR`, `DATE_CREATION`, `DATE_MOD`, `AUTHOR`, `TYPE`, `STATUS`, `STOCK_ENABLED`, `AUTO_BARCODE`, `BARCODE_TYPE`, `USE_VARIATION`, `MINIMUM_QUANTITY`) VALUES
+(1, 'p1', 2, 0, 3, NULL, 8, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 7000, 0, 0, '7', '5', 'rouge', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 01:06:29', '0000-00-00 00:00:00', '0', 0, 0, 0, 0, '', 0, 0),
+(2, 'p2', 2, 0, 3, NULL, 43, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 7990, 0, 0, '78', '9', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 01:17:44', '0000-00-00 00:00:00', '0', 0, 0, 0, 0, '', 0, 0),
+(3, 'jfu', 2, 0, 5, NULL, 3, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 12000, 0, 0, '2', '3', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 01:42:23', '0000-00-00 00:00:00', '0', 0, 0, 0, 0, '', 0, 0),
+(4, 'ks', 1, 0, 3, NULL, 2, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 10000, 0, 0, '1', '2', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 01:52:45', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(5, 'kfi', 2, 0, 9, NULL, 4, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 10000, 0, 0, '8m', '5', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:03:02', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(6, 'jsmuas', 1, 0, 4, 0, 1, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 19000, 0, 0, '7m', '12', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:18:22', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(7, 'mark x', 1, 0, 8, 7, 12, 0, 0, 'Active', 0, 0, 0, 0, 0, 0, 0, 120990, 0, 0, '23', '23', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:19:53', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(8, 'nhy', 1, 0, 4, 0, 7, 0, 0, 'Desactive', 0, 0, 0, 0, 0, 0, 0, 78000, 0, 0, '9m', '80', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:29:13', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(9, 'ed', 2, 0, 6, 0, 3, 0, 0, 'Desactive', 0, 0, 0, 0, 0, 0, 0, 20000, 0, 0, '12', '3', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:35:02', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(10, 'peo', 1, 0, 4, 0, 10, 1, 0, 'Desactive', 0, 0, 0, 0, 0, 0, 0, 19200, 0, 0, '19', '3', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 02:48:15', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(11, 'ndu', 1, 0, 4, 0, 12, 1, 0, '', 0, 0, 0, 0, 0, 0, 0, 10000, 0, 0, '1m', '23', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 18:49:41', '0000-00-00 00:00:00', '1', 0, 0, 0, 0, '', 0, 0),
+(12, 'hsnb', 1, 0, 6, 0, 2, 1, 1, '', 0, 0, 0, 0, 0, 0, 0, 13900, 0, 0, '34', '243', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 18:51:27', '0000-00-00 00:00:00', '1', 0, 0, 1, 0, '', 0, 0),
+(13, 'nduads', 1, 0, 8, 0, 10, 1, 1, '', 0, 0, 0, 0, 0, 0, 0, 290330, 0, 0, '33', '4', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 19:04:00', '0000-00-00 00:00:00', '1', 0, 0, 1, 0, '', 0, 0),
+(14, 'bst', 1, 0, 4, 0, 990, 1, 0, '', 0, 0, 0, 0, 0, 0, 0, 290100, 0, 0, '34', '50', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 19:15:15', '0000-00-00 00:00:00', '1', 0, 1, 1, 0, '', 0, 0),
+(15, 'tyd', 2, 0, 8, 3, 120, 0, 0, '', 0, 0, 0, 0, 0, 0, 0, 23000, 0, 0, '78', '9', '', '', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '2020-02-27 19:25:30', '2020-02-27 19:53:49', '1', 0, 0, 0, 0, '', 0, 0);
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_store_2_ibi_articles`
+--
+ALTER TABLE `pos_store_2_ibi_articles`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_store_2_ibi_articles`
+--
+ALTER TABLE `pos_store_2_ibi_articles`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `pos_store_2_ibi_rayons` (
+  `ID_RAYON` int(11) NOT NULL,
+  `TITRE_RAYON` varchar(200) NOT NULL,
+  `DESCRIPTION_RAYON` text NOT NULL,
+  `DATE_CREATION_RAYON` datetime NOT NULL,
+  `DATE_MOD_RAYON` datetime NOT NULL,
+  `AUTHOR_RAYON` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_store_2_ibi_rayons`
+--
+
+INSERT INTO `pos_store_2_ibi_rayons` (`ID_RAYON`, `TITRE_RAYON`, `DESCRIPTION_RAYON`, `DATE_CREATION_RAYON`, `DATE_MOD_RAYON`, `AUTHOR_RAYON`) VALUES
+(2, 'A20', '6', '2020-02-27 11:11:36', '0000-00-00 00:00:00', 1),
+(3, 'A89', 'j', '2020-02-27 11:12:52', '0000-00-00 00:00:00', 1);
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_store_2_ibi_rayons`
+--
+ALTER TABLE `pos_store_2_ibi_rayons`
+  ADD PRIMARY KEY (`ID_RAYON`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_store_2_ibi_rayons`
+--
+ALTER TABLE `pos_store_2_ibi_rayons`
+  MODIFY `ID_RAYON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
