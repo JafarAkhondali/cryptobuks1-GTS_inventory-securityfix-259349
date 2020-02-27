@@ -76,7 +76,7 @@
 
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 
-        <li class=""><a  href="<?= site_url('administrator/proforma/client_file_list'); ?>">Fiche Du Client</a></li>
+        <li class=""><a  href="<?= site_url('administrator/client_file/list'); ?>">Fiche Du Client</a></li>
 
         <li class="active"><?= cclang('new'); ?></li>
 
@@ -373,10 +373,10 @@
                                 Proforma
 
                             </label>
-
+                       
                             <div class="col-sm-12">
-
-                                <input type="hidden" class="form-control" name="proforma_code" id="proforma_code" placeholder="Proforma" value="<?php echo($proforma_ids) ?>">
+                              
+                                <input type="hidden" class="form-control" name="proforma_ids" id="proforma_ids" placeholder="Proforma" value="<?php echo($proforma_ids) ?>">
 
                                  <input type="text" class="form-control" name="proforma_codes" id="proforma_codes" placeholder="Proforma" readonly value="<?php echo($proforma_number) ?>">
 
@@ -402,7 +402,7 @@
 
                             <div class="col-sm-12">
 
-                                <input type="text" class="form-control" name="bon_commande_number" id="bon_commande_number" placeholder="Project Client File Purchase Number" value="" required>
+                                <input type="text" class="form-control" name="purchase_number_file" id="purchase_number_file" placeholder="Project Client File Purchase Number" value="" required>
 
                                 <small class="info help-block">
 
@@ -629,7 +629,7 @@
 
             if (isConfirm) {
 
-              window.location.href = BASE_URL + 'administrator/proforma';
+              window.location.href = BASE_URL + 'administrator/client_file';
 
             }
 
@@ -669,7 +669,7 @@
 
         $.ajax({
 
-          url: BASE_URL + '/administrator/proforma/file_client_add_save',
+          url: BASE_URL + '/administrator/client_file/add_save',
 
           type: 'POST',
 

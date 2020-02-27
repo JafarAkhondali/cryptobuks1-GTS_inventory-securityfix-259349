@@ -124,14 +124,13 @@ class Proforma extends Admin
 
 			$save_data = [
 
-				'PROFORMA_ID_CLIENT_FILE' => $this->input->post('project_client_file_purchase_number'),
-
-				'REF_CLIENT_FILE' => $this->input->post('project_client_file_invoice_number'),
-
-				'REF_PROFORMA_CODE_CLIENT_FILE' => get_user_data('id'),	
-				'NUMBER_PURCHASE_CLIENT_FILE'	
-				''
+				'REF_CLIENT_FILE' => $this->input->post('client_id'),
+				'NUMBER_PURCHASE_CLIENT_FILE' => $this->input->post('bon_commande_number'),
+				'FILE_PURCHASE_CLIENT_FILE' => $bon_commande_client_file_name,
 			];
+
+			print_r($save_data);
+			exit();
 
 
 		}else {

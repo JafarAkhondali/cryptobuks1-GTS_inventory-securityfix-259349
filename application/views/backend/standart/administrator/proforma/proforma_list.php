@@ -122,7 +122,7 @@ jQuery(document).ready(domo);
                            <td><?= _ent($author_PROFORMA['username']); ?></td> 
                            <td width="200">
                               <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/view/' . $proforma->ID_PROFORMA); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/client_file/add/' . $proforma->ID_PROFORMA); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                               <?php }) ?>
                               <?php is_allowed('proforma_update', function() use ($proforma){?>
                               <a href="<?= site_url('administrator/proforma/edit/' . $proforma->ID_PROFORMA); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
