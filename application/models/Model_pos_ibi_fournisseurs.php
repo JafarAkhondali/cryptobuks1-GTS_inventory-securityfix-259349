@@ -17,6 +17,7 @@ class Model_pos_ibi_fournisseurs extends MY_Model {
 
 		parent::__construct($config);
 	}
+	// jdhf
 
 	public function count_all($q = null, $field = null)
 	{
