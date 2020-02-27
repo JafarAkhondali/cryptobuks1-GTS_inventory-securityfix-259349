@@ -76,7 +76,19 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Categorie parente </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_ibi_categories->NOM_CATEGORIE); ?>
+                            <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_ibi_categories->PARENT_REF_ID_CATEGORIE,'ID_CATEGORIE');
+                              if($user>0)
+                                {
+
+                                  foreach ($user as $value) 
+                                    {
+                                    
+                                      echo "".$value->NOM_CATEGORIE;
+                                    
+                                    }
+                                }
+                             ?>
                         </div>
                     </div>
                                          

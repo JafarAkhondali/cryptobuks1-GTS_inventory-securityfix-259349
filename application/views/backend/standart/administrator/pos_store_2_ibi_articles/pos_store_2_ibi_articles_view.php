@@ -84,12 +84,24 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Categorie </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->NOM_CATEGORIE); ?>
+                             <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_CATEGORIE,'ID_CATEGORIE');
+                              if($user>0)
+                                {
+
+                                  foreach ($user as $value) 
+                                    {
+                                    
+                                      echo "".$value->NOM_CATEGORIE;
+                                    
+                                    }
+                                }
+                             ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">REF SOUS CATEGORIE </label>
+                        <label for="content" class="col-sm-2 control-label">Sous categorie </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_store_2_ibi_articles->NOM_CATEGORIE); ?>
@@ -108,7 +120,16 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Type Articles </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->TYPE); ?>
+                           <?php $type=$pos_store_2_ibi_articles->TYPE; 
+
+                              if($type=1){
+                                echo"Article numerique";
+                              }
+                              else{
+                                echo"Article physique";
+                              }
+
+                           ?>
                         </div>
                     </div>
                                          
@@ -116,7 +137,16 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Etat </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->STATUS); ?>
+                           <?php $status=$pos_store_2_ibi_articles->STATUS; 
+                              if($status=1){
+                                echo "En vente";
+                              }
+                              else
+                              {
+                                echo"Disponible";
+                              }
+
+                           ?>
                         </div>
                     </div>
                                          
@@ -124,7 +154,14 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Gestion De Stock </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->STOCK_ENABLED); ?>
+                           <?php $stock_enabled=$pos_store_2_ibi_articles->STOCK_ENABLED; 
+                              if($stock_enabled=1){
+                                echo"Active";
+                              }
+                              else{
+                                echo "Desactive";
+                              }
+                           ?>
                         </div>
                     </div>
                                          
@@ -180,7 +217,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Unite </label>
 
                         <div class="col-sm-8">
-                        
+
                            <?= _ent($pos_store_2_ibi_articles->POIDS); ?>
                         </div>
                     </div>
