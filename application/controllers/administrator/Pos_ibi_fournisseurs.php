@@ -18,6 +18,7 @@ class Pos_ibi_fournisseurs extends Admin
 
 		$this->load->model('model_pos_ibi_fournisseurs');
 	}
+	// jjhs
 
 	/**
 	* show all Pos Ibi Fournisseurss
