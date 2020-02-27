@@ -55,119 +55,95 @@ jQuery(document).ready(domo);
 
                  
                   <div class="form-horizontal" name="form_pos_store_2_ibi_commande" id="form_pos_store_2_ibi_commande" >
-                   
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Id </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_id); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Numero </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_numero); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Article </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->ID_ARTICLE); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Client Id </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->NOM_CLIENT); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande User Id </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_user_id); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Categorie Id </label>
+                  <div class="table-responsive"> 
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->NOM_CATEGORIE); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Unite </label>
+                  <table class="table table-bordered table-striped dataTable">
+                     <thead>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_unite); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Delai </label>
+                        <tr style="background-color: #ccc !important;">
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->delai); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Validite </label>
+                           <th class="cell" style="text-align: center; background-color: #ccc;border:1px solid black !important;">&#8470;</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->validite); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">A La Commande </label>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">Description</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->a_la_commande); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">A La Livraison </label>
+                          
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->a_la_livraison); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Date </label>
+                          <th class="cell" style="text-align: center;border:1px solid black !important;">Quantité</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_date); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Commande Date Modification </label>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">PU</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_commande->commande_date_modification); ?>
-                        </div>
-                    </div>
-                                        
-                    <br>
-                    <br>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">PT</th>
+                         </tr>
+
+                     </thead>
+
+                     
+                     <tbody> 
+
+<?php
+$prix_total_all=0;
+$i=0;
+ foreach ($pos_store_2_ibi_commande as $data) { 
+  $i++;
+
+$prix_total=$data['commande_prix']*$data['commande_quantite'];
+
+$prix_total_all += $data['commande_prix']*$data['commande_quantite'];
+  ?>
+
+
+                     <tr >
+
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo $i; ?></td>
+
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo $data['commande_article']; ?></td>
+
+                          <td style="text-align: center;border:1px solid black !important;"><?php echo $data['commande_quantite']; ?> &nbsp; <?php echo $data['commande_unite']; ?></td>
+
+                        <td style="text-align: center;border:1px solid black !important;"><?php echo  number_format( $data['commande_prix'],0," "," "); ?></td>
+                       
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo number_format($prix_total,0," "," "); ?></td>
+  
+
+                     </tr>
+<?php } ?>
+
+                    <tr>
+                      <td colspan="3">
+                      </td>
+                      <td style="text-align: center;border-right: 1px solid black !important;"><b>TOTAL</b></td>
+                      <td style="text-align: center;border:1px solid black !important;border-left: 1px solid black !important;"><?php echo number_format($prix_total_all,0," "," "); ?></td>
+                      
+                    </tr>
+
+                   </tbody>
+
+                  </table>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div class="view-nav">
                         <?php is_allowed('pos_store_2_ibi_commande_update', function() use ($pos_store_2_ibi_commande){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_commande (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_commande/edit/'.$pos_store_2_ibi_commande->commande_id); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Commande']); ?> </a>
+                        <a class="btn btn-flat btn-primary btn_edit btn_action" id="btn_edit" data-stype='back' title="Approuver la commande" href="<?= site_url('administrator/pos_store_2_ibi_commande/approuver_commande/'.$this->uri->segment(4)); ?>"><i class="fa fa-edit" ></i> Approuver </a>
                         <?php }) ?>
-                        <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= site_url('administrator/pos_store_2_ibi_commande/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pos Store 2 Ibi Commande']); ?></a>
+                        <a class="btn btn-flat btn-default btn_action" id="btn_back" title="Retourner à la page précédente" href="<?= site_url('administrator/pos_store_2_ibi_commande/'); ?>"><i class="fa fa-undo" ></i> Retourner</a>
                      </div>
                     
                   </div>

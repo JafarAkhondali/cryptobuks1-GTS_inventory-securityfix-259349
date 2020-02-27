@@ -46,6 +46,31 @@ class Pos_store_2_ibi_commande extends Admin
 		$this->template->title('Pos Store 2 Ibi Commande List');
 		$this->render('backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_list', $this->data);
 	}
+
+
+	public function pos_store_2_ibi_commande_list_approuver($offset = 0)
+	{
+		$this->is_allowed('pos_store_2_ibi_commande_list');
+
+		$filter = $this->input->get('q');
+		$field 	= $this->input->get('f');
+
+		$this->data['pos_store_2_ibi_commandes'] = $this->model_pos_store_2_ibi_commande->get_approuver($filter, $field, $this->limit_page, $offset);
+		$this->data['pos_store_2_ibi_commande_counts'] = $this->model_pos_store_2_ibi_commande->count_all_approuver($filter, $field);
+
+		$config = [
+			'base_url'     => 'administrator/pos_store_2_ibi_commande/index/',
+			'total_rows'   => $this->model_pos_store_2_ibi_commande->count_all_approuver($filter, $field),
+			'per_page'     => $this->limit_page,
+			'uri_segment'  => 4,
+		];
+
+		$this->data['pagination'] = $this->pagination($config);
+
+		$this->template->title('Pos Store 2 Ibi Commande List');
+		$this->render('backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_list_approuver', $this->data);
+	}
+	
 	
 	/**
 	* Add new pos_store_2_ibi_commandes
@@ -270,6 +295,7 @@ for ($count = 0; $count < count($_POST["name"]); $count++)
 				'validite_value' => $this->input->post('validite_value'),
 				'a_la_commande' => $this->input->post('typeCond1'),
 				'a_la_livraison' => $this->input->post('typeCond2'),
+				'condition_payement'=> $this->input->post('condition_payement'),
 				'commande_status'=>0,
 				'commande_suppression_status'=>1,
 				'commande_date' =>  date('Y-m-d H:i:s'),
@@ -487,11 +513,190 @@ for ($count = 0; $count < count($_POST["name"]); $count++)
 	*
 	* @var $id String
 	*/
+
+
+
+public function approuver_commande($id)
+	{
+
+		
+          $commande='pos_store_2_ibi_commande';
+          $detail='pos_store_2_ibi_commande_detail';
+          $champ='commande_id';
+          $champs='id_commandes';
+          
+         // $criteres['commande_id']=$id;
+          $donnee = ['commande_status'=>1];
+             
+      
+          $this->db->where($champ,$id);
+          $this->db->update($commande,$donnee);
+
+
+          $this->db->select('commande_article_decription,commande_categorie_id,commande_client_id');
+					   $this->db->from($commande);
+						$this->db->where($champ,$id);
+						$old_value=$this->db->get();
+						foreach($old_value->result() as $valeur)
+						{
+                            
+
+                 $save_data = [
+				'fiche_numero' => $this->numero_fiche_travail(),
+				'fiche_description_article' =>$valeur->commande_article_decription,
+				'fiche_article_categorie_id'=>$valeur->commande_categorie_id, 
+				'fiche_client_id' => $valeur->commande_client_id,
+				'fiche_user_id' => get_user_data('id'),
+				'fiche_stutus'=>0,
+				'fiche_suppresion_status'=>1,				
+				'fiche_date' => date('Y-m-d H:i:s'),
+				'fiche_date_modification' => date('Y-m-d H:i:s'),
+			        ];  
+
+			      $this->db->insert('pos_store_2_ibi_fiche_travail', $save_data);
+                  $id_fiche_travail = $this->db->insert_id();
+
+
+                   
+						}
+
+			
+
+
+        
+		
+                       $this->db->select('*');
+					
+					   $this->db->from($detail);
+						$this->db->where($champs,$id);
+						$old_value=$this->db->get();
+						foreach($old_value->result() as $data)
+						{
+
+      			$save_datas = [
+
+				'id_fiche' => $id_fiche_travail,
+
+				'fiche_article' => $data->commande_article,
+
+				'fiche_prix' => $data->commande_prix,
+
+				'fiche_quantite' =>$data->commande_quantite,
+
+				'fiche_unite ' =>$data->commande_unite,
+
+						];
+
+               $approuver_commande= $this->db->insert('pos_store_2_ibi_fiche_travail_detail', $save_datas);
+
+
+		}
+
+			if ($approuver_commande) {
+
+		            set_message('Approbation réussi.', 'success');
+
+				} else {
+
+		            set_message('Echec .', 'error');
+
+				}
+
+
+
+				redirect('administrator/pos_store_2_ibi_fiche_travail');
+
+
+
+
+	}
+/*public function approuver_commande($id)
+	{
+
+		
+          $commande='pos_store_2_ibi_commande';
+          $detail='pos_store_2_ibi_commande_detail';
+          $champ='commande_id';
+          $champs='id_commandes';
+          
+          $criteres['commande_id']=$id;
+          $donnee = ['commande_status'=>1];
+             
+        $this->model_pos_store_2_ibi_commande->update($commande, $criteres, $donnee);
+
+
+      $this->data['pos_store_2_ibi_commande'] = $this->model_pos_store_2_ibi_commande->getRequete($id,$commande,$champ);
+
+		foreach ($pos_store_2_ibi_commande as $data_selected) { 
+
+			
+
+				$save_data = [
+				'fiche_numero' => $this->numero_fiche_travail(),
+				'fiche_description_article' =>$data_selected['commande_article_decription'],
+				'fiche_article_categorie_id'=>$data_selected['commande_categorie_id'], 
+				'fiche_client_id' => $data_selected['commande_client_id'],
+				'fiche_user_id' => get_user_data('id'),
+				'fiche_stutus'=>0,
+				'fiche_suppresion_status'=>1,				
+				'fiche_date' => date('Y-m-d H:i:s'),
+				'fiche_date_modification' => date('Y-m-d H:i:s'),
+			];
+        $id_fiche_travail = $this->model_pos_store_2_ibi_commande->insert_last_id($commande, $save_data);
+		}
+
+
+
+
+		$this->data['pos_store_2_ibi_commandes'] = $this->model_pos_store_2_ibi_commande->getRequete($id,$detail,$champs);
+
+		foreach ($pos_store_2_ibi_commandes as $data) { 
+
+
+
+
+      			$save_datas = [
+
+				'id_fiche' => $id_fiche_travail,
+
+				'fiche_article' => $data["commande_article"],
+
+				'fiche_prix' => $data["commande_prix"],
+
+				'fiche_quantite' =>$data["commande_quantite"],
+
+				'fiche_unite ' =>$data["commande_unite"],
+
+						];
+
+
+       $this->model_pos_store_2_ibi_commande->create($detail, $save_datas);
+
+		}
+
+
+	}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public function view($id)
 	{
+		
+$champs='id_commandes';
+$detail='pos_store_2_ibi_commande_detail';
 		$this->is_allowed('pos_store_2_ibi_commande_view');
 
-		$this->data['pos_store_2_ibi_commande'] = $this->model_pos_store_2_ibi_commande->join_avaiable()->filter_avaiable()->find($id);
+		$this->data['pos_store_2_ibi_commande'] = $this->model_pos_store_2_ibi_commande->getRequete($id,$detail,$champs);
 
 		$this->template->title('Pos Store 2 Ibi Commande Detail');
 		$this->render('backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_view', $this->data);
@@ -535,6 +740,21 @@ for ($count = 0; $count < count($_POST["name"]); $count++)
 
 		$this->model_pos_store_2_ibi_commande->pdf('pos_store_2_ibi_commande', 'pos_store_2_ibi_commande');
 	}
+
+
+ function printable_commande()
+ {
+   // $id=$this->uri->segment(4);
+   
+
+	//$data['donne']=$this->model_project_situation_caisse->getRequete($id);
+	
+
+		$this->render('backend/standart/administrator/pos_store_2_ibi_commande/printable_commande');
+}
+
+
+
 }
 
 
