@@ -122,13 +122,16 @@ jQuery(document).ready(domo);
                            <td><?= _ent($author_PROFORMA['username']); ?></td> 
                            <td width="200">
                               <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/client_file/add/' . $proforma->ID_PROFORMA); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/client_file/print/' . $proforma->ID_PROFORMA); ?>" title="Proforma" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                              <?php }) ?>
+                              <?php is_allowed('proforma_view', function() use ($proforma){?>
+                              <a href="<?= site_url('administrator/client_file/add/' . $proforma->ID_PROFORMA); ?>" title="Nouvelle fiche sur bon de commande" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                               <?php }) ?>
                               <?php is_allowed('proforma_update', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/edit/' . $proforma->ID_PROFORMA); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/proforma/edit/' . $proforma->ID_PROFORMA); ?>" class="btn btn-info btn-sm"><i class="fa fa-edit "></i></a>
                               <?php }) ?>
                               <?php is_allowed('proforma_delete', function() use ($proforma){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/proforma/delete/' . $proforma->ID_PROFORMA); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/proforma/delete/' . $proforma->ID_PROFORMA); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                            </td>
                         </tr>

@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Pos Store 2 Ibi Client File<small><?= cclang('list_all'); ?></small>
+      Fiche de client<small> Sur bon de commande</small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Pos Store 2 Ibi Client File</li>
+      <li class="active">Fiche de client</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -53,7 +53,7 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('client_file_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Client File']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/client_file/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Client File']); ?></a>
+                        <!-- <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Client File']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/client_file/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Client File']); ?></a> -->
                         <?php }) ?>
                         <?php is_allowed('client_file_export', function(){?>
                         <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store 2 Ibi Client File" href="<?= site_url('administrator/client_file/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
@@ -80,22 +80,16 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>PROFORMA ID CLIENT FILE</th>
-                           <th>REF CLIENT FILE</th>
-                           <th>REF PROFORMA CODE CLIENT FILE</th>
-                           <th>NUMBER PURCHASE CLIENT FILE</th>
-                           <th>FILE PURCHASE CLIENT FILE</th>
-                           <th>COMMISSIONING CLIENT FILE</th>
-                           <th>CONTRAT GARANTIE CLIENT FILE</th>
-                           <th>CONTRAT MAINTENANCE CLIENT FILE</th>
-                           <th>INVOICE NUMBER CLIENT FILE</th>
-                           <th>DATE CREATION CLIENT FILE</th>
-                           <th>DATE MODIFICATION CLIENT FILE</th>
-                           <th>OPERATING STATUT</th>
-                           <th>APPROUVE BY</th>
-                           <th>CLOSURE DATE CLIENT FILE</th>
-                           <th>CLOSURE BY CLIENT FILE</th>
-                           <th>AUTHOR</th>
+                           <th>Nom du client</th>
+                           <th>Numero du proforma</th>
+                           <th>Numero du bon de commande</th>
+                           <th>Numero de la fiche du client</th>
+                           <th>Fichier bon</th>
+                           <th>Commiss</th>
+                           <th>Garantie</th>
+                           <th>Maintenance</th>
+                           <th>Date</th>
+                           <th>Author</th>
                            <th>Action</th>
                         </tr>
                      </thead>
@@ -106,10 +100,10 @@ jQuery(document).ready(domo);
                               <input type="checkbox" class="flat-red check" name="id[]" value="<?= $client_file->ID_CLIENT_FILE; ?>">
                            </td>
                            
-                           <td><?= _ent($client_file->PROFORMA_ID_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->REF_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->REF_PROFORMA_CODE_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->NUMBER_PURCHASE_CLIENT_FILE); ?></td> 
+                           <td><?= _ent($client_file->INVOICE_NUMBER_CLIENT_FILE); ?></td>
                            <td>
                               <?php if (!empty($client_file->FILE_PURCHASE_CLIENT_FILE)): ?>
                                 <?php if (is_image($client_file->FILE_PURCHASE_CLIENT_FILE)): ?>
@@ -165,18 +159,11 @@ jQuery(document).ready(domo);
                                 <?php endif; ?>
                               <?php endif; ?>
                            </td>
-                            
-                           <td><?= _ent($client_file->INVOICE_NUMBER_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->DATE_CREATION_CLIENT_FILE); ?></td> 
-                           <td><?= _ent($client_file->DATE_MODIFICATION_CLIENT_FILE); ?></td> 
-                           <td><?= _ent($client_file->OPERATING_STATUT); ?></td> 
-                           <td><?= _ent($client_file->APPROUVE_BY); ?></td> 
-                           <td><?= _ent($client_file->CLOSURE_DATE_CLIENT_FILE); ?></td> 
-                           <td><?= _ent($client_file->CLOSURE_BY_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->AUTHOR); ?></td> 
                            <td width="200">
                               <?php is_allowed('client_file_view', function() use ($client_file){?>
-                              <a href="<?= site_url('administrator/client_file/view/' . $client_file->ID_CLIENT_FILE); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/client_file/view/' . $client_file->ID_CLIENT_FILE); ?>" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                               <?php }) ?>
                               <?php is_allowed('client_file_update', function() use ($client_file){?>
                               <a href="<?= site_url('administrator/client_file/edit/' . $client_file->ID_CLIENT_FILE); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>

@@ -537,6 +537,158 @@ class Registers extends Admin
 
 		echo json_encode($this->data);
 	}
+	public function generate_commande(){
+
+		$this->is_allowed('registers_generate');
+        $this->data['getProforma'] = $this->model_registers->getList('pos_store_2_ibi_proforma');
+		$this->template->title('Effectuer une commande');
+		$this->render('backend/standart/administrator/registers/registers_generate', $this->data);
+	}
+	public function generate_commande_post(){
+
+		$code_proforma = $this->input->post('code_proforma');
+		$ref_client = $this->input->post('ref_client');
+
+		$getproformaProduit = $this->model_registers->getList('pos_store_2_ibi_proforma_produits', array('REF_PROFORMA_CODE_PROD'=>$code_proforma));
+
+		$table['tableau'] = '<input type="hidden" name="ref_client" value="'.$ref_client.'">';
+
+		foreach ($getproformaProduit as $value) {
+
+			if($value['DISCOUNT_TYPE_PROFORMA_PROD'] == 'percentage'){
+
+                              $remiseht = $value['DISCOUNT_PERCENT_PROFORMA_PROD'] * 100 / $value['PRIX_PROFORMA_PROD'].'%';
+                      
+                            }elseif($value['DISCOUNT_TYPE_PROFORMA_PROD'] == 'flat'){
+                              $remiseht = $value['DISCOUNT_AMOUNT_PROFORMA_PROD'];
+                            }else{
+                              $remiseht = '';
+                            }
+
+                    $table['tableau'] .= '<table><tr><td hidden><input type="hidden" name="article[]" value="'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'"><div id="article">'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'</div></td>
+                    <td><input type="hidden" name="name[]" value="'.$value['NAME_PROFORMA_PROD'].'"><div id="name">'.$value['NAME_PROFORMA_PROD'].'</div></td>
+                    <td style="line-height: 35px;" class="price"><input type="hidden" name="price[]" value="'.$value['PRIX_PROFORMA_PROD'].'"/>'.$value['PRIX_PROFORMA_PROD'].'</td>
+                    <td>
+                        <div class="input-group inpuut-group-sm" style="line-height: 35px;">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default moins" onclick="moins(this)"><i class="fa fa-minus"></i>
+                            </button>
+                        </span>
+                        <input type="text" name="search[]" class="form-control search" onkeyup="search(this)" value="'.$value['QUANTITE_PROFORMA_PROD'].'">
+                        <span class="input-group-btn"><button type="button" class="btn btn-default plus" onclick="plus(this)"><i class="fa fa-plus"></i></button>
+                        </span>
+                        </div>
+                    </td>
+                    <td style="line-height: 35px;"><input type="hidden" name="remise[]" value="'.$remiseht.'" size="8">'.$remiseht.'</td>
+                    <td style="line-height: 35px;" class="total">'.$value['PRIX_TOTAL_PROFORMA_PROD'].'</td>
+                     <td style="line-height: 25px;"><input type="hidden" class="unit" name="unit[]" value="" size="8" required>Kg</td>
+                    </tr></table>';
+                   
+              }
+              echo json_encode($table);
+	}
+	function generate_commande_add_save(){
+
+		if (!$this->is_allowed('registers_generate', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+				]);
+			exit;
+		}
+		    $ref_client=$this->input->post('ref_client');
+            $article=$this->input->post('article');
+            $quantite=$this->input->post('search');
+            $price=$this->input->post('price');
+            $remise=$this->input->post('remise');
+            $name  = $this->input->post('name');
+
+		    $code = $this->model_registers->random_code();
+
+		    $total = 0;
+
+	        for ($i=0; $i < count($article); $i++) {
+
+	        	$prixtotal=$price[$i]*$quantite[$i];
+	        	$rem=str_replace('%', '@%', $remise[$i]);
+	        	$rems=explode('@', $rem);
+                if($rems[1]=='%'){
+                    $remiseht=$prixtotal*$rems[0]/100;
+                    $prixtotalht=$prixtotal-$remiseht;
+                    $discount_type='percentage';
+                    $discount_amount='0';
+                    $discount_percent=$remiseht;
+                }else{
+                	$remiseht=$rems[0];
+                	$prixtotalht=$prixtotal-$remiseht;
+                	$discount_type='flat';
+                	$discount_amount=$remiseht;
+                    $discount_percent='0';
+                }
+
+                $save_data1 = [
+					'REF_PRODUCT_CODEBAR_COMMAND_PROD' => $article[$i],
+					'REF_COMMAND_CODE_PROD' => $code,
+					'QUANTITE_COMMAND_PROD' => $quantite[$i],
+					'PRIX_COMMAND_PROD' =>$price[$i],
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
+					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
+					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
+					'NAME_COMMAND_PROD' =>$name[$i],
+								
+				];
+            $total +=$prixtotalht;
+		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data1);
+
+		    }
+		    $table = "pos_store_2_ibi_commandes";
+            $tva=$total * 0.18;
+		    $save_data = [
+				'TITRE_COMMAND' => 'Non Défini',
+				'CODE_COMMAND' => $code,
+				'REF_CLIENT_COMMAND' => $ref_client,
+				'TYPE_COMMAND' => 'ibi_order_attente',
+				'DATE_CREATION_COMMAND' => date('Y-m-d H:i:s'),
+				'AUTHOR_COMMAND' => get_user_data('id'),
+				'TOTAL_COMMAND' => $total,
+				'TVA_COMMAND' => $tva,
+							
+			];
+
+			$save = $this->model_registers->insert($table,$save_data);
+
+			if ($save) {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = true;
+					$this->data['id'] 	   = $save;
+					$this->data['message'] = cclang('success_save_data_stay', [
+						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes'),
+						anchor('administrator/registers', ' Go back to list')
+					]);
+				} else {
+					set_message(
+						cclang('success_save_data_redirect', [
+						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes')
+					]), 'success');
+
+            		$this->data['success'] = true;
+					$this->data['redirect'] = base_url('administrator/registers');
+				}
+			} else {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
+				} else {
+            		$this->data['success'] = false;
+            		$this->data['message'] = cclang('data_not_change');
+					$this->data['redirect'] = base_url('administrator/registers');
+				}
+			}
+
+		echo json_encode($this->data);
+
+	}
 	
 	/**
 	* delete Pos Store Ibi Commandess
