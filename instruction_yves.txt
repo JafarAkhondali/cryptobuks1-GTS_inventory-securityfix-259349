@@ -18,3 +18,19 @@
         application/views/backend/standart/administrator/pos_store_2_sous_categorie/
         instruction_yves.txt
         table_yves.txt
+
+
+
+
+
+
+        modified:   application/controllers/administrator/Pos_store_2_ibi_commande.php
+        deleted:    application/core/My_Exceptions.php
+        modified:   application/models/Model_pos_store_2_ibi_commande.php
+        modified:   application/views/backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_add.php
+        modified:   application/views/backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_list.php
+        modified:   application/views/backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_view.php
+        modified:   application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_list.php
+        application/views/backend/standart/administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_list_approuver.php
+        application/views/backend/standart/administrator/pos_store_2_ibi_commande/printable_commande.php
+

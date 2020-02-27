@@ -62,7 +62,7 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('pos_store_2_ibi_commande_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="voir les commandes approuvés" href="<?=  site_url('administrator/pos_store_2_ibi_commande/pos_store_2_ibi_commande_list_approuver'); ?>"><i class="fa fa-list" ></i>&nbsp; Commandes approuvés</a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="voir les commandes approuvés" href="<?=  site_url('administrator/pos_store_2_ibi_commande'); ?>"><i class="fa fa-undo" ></i>&nbsp; Retourner</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
@@ -102,18 +102,15 @@ jQuery(document).ready(domo);
                            <td style="text-align: center !important;"><?= _ent($pos_store_2_ibi_commande->commande_date); ?></td> 
 
                               
-                           <td style="text-align: center !important;" width="200">
+                           <td style="text-align: center !important;" width="100">
                               <?php is_allowed('pos_store_2_ibi_commande_view', function() use ($pos_store_2_ibi_commande){?>
-                            
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_commande/printable_commande/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-primary btn-xs"><i class="fa fa-print"></i></a>
-
                               <a href="<?= site_url('administrator/pos_store_2_ibi_commande/view/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-warning btn-xs"><i class="fa fa-eye-slash"></i></a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_commande_update', function() use ($pos_store_2_ibi_commande){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_commande/edit/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit "></i> </a>
+                              <a style="margin-left: 4px" href="<?= site_url('administrator/pos_store_2_ibi_commande/edit/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit "></i> </a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_commande_delete', function() use ($pos_store_2_ibi_commande){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_commande/delete/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-danger btn-xs remove-data"><i class="fa fa-close"></i></a>
+                              <a style="margin-left: 1px" href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_commande/delete/' . $pos_store_2_ibi_commande->commande_id); ?>" class="btn btn-danger btn-xs remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                            </td>
                         </tr>

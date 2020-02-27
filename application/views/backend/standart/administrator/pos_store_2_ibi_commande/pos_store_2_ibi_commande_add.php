@@ -223,7 +223,7 @@
                               <div class="input-group">
                                          <span class="input-group-addon">Délai
                                            <select type="text" name="delais" id="temps">
-                                             <option value="">--choisir--</option>
+                                             <option value="0">--choisir--</option>
                                              <option value="1">jour</option>
                                              <option value="2">semaine</option>
                                            </select>
@@ -240,7 +240,7 @@
                                 <div class="input-group">
                                            <span class="input-group-addon">Condition de paiement
                                            </span>
-                                          <select type="text" name="condPayer" id="condPayer" class="selectpicker form-control condPayer" data-show-subtext="true" data-live-search="true">
+                                          <select type="text" name="condition_payement" id="condPayer" class="selectpicker form-control condPayer" data-show-subtext="true" data-live-search="true">
                                                     <option value="1" selected>Commande</option>
                                                     <option value="2">Customiser</option>
                                                   </select>
