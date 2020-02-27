@@ -76,7 +76,7 @@
 
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 
-        <li class=""><a  href="<?= site_url('administrator/proforma/bon_commande_list'); ?>">Fiche Du Client</a></li>
+        <li class=""><a  href="<?= site_url('administrator/proforma/client_file_list'); ?>">Fiche Du Client</a></li>
 
         <li class="active"><?= cclang('new'); ?></li>
 
@@ -141,11 +141,11 @@
 
                         <?= form_open('', [
 
-                            'name'    => 'form_project_client_file', 
+                            'name'    => 'form_client_file', 
 
                             'class'   => 'form-horizontal', 
 
-                            'id'      => 'form_project_client_file', 
+                            'id'      => 'form_client_file', 
 
                             'enctype' => 'multipart/form-data', 
 
@@ -178,7 +178,7 @@
 
                             <div class="col-sm-12">
 
-                               <input type="hidden" class="form-control" name="project_client_file_project_client_id" id="project_client_file_project_client_id" placeholder="Name of Client" value="<?php echo $client_id; ?>">
+                               <input type="hidden" class="form-control" name="client_id" id="client_id" placeholder="Name of Client" value="<?php echo $client_id; ?>">
 
                                 <input type="text" readonly class="form-control" name="client_name" id="client_name" placeholder="Name of Client" value="<?php echo $client_name; ?>">
 
@@ -376,9 +376,9 @@
 
                             <div class="col-sm-12">
 
-                                <input type="hidden" class="form-control" name="project_client_file_proforma_code" id="project_client_file_proforma_code" placeholder="Proforma" value="<?php echo($proforma_ids) ?>">
+                                <input type="hidden" class="form-control" name="proforma_code" id="proforma_code" placeholder="Proforma" value="<?php echo($proforma_ids) ?>">
 
-                                 <input type="text" class="form-control" name="project_client_file_proforma_codes" id="project_client_file_proforma_codes" placeholder="Proforma" readonly value="<?php echo($proforma_number) ?>">
+                                 <input type="text" class="form-control" name="proforma_codes" id="proforma_codes" placeholder="Proforma" readonly value="<?php echo($proforma_number) ?>">
 
                                 <small class="info help-block">
 
@@ -402,7 +402,7 @@
 
                             <div class="col-sm-12">
 
-                                <input type="text" class="form-control" name="project_client_file_purchase_number" id="project_client_file_purchase_number" placeholder="Project Client File Purchase Number" value="" required>
+                                <input type="text" class="form-control" name="bon_commande_number" id="bon_commande_number" placeholder="Project Client File Purchase Number" value="" required>
 
                                 <small class="info help-block">
 
@@ -427,17 +427,17 @@
                 <div class="col-sm-3">
                  <div class="form-group ">
 
-                    <label for="project_client_file_purchase_file" class="col-sm-12">Bon de commande
+                    <label for="client_file" class="col-sm-12">Bon de commande
 
                     </label>
 
                     <div class="col-sm-12">
 
-                        <div id="project_client_file_project_client_file_purchase_file_galery"></div>
+                        <div id="bon_commande_file_galery"></div>
 
-                        <input class="data_file" name="project_client_file_project_client_file_purchase_file_uuid" id="project_client_file_project_client_file_purchase_file_uuid" type="hidden" value="<?= set_value('project_client_file_project_client_file_purchase_file_uuid'); ?>">
+                        <input class="data_file" name="bon_commande_client_file" id="bon_commande_client_file" type="hidden" value="<?= set_value('bon_commande_client_file'); ?>">
 
-                        <input class="data_file" name="project_client_file_project_client_file_purchase_file_name" id="project_client_file_project_client_file_purchase_file_name" type="hidden" value="<?= set_value('project_client_file_project_client_file_purchase_file_name'); ?>">
+                        <input class="data_file" name="bon_commande_client_file_name" id="bon_commande_client_file_name" type="hidden" value="<?= set_value('bon_commande_client_file_name'); ?>">
 
                         <small class="info help-block">
 
@@ -461,11 +461,11 @@
 
                     <div class="col-sm-12">
 
-                        <div id="project_client_file_commissioning_galery"></div>
+                        <div id="commissioning_file_galery"></div>
 
-                        <input class="data_file" name="project_client_file_commissioning_uuid" id="project_client_file_commissioning_uuid" type="hidden" value="<?= set_value('project_client_file_commissioning_uuid'); ?>">
+                        <input class="data_file" name="file_commissioning" id="file_commissioning" type="hidden" value="<?= set_value('file_commissioning'); ?>">
 
-                        <input class="data_file" name="project_client_file_commissioning_name" id="project_client_file_commissioning_name" type="hidden" value="<?= set_value('project_client_file_commissioning_name'); ?>">
+                        <input class="data_file" name="file_commissioning_name" id="file_commissioning_name" type="hidden" value="<?= set_value('file_commissioning_name'); ?>">
 
                         <small class="info help-block">
 
@@ -487,11 +487,11 @@
 
                     <div class="col-sm-12">
 
-                        <div id="project_client_file_contant_garantie_galery"></div>
+                        <div id="contant_garantie_file_galery"></div>
 
-                        <input class="data_file" name="project_client_file_contant_garantie_uuid" id="project_client_file_contant_garantie_uuid" type="hidden" value="<?= set_value('project_client_file_contant_garantie_uuid'); ?>">
+                        <input class="data_file" name="file_contrat_garantie" id="file_contrat_garantie" type="hidden" value="<?= set_value('file_contrat_garantie'); ?>">
 
-                        <input class="data_file" name="project_client_file_contant_garantie_name" id="project_client_file_contant_garantie_name" type="hidden" value="<?= set_value('project_client_file_contant_garantie_name'); ?>">
+                        <input class="data_file" name="file_contrat_garantie_name" id="file_contrat_garantie_name" type="hidden" value="<?= set_value('file_contrat_garantie_name'); ?>">
 
                         <small class="info help-block">
 
@@ -513,11 +513,11 @@
 
                     <div class="col-sm-12">
 
-                        <div id="project_client_file_contrat_maintenance_galery"></div>
+                        <div id="file_contrat_maintenance_galery"></div>
 
-                        <input class="data_file" name="project_client_file_contrat_maintenance_uuid" id="project_client_file_contrat_maintenance_uuid" type="hidden" value="<?= set_value('project_client_file_contrat_maintenance_uuid'); ?>">
+                        <input class="data_file" name="file_contrat_maintenance" id="file_contrat_maintenance" type="hidden" value="<?= set_value('file_contrat_maintenance'); ?>">
 
-                        <input class="data_file" name="project_client_file_contrat_maintenance_name" id="project_client_file_contrat_maintenance_name" type="hidden" value="<?= set_value('project_client_file_contrat_maintenance_name'); ?>">
+                        <input class="data_file" name="file_contrat_maintenance_name" id="file_contrat_maintenance_name" type="hidden" value="<?= set_value('file_contrat_maintenance_name'); ?>">
 
                         <small class="info help-block">
 
@@ -629,7 +629,7 @@
 
             if (isConfirm) {
 
-              window.location.href = BASE_URL + 'administrator/project_client_file/add_new_file';
+              window.location.href = BASE_URL + 'administrator/proforma';
 
             }
 
@@ -651,9 +651,9 @@
 
             
 
-        var form_project_client_file = $('#form_project_client_file');
+        var form_client_file = $('#form_client_file');
 
-        var data_post = form_project_client_file.serializeArray();
+        var data_post = form_client_file.serializeArray();
 
         var save_type = $(this).attr('data-stype');
 
@@ -669,7 +669,7 @@
 
         $.ajax({
 
-          url: BASE_URL + '/administrator/project_client_file/add_save',
+          url: BASE_URL + '/administrator/proforma/file_client_add_save',
 
           type: 'POST',
 
@@ -683,13 +683,13 @@
 
           if(res.success) {
 
-            var id_project_client_file_purchase_file = $('#project_client_file_project_client_file_purchase_file_galery').find('li').attr('qq-file-id');
+            var id_client_file = $('#bon_commande_file_galery').find('li').attr('qq-file-id');
 
-            var id_commissioning = $('#project_client_file_commissioning_galery').find('li').attr('qq-file-id');
+            var id_commissioning = $('#commissioning_file_galery').find('li').attr('qq-file-id');
 
-            var id_contant_garantie = $('#project_client_file_contant_garantie_galery').find('li').attr('qq-file-id');
+            var id_contant_garantie = $('#contant_garantie_file_galery').find('li').attr('qq-file-id');
 
-            var id_contrat_maintenance = $('#project_client_file_contrat_maintenance_galery').find('li').attr('qq-file-id');
+            var id_contrat_maintenance = $('#file_contrat_maintenance_galery').find('li').attr('qq-file-id');
 
             
 
@@ -709,27 +709,27 @@
 
             resetForm();
 
-            if (typeof id_project_client_file_purchase_file !== 'undefined') {
+            if (typeof id_client_file !== 'undefined') {
 
-                    $('#project_client_file_project_client_file_purchase_file_galery').fineUploader('deleteFile', id_project_client_file_purchase_file);
+                    $('#bon_commande_file_galery').fineUploader('deleteFile', id_client_file);
 
                 }
 
             if (typeof id_commissioning !== 'undefined') {
 
-                    $('#project_client_file_commissioning_galery').fineUploader('deleteFile', id_commissioning);
+                    $('#commissioning_file_galery').fineUploader('deleteFile', id_commissioning);
 
                 }
 
             if (typeof id_contant_garantie !== 'undefined') {
 
-                    $('#project_client_file_contant_garantie_galery').fineUploader('deleteFile', id_contant_garantie);
+                    $('#contant_garantie_file_galery').fineUploader('deleteFile', id_contant_garantie);
 
                 }
 
             if (typeof id_contrat_maintenance !== 'undefined') {
 
-                    $('#project_client_file_contrat_maintenance_galery').fineUploader('deleteFile', id_contrat_maintenance);
+                    $('#file_contrat_maintenance_galery').fineUploader('deleteFile', id_contrat_maintenance);
 
                 }
 
@@ -775,13 +775,13 @@
 
 
 
-       $('#project_client_file_project_client_file_purchase_file_galery').fineUploader({
+       $('#bon_commande_file_galery').fineUploader({
 
           template: 'qq-template-gallery',
 
           request: {
 
-              endpoint: BASE_URL + '/administrator/project_client_file/upload_project_client_file_purchase_file_file',
+              endpoint: BASE_URL + '/administrator/project_client_file/upload_client_file_file',
 
               params : params
 
@@ -791,7 +791,7 @@
 
               enabled: true, 
 
-              endpoint: BASE_URL + '/administrator/project_client_file/delete_project_client_file_purchase_file_file',
+              endpoint: BASE_URL + '/administrator/project_client_file/delete_client_file_file',
 
           },
 
@@ -829,11 +829,11 @@
 
                 if (xhr.success) {
 
-                   var uuid = $('#project_client_file_project_client_file_purchase_file_galery').fineUploader('getUuid', id);
+                   var uuid = $('#bon_commande_file_galery').fineUploader('getUuid', id);
 
-                   $('#project_client_file_project_client_file_purchase_file_uuid').val(uuid);
+                   $('#bon_commande_client_file').val(uuid);
 
-                   $('#project_client_file_project_client_file_purchase_file_name').val(xhr.uploadName);
+                   $('#bon_commande_client_file_name').val(xhr.uploadName);
 
                 } else {
 
@@ -845,9 +845,9 @@
 
               onSubmit : function(id, name) {
 
-                  var uuid = $('#project_client_file_project_client_file_purchase_file_uuid').val();
+                  var uuid = $('#bon_commande_client_file').val();
 
-                  $.get(BASE_URL + '/administrator/project_client_file/delete_project_client_file_purchase_file_file/' + uuid);
+                  $.get(BASE_URL + '/administrator/project_client_file/delete_client_file_file/' + uuid);
 
               },
 
@@ -855,9 +855,9 @@
 
                 if (isError == false) {
 
-                  $('#project_client_file_project_client_file_purchase_file_uuid').val('');
+                  $('#bon_commande_client_file').val('');
 
-                  $('#project_client_file_project_client_file_purchase_file_name').val('');
+                  $('#bon_commande_client_file_name').val('');
 
                 }
 
@@ -865,7 +865,7 @@
 
           }
 
-      }); /*end project_client_file_purchase_file galery*/
+      }); /*end client_file galery*/
 
                      var params = {};
 
@@ -873,7 +873,7 @@
 
 
 
-       $('#project_client_file_commissioning_galery').fineUploader({
+       $('#commissioning_file_galery').fineUploader({
 
           template: 'qq-template-gallery',
 
@@ -927,11 +927,11 @@
 
                 if (xhr.success) {
 
-                   var uuid = $('#project_client_file_commissioning_galery').fineUploader('getUuid', id);
+                   var uuid = $('#commissioning_file_galery').fineUploader('getUuid', id);
 
-                   $('#project_client_file_commissioning_uuid').val(uuid);
+                   $('#file_commissioning').val(uuid);
 
-                   $('#project_client_file_commissioning_name').val(xhr.uploadName);
+                   $('#file_commissioning_name').val(xhr.uploadName);
 
                 } else {
 
@@ -943,7 +943,7 @@
 
               onSubmit : function(id, name) {
 
-                  var uuid = $('#project_client_file_commissioning_uuid').val();
+                  var uuid = $('#file_commissioning').val();
 
                   $.get(BASE_URL + '/administrator/project_client_file/delete_commissioning_file/' + uuid);
 
@@ -953,9 +953,9 @@
 
                 if (isError == false) {
 
-                  $('#project_client_file_commissioning_uuid').val('');
+                  $('#file_commissioning').val('');
 
-                  $('#project_client_file_commissioning_name').val('');
+                  $('#file_commissioning_name').val('');
 
                 }
 
@@ -971,7 +971,7 @@
 
 
 
-       $('#project_client_file_contant_garantie_galery').fineUploader({
+       $('#contant_garantie_file_galery').fineUploader({
 
           template: 'qq-template-gallery',
 
@@ -1025,11 +1025,11 @@
 
                 if (xhr.success) {
 
-                   var uuid = $('#project_client_file_contant_garantie_galery').fineUploader('getUuid', id);
+                   var uuid = $('#contant_garantie_file_galery').fineUploader('getUuid', id);
 
-                   $('#project_client_file_contant_garantie_uuid').val(uuid);
+                   $('#file_contrat_garantie').val(uuid);
 
-                   $('#project_client_file_contant_garantie_name').val(xhr.uploadName);
+                   $('#file_contrat_garantie_name').val(xhr.uploadName);
 
                 } else {
 
@@ -1041,7 +1041,7 @@
 
               onSubmit : function(id, name) {
 
-                  var uuid = $('#project_client_file_contant_garantie_uuid').val();
+                  var uuid = $('#file_contrat_garantie').val();
 
                   $.get(BASE_URL + '/administrator/project_client_file/delete_contant_garantie_file/' + uuid);
 
@@ -1051,9 +1051,9 @@
 
                 if (isError == false) {
 
-                  $('#project_client_file_contant_garantie_uuid').val('');
+                  $('#file_contrat_garantie').val('');
 
-                  $('#project_client_file_contant_garantie_name').val('');
+                  $('#file_contrat_garantie_name').val('');
 
                 }
 
@@ -1069,7 +1069,7 @@
 
 
 
-       $('#project_client_file_contrat_maintenance_galery').fineUploader({
+       $('#file_contrat_maintenance_galery').fineUploader({
 
           template: 'qq-template-gallery',
 
@@ -1123,11 +1123,11 @@
 
                 if (xhr.success) {
 
-                   var uuid = $('#project_client_file_contrat_maintenance_galery').fineUploader('getUuid', id);
+                   var uuid = $('#file_contrat_maintenance_galery').fineUploader('getUuid', id);
 
-                   $('#project_client_file_contrat_maintenance_uuid').val(uuid);
+                   $('#file_contrat_maintenance').val(uuid);
 
-                   $('#project_client_file_contrat_maintenance_name').val(xhr.uploadName);
+                   $('#file_contrat_maintenance_name').val(xhr.uploadName);
 
                 } else {
 
@@ -1139,7 +1139,7 @@
 
               onSubmit : function(id, name) {
 
-                  var uuid = $('#project_client_file_contrat_maintenance_uuid').val();
+                  var uuid = $('#file_contrat_maintenance').val();
 
                   $.get(BASE_URL + '/administrator/project_client_file/delete_contrat_maintenance_file/' + uuid);
 
@@ -1149,9 +1149,9 @@
 
                 if (isError == false) {
 
-                  $('#project_client_file_contrat_maintenance_uuid').val('');
+                  $('#file_contrat_maintenance').val('');
 
-                  $('#project_client_file_contrat_maintenance_name').val('');
+                  $('#file_contrat_maintenance_name').val('');
 
                 }
 
