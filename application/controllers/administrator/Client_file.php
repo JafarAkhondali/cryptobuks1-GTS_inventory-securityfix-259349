@@ -40,12 +40,25 @@ class client_file extends Admin
 
 		$this->is_allowed('file_client_add');
 
-		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$file = $this->model_registers->getOne('pos_store_2_ibi_client_file',array('PROFORMA_ID_CLIENT_FILE'=>$id));
+	  
+		if($file == ''){
+
+			$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
 		$this->data['client_data'] = $this->model_registers->getOne('pos_ibi_clients',array('ID_CLIENT'=>$proforma['REF_CLIENT_PROFORMA']));
 		$this->data['proforma'] = $proforma;
 
 		$this->template->title('Fiche du client');
 		$this->render('backend/standart/administrator/client_file/client_file_add', $this->data);
+
+
+		}else{
+            // $this->view($id);
+			redirect(base_url('administrator/client_file/view/'.$id));
+			
+		}
+
+		
      
 	}
 	public function add_save()
@@ -77,6 +90,7 @@ class client_file extends Admin
 				'NUMBER_PURCHASE_CLIENT_FILE' => $this->input->post('purchase_number_file'),
 				'INVOICE_NUMBER_CLIENT_FILE' => $this->model_client_file->shuffle_code_file(),
 				'DATE_CREATION_CLIENT_FILE' => date('Y-m-d H:i:s'),
+				'OPERATING_STATUT' =>1,
 				'AUTHOR' => get_user_data('id'),
 			];
 
@@ -156,6 +170,10 @@ class client_file extends Admin
 			$save_client_file = $this->model_client_file->store($save_data);
 
 			if ($save_client_file) {
+
+                $table = 'pos_store_2_ibi_proforma';
+				$update_proforma = $this->model_registers->update($table,array('ID_PROFORMA'=>$this->input->post('proforma_ids')),array('STATUT_PROFORMA' => 1));
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_client_file;

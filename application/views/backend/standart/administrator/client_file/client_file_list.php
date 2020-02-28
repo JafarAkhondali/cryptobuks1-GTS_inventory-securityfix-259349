@@ -66,8 +66,8 @@ jQuery(document).ready(domo);
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store 2 Ibi Client File</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Store 2 Ibi Client File']); ?>  <i class="label bg-yellow"><?= $client_file_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Fiches du client</h3>
+                     <h5 class="widget-user-desc"><i class="label bg-yellow"><?= $client_file_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_client_file" id="form_client_file" action="<?= base_url('administrator/client_file/index'); ?>">
@@ -90,11 +90,22 @@ jQuery(document).ready(domo);
                            <th>Maintenance</th>
                            <th>Date</th>
                            <th>Author</th>
+                           <th>Statut</th>
                            <th>Action</th>
                         </tr>
                      </thead>
                      <tbody id="tbody_client_file">
-                     <?php foreach($client_files as $client_file): ?>
+                     <?php foreach($client_files as $client_file): 
+
+                      if($client_file->OPERATING_STATUT == 1){
+                        $statut = '<span class="label label-warning">En cours</span>';
+                      }elseif($client_file->OPERATING_STATUT == 2){
+                        $statut = '<span class="label label-success">Cloturé</span>';
+                      }else{
+                        $statut = '<span class="label label-danger">Delived</span>';
+                      }
+
+                      ?>
                         <tr>
                            <td width="5">
                               <input type="checkbox" class="flat-red check" name="id[]" value="<?= $client_file->ID_CLIENT_FILE; ?>">
@@ -161,6 +172,7 @@ jQuery(document).ready(domo);
                            </td>
                            <td><?= _ent($client_file->DATE_CREATION_CLIENT_FILE); ?></td> 
                            <td><?= _ent($client_file->AUTHOR); ?></td> 
+                           <td><?= $statut; ?></td>
                            <td width="200">
                               <?php is_allowed('client_file_view', function() use ($client_file){?>
                               <a href="<?= site_url('administrator/client_file/view/' . $client_file->ID_CLIENT_FILE); ?>" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>

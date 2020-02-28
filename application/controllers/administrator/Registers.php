@@ -540,7 +540,9 @@ class Registers extends Admin
 	public function generate_commande(){
 
 		$this->is_allowed('registers_generate');
-        $this->data['getProforma'] = $this->model_registers->getList('pos_store_2_ibi_proforma');
+	
+        $this->data['getProforma'] = $this->model_registers->getList('pos_store_2_ibi_proforma','STATUT_PROFORMA !=2');
+        
 		$this->template->title('Effectuer une commande');
 		$this->render('backend/standart/administrator/registers/registers_generate', $this->data);
 	}
@@ -551,7 +553,7 @@ class Registers extends Admin
 
 		$getproformaProduit = $this->model_registers->getList('pos_store_2_ibi_proforma_produits', array('REF_PROFORMA_CODE_PROD'=>$code_proforma));
 
-		$table['tableau'] = '<input type="hidden" name="ref_client" value="'.$ref_client.'">';
+		$table['tableau'] = '<input type="hidden" name="code_proforma" value="'.$code_proforma.'"><input type="hidden" name="ref_client" value="'.$ref_client.'">';
 
 		foreach ($getproformaProduit as $value) {
 
@@ -596,6 +598,7 @@ class Registers extends Admin
 				]);
 			exit;
 		}
+			$code_proforma=$this->input->post('code_proforma');
 		    $ref_client=$this->input->post('ref_client');
             $article=$this->input->post('article');
             $quantite=$this->input->post('search');
@@ -659,6 +662,10 @@ class Registers extends Admin
 			$save = $this->model_registers->insert($table,$save_data);
 
 			if ($save) {
+
+				$table = 'pos_store_2_ibi_proforma';
+				$update_proforma = $this->model_registers->update($table,array(' 	CODE_PROFORMA'=>$this->input->post('code_proforma')),array('STATUT_PROFORMA' => 2));
+
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save;
@@ -689,6 +696,50 @@ class Registers extends Admin
 		echo json_encode($this->data);
 
 	}
+	public function generate_facture($id){
+
+		if (!$this->is_allowed('registers_list', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+				]);
+			exit;
+		}
+
+		$commande = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+
+		if($commande['STATUT_COMMAND'] == 'is_invoice'){
+
+			 set_message('Vous avez déjà créer une facture sur cette commande', 'error');
+
+		}else{
+         
+		    $save_data = [
+				'NUMERO_FACTURE' => $this->model_registers->generate_invoice(),
+				'REF_CODE_COMMAND_FACTURE' => $commande['CODE_COMMAND'],
+				'STORE_BY_FACTURE' => 2,
+				'DATE_CREATION_FACTURE' => date('Y-m-d H:i:s'),
+				'AUTHOR_FACTURE' => get_user_data('id'),
+							
+			];
+
+			$save = $this->model_registers->insert('pos_ibi_facture',$save_data);
+
+			$table = 'pos_store_2_ibi_commandes';
+		    $update = $this->model_registers->update($table,array('CODE_COMMAND'=>$commande['CODE_COMMAND']),array('STATUT_COMMAND' => 'is_invoice'));
+
+			if ($save and $update) {
+
+	            set_message('Facture faite avec succès', 'success');
+
+	        } else {
+	            set_message('Impossible de faire la facture, Contactez l\'administrateur', 'error');
+	        }
+	    }
+
+		    redirect_back();
+
+	} 
 	
 	/**
 	* delete Pos Store Ibi Commandess

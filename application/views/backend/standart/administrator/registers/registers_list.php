@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Liste des commandes <small></small>
+      Liste de commandes <small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Liste des commandes</li>
+      <li class="active">Liste de commandes</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -56,7 +56,7 @@ jQuery(document).ready(domo);
                         <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
-                        <a class="btn btn-flat btn-success" ttitle="Export XLS" href="<?= site_url('administrator/registers/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/registers/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
                         <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/registers/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
@@ -67,7 +67,7 @@ jQuery(document).ready(domo);
                      </div>
                      <!-- /.widget-user-image -->
                      <h3 class="widget-user-username">Commandes</h3>
-                     <h5 class="widget-user-desc">Liste de données du commande<i class="label bg-yellow"><?= $registers_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h5 class="widget-user-desc"><i class="label bg-yellow"><?= $registers_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
                   <form name="form_registers" id="form_registers" action="<?= base_url('administrator/registers/index'); ?>">
@@ -80,7 +80,7 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Numero de la commande</th>
+                           <th>Numéro de la commande</th>
                            <th>Titre</th>
                            <th>Client</th>
                            <th>Total</th>
@@ -98,9 +98,9 @@ jQuery(document).ready(domo);
                       $author_command=$this->model_registers->getOne('aauth_users',array('id'=>$registers->AUTHOR_COMMAND));
 
                       if($registers->TYPE_COMMAND == 'ibi_order_attente'){
-                          $type_command = "En attente";
+                          $type_command = '<span class="label label-warning">En attente</span>';
                       }elseif($registers->TYPE_COMMAND == 'ibi_order_comptant'){
-                          $type_command = "Complète";
+                          $type_command = '<span class="label label-warning">Complète</span>';
                       }
 
                       ?>
@@ -120,19 +120,20 @@ jQuery(document).ready(domo);
                            <td><?= _ent($ref_client['NOM_CLIENT']); ?></td> 
                            <td><?= _ent($registers->TOTAL_COMMAND); ?></td>
                            <td></td> 
-                           <td><?= _ent($type_command);?></td>
+                           <td><?= $type_command;?></td>
                            <td><?= _ent($registers->DATE_CREATION_COMMAND); ?></td>
                            <td><?= _ent($author_command['username']); ?></td> 
                            <td width="200">
+                            <?php is_allowed('registers_delete', function() use ($registers){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/delete/' . $registers->ID_COMMAND); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
+                               <?php }) ?>
                               <?php is_allowed('registers_view', function() use ($registers){?>
-                              <a href="<?= site_url('administrator/registers/view/' . $registers->ID_COMMAND); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/generate_facture/' . $registers->ID_COMMAND); ?>" titre="Générer la facture" class="btn btn-warning btn-sm invoice-data"><i class="fa fa-dedent default"></i></a>
                               <?php }) ?>
                               <?php is_allowed('registers_update', function() use ($registers){?>
-                              <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-default btn-sm">Modifier</span></a>
                               <?php }) ?>
-                              <?php is_allowed('registers_delete', function() use ($registers){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/delete/' . $registers->ID_COMMAND); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
-                               <?php }) ?>
+                              <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
                            </td>
                         </tr>
                       <?php endforeach; ?>
@@ -215,6 +216,30 @@ jQuery(document).ready(domo);
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "<?= cclang('yes_delete_it'); ?>",
           cancelButtonText: "<?= cclang('no_cancel_plx'); ?>",
+          closeOnConfirm: true,
+          closeOnCancel: true
+        },
+        function(isConfirm){
+          if (isConfirm) {
+            document.location.href = url;            
+          }
+        });
+
+      return false;
+    });
+
+    $('.invoice-data').click(function(){
+
+      var url = $(this).attr('data-href');
+
+      swal({
+          title: "Êtes-vous sûr ?",
+          text: "De vouloir générer une facture",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Oui",
+          cancelButtonText: "Non",
           closeOnConfirm: true,
           closeOnCancel: true
         },
