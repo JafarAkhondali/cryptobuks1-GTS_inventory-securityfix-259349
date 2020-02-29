@@ -81,7 +81,7 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Taux Imposition </label>
+                        <label for="content" class="col-sm-2 control-label">Taux d'imposition </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_ibi_taxes->RATE_TAXE); ?>
@@ -92,7 +92,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Auteur </label>
 
                         <div class="col-sm-8">
-                        
+
                           <?php 
                               $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_taxes->AUTHOR_TAXE,'id');
                               foreach ($user as $value) {

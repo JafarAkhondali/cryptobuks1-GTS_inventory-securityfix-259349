@@ -76,57 +76,54 @@ class Pos_store_2_ibi_articles extends Admin
 			exit;
 		}
 
-		$this->form_validation->set_rules('DESIGN', 'Nom Du Produit', 'trim|required');
-		$this->form_validation->set_rules('REF_CATEGORIE', 'Categorie', 'trim|required');
-		$this->form_validation->set_rules('REF_PROVIDER', 'Part N0', 'trim|required');
-		$this->form_validation->set_rules('TYPE', 'Type Articles', 'trim|required');
-		$this->form_validation->set_rules('STATUS', 'Etat', 'trim|required');
-		$this->form_validation->set_rules('STOCK_ENABLED', 'Gestion De Stock', 'trim|required');
-		$this->form_validation->set_rules('PRIX_DE_VENTE', 'Prix De Vente', 'trim|required');
-		
-		$this->form_validation->set_rules('POIDS', 'Unite', 'trim|required');
+		$this->form_validation->set_rules('DESIGN_ARTICLE', 'Nom Du Produit', 'trim|required');
+		$this->form_validation->set_rules('REF_CATEGORIE_ARTICLE', 'Categorie', 'trim|required');
+		$this->form_validation->set_rules('SKU_ARTICLE', 'Part No', 'trim|required');
+		$this->form_validation->set_rules('TYPE_ARTICLE', 'Type Article', 'trim|required');
+		$this->form_validation->set_rules('STATUS_ARTICLE', 'Etat', 'trim|required');
+		$this->form_validation->set_rules('STOCK_ENABLED_ARTICLE', 'Gestion De Stock', 'trim|required');
+		$this->form_validation->set_rules('PRIX_DE_VENTE_ARTICLE', 'Prix De Vente', 'trim|required');
+		$this->form_validation->set_rules('POIDS_ARTICLE', 'Unite', 'trim|required');
 		
 
 		if ($this->form_validation->run()) {
-			$pos_store_2_ibi_articles_APERCU_uuid = $this->input->post('pos_store_2_ibi_articles_APERCU_uuid');
-			$pos_store_2_ibi_articles_APERCU_name = $this->input->post('pos_store_2_ibi_articles_APERCU_name');
+			$pos_store_2_ibi_articles_APERCU_ARTICLE_uuid = $this->input->post('pos_store_2_ibi_articles_APERCU_ARTICLE_uuid');
+			$pos_store_2_ibi_articles_APERCU_ARTICLE_name = $this->input->post('pos_store_2_ibi_articles_APERCU_ARTICLE_name');
 		
 			$save_data = [
-				'DESIGN' => $this->input->post('DESIGN'),
-				'REF_RAYON' => $this->input->post('REF_RAYON'),
-				'REF_CATEGORIE' => $this->input->post('REF_CATEGORIE'),
-				'REF_SOUS_CATEGORIE' => $this->input->post('REF_SOUS_CATEGORIE'),
-				'REF_PROVIDER' => $this->input->post('REF_PROVIDER'),
-				'TYPE' => $this->input->post('TYPE'),
-				'STATUS' => $this->input->post('STATUS'),
-				'STOCK_ENABLED' => $this->input->post('STOCK_ENABLED'),
-				'PRIX_DE_VENTE' => $this->input->post('PRIX_DE_VENTE'),
-				'SHADOW_PRICE' => $this->input->post('SHADOW_PRICE'),
-				'PRIX_PROMOTIONEL' => $this->input->post('PRIX_PROMOTIONEL'),
-				'SPECIAL_PRICE_START_DATE' => $this->input->post('SPECIAL_PRICE_START_DATE'),
-				'SPECIAL_PRICE_END_DATE' => $this->input->post('SPECIAL_PRICE_END_DATE'),
-				'TAILLE' => $this->input->post('TAILLE'),
-				'POIDS' => $this->input->post('POIDS'),
-				'COULEUR' => $this->input->post('COULEUR'),
-				'HAUTEUR' => $this->input->post('HAUTEUR'),
-				'LARGEUR' => $this->input->post('LARGEUR'),
-				'DESCRIPTION' => $this->input->post('DESCRIPTION'),
-				'DATE_CREATION' => date('Y-m-d H:i:s'),
-				'AUTHOR' => get_user_data('id'),
-			];
-			
+				'DESIGN_ARTICLE' => $this->input->post('DESIGN_ARTICLE'),
+				'REF_RAYON_ARTICLE' => $this->input->post('REF_RAYON_ARTICLE'),
+				'REF_CATEGORIE_ARTICLE' => $this->input->post('REF_CATEGORIE_ARTICLE'),
+				'REF_SOUS_CATEGORIE_ARTICLE' => $this->input->post('REF_SOUS_CATEGORIE_ARTICLE'),
+				'SKU_ARTICLE' => $this->input->post('SKU_ARTICLE'),
+				'TYPE_ARTICLE' => $this->input->post('TYPE_ARTICLE'),
+				'STATUS_ARTICLE' => $this->input->post('STATUS_ARTICLE'),
+				'STOCK_ENABLED_ARTICLE' => $this->input->post('STOCK_ENABLED_ARTICLE'),
+				'PRIX_DE_VENTE_ARTICLE' => $this->input->post('PRIX_DE_VENTE_ARTICLE'),
+				'SHADOW_PRICE_ARTICLE' => $this->input->post('SHADOW_PRICE_ARTICLE'),
+				'PRIX_PROMOTIONEL_ARTICLE' => $this->input->post('PRIX_PROMOTIONEL_ARTICLE'),
+				'SPECIAL_PRICE_START_DATE_ARTICLE' => $this->input->post('SPECIAL_PRICE_START_DATE_ARTICLE'),
+				'SPECIAL_PRICE_END_DATE_ARTICLE' => $this->input->post('SPECIAL_PRICE_END_DATE_ARTICLE'),
+				'TAILLE_ARTICLE' => $this->input->post('TAILLE_ARTICLE'),
+				'POIDS_ARTICLE' => $this->input->post('POIDS_ARTICLE'),
+				'COULEUR_ARTICLE' => $this->input->post('COULEUR_ARTICLE'),
+				'HAUTEUR_ARTICLE' => $this->input->post('HAUTEUR_ARTICLE'),
+				'LARGEUR_ARTICLE' => $this->input->post('LARGEUR_ARTICLE'),
+				'DESCRIPTION_ARTICLE' => $this->input->post('DESCRIPTION_ARTICLE'),
+				'DATE_CREATION_ARTICLE' => date('Y-m-d H:i:s'),
+				'AUTHOR_ARTICLE' => get_user_data('id'),			];
 
 			if (!is_dir(FCPATH . '/uploads/pos_store_2_ibi_articles/')) {
 				mkdir(FCPATH . '/uploads/pos_store_2_ibi_articles/');
 			}
 
-			if (!empty($pos_store_2_ibi_articles_APERCU_name)) {
-				$pos_store_2_ibi_articles_APERCU_name_copy = date('YmdHis') . '-' . $pos_store_2_ibi_articles_APERCU_name;
+			if (!empty($pos_store_2_ibi_articles_APERCU_ARTICLE_name)) {
+				$pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy = date('YmdHis') . '-' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name;
 
-				rename(FCPATH . 'uploads/tmp/' . $pos_store_2_ibi_articles_APERCU_uuid . '/' . $pos_store_2_ibi_articles_APERCU_name, 
-						FCPATH . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_name_copy);
+				rename(FCPATH . 'uploads/tmp/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_uuid . '/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name, 
+						FCPATH . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy);
 
-				if (!is_file(FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_name_copy)) {
+				if (!is_file(FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy)) {
 					echo json_encode([
 						'success' => false,
 						'message' => 'Error uploading file'
@@ -134,7 +131,7 @@ class Pos_store_2_ibi_articles extends Admin
 					exit;
 				}
 
-				$save_data['APERCU'] = $pos_store_2_ibi_articles_APERCU_name_copy;
+				$save_data['APERCU_ARTICLE'] = $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy;
 			}
 		
 			
@@ -206,55 +203,53 @@ class Pos_store_2_ibi_articles extends Admin
 			exit;
 		}
 		
-		$this->form_validation->set_rules('DESIGN', 'Nom Du Produit', 'trim|required');
-		$this->form_validation->set_rules('REF_CATEGORIE', 'Categorie', 'trim|required');
-		$this->form_validation->set_rules('REF_PROVIDER', 'Part N0', 'trim|required');
-		$this->form_validation->set_rules('TYPE', 'Type Articles', 'trim|required');
-		$this->form_validation->set_rules('STATUS', 'Etat', 'trim|required');
-		$this->form_validation->set_rules('STOCK_ENABLED', 'Gestion De Stock', 'trim|required');
-		$this->form_validation->set_rules('PRIX_DE_VENTE', 'Prix De Vente', 'trim|required');
-		$this->form_validation->set_rules('SHADOW_PRICE', 'Prix Fictif', 'trim|required');
-		$this->form_validation->set_rules('TAILLE', 'Taille', 'trim|required');
+		$this->form_validation->set_rules('DESIGN_ARTICLE', 'Nom Du Produit', 'trim|required|max_length[200]');
+		$this->form_validation->set_rules('REF_CATEGORIE_ARTICLE', 'Categorie', 'trim|required');
+		$this->form_validation->set_rules('SKU_ARTICLE', 'Part No', 'trim|required');
+		$this->form_validation->set_rules('TYPE_ARTICLE', 'Type Article', 'trim|required');
+		$this->form_validation->set_rules('STATUS_ARTICLE', 'Etat', 'trim|required');
+		$this->form_validation->set_rules('STOCK_ENABLED_ARTICLE', 'Gestion De Stock', 'trim|required');
+		$this->form_validation->set_rules('PRIX_DE_VENTE_ARTICLE', 'Prix De Vente', 'trim|required');
+		$this->form_validation->set_rules('POIDS_ARTICLE', 'Unite', 'trim|required');
 		
 		if ($this->form_validation->run()) {
-			$pos_store_2_ibi_articles_APERCU_uuid = $this->input->post('pos_store_2_ibi_articles_APERCU_uuid');
-			$pos_store_2_ibi_articles_APERCU_name = $this->input->post('pos_store_2_ibi_articles_APERCU_name');
+			$pos_store_2_ibi_articles_APERCU_ARTICLE_uuid = $this->input->post('pos_store_2_ibi_articles_APERCU_ARTICLE_uuid');
+			$pos_store_2_ibi_articles_APERCU_ARTICLE_name = $this->input->post('pos_store_2_ibi_articles_APERCU_ARTICLE_name');
 		
 			$save_data = [
-				'DESIGN' => $this->input->post('DESIGN'),
-				'REF_RAYON' => $this->input->post('REF_RAYON'),
-				'REF_CATEGORIE' => $this->input->post('REF_CATEGORIE'),
-				'REF_SOUS_CATEGORIE' => $this->input->post('REF_SOUS_CATEGORIE'),
-				'REF_PROVIDER' => $this->input->post('REF_PROVIDER'),
-				'TYPE' => $this->input->post('TYPE'),
-				'STATUS' => $this->input->post('STATUS'),
-				'STOCK_ENABLED' => $this->input->post('STOCK_ENABLED'),
-				'PRIX_DE_VENTE' => $this->input->post('PRIX_DE_VENTE'),
-				'SHADOW_PRICE' => $this->input->post('SHADOW_PRICE'),
-				'PRIX_PROMOTIONEL' => $this->input->post('PRIX_PROMOTIONEL'),
-				'SPECIAL_PRICE_START_DATE' => $this->input->post('SPECIAL_PRICE_START_DATE'),
-				'SPECIAL_PRICE_END_DATE' => $this->input->post('SPECIAL_PRICE_END_DATE'),
-				'TAILLE' => $this->input->post('TAILLE'),
-				'POIDS' => $this->input->post('POIDS'),
-				'COULEUR' => $this->input->post('COULEUR'),
-				'HAUTEUR' => $this->input->post('HAUTEUR'),
-				'LARGEUR' => $this->input->post('LARGEUR'),
-				'DESCRIPTION' => $this->input->post('DESCRIPTION'),
-				'DATE_MOD' => date('Y-m-d H:i:s'),
-				'AUTHOR' => get_user_data('id'),	
+				'DESIGN_ARTICLE' => $this->input->post('DESIGN_ARTICLE'),
+				'REF_RAYON_ARTICLE' => $this->input->post('REF_RAYON_ARTICLE'),
+				'REF_CATEGORIE_ARTICLE' => $this->input->post('REF_CATEGORIE_ARTICLE'),
+				'REF_SOUS_CATEGORIE_ARTICLE' => $this->input->post('REF_SOUS_CATEGORIE_ARTICLE'),
+				'SKU_ARTICLE' => $this->input->post('SKU_ARTICLE'),
+				'TYPE_ARTICLE' => $this->input->post('TYPE_ARTICLE'),
+				'STATUS_ARTICLE' => $this->input->post('STATUS_ARTICLE'),
+				'STOCK_ENABLED_ARTICLE' => $this->input->post('STOCK_ENABLED_ARTICLE'),
+				'PRIX_DE_VENTE_ARTICLE' => $this->input->post('PRIX_DE_VENTE_ARTICLE'),
+				'SHADOW_PRICE_ARTICLE' => $this->input->post('SHADOW_PRICE_ARTICLE'),
+				'PRIX_PROMOTIONEL_ARTICLE' => $this->input->post('PRIX_PROMOTIONEL_ARTICLE'),
+				'SPECIAL_PRICE_START_DATE_ARTICLE' => $this->input->post('SPECIAL_PRICE_START_DATE_ARTICLE'),
+				'SPECIAL_PRICE_END_DATE_ARTICLE' => $this->input->post('SPECIAL_PRICE_END_DATE_ARTICLE'),
+				'TAILLE_ARTICLE' => $this->input->post('TAILLE_ARTICLE'),
+				'POIDS_ARTICLE' => $this->input->post('POIDS_ARTICLE'),
+				'COULEUR_ARTICLE' => $this->input->post('COULEUR_ARTICLE'),
+				'HAUTEUR_ARTICLE' => $this->input->post('HAUTEUR_ARTICLE'),
+				'LARGEUR_ARTICLE' => $this->input->post('LARGEUR_ARTICLE'),
+				'DESCRIPTION_ARTICLE' => $this->input->post('DESCRIPTION_ARTICLE'),
+				'DATE_MOD_ARTICLE' => date('Y-m-d H:i:s'),
 			];
 
 			if (!is_dir(FCPATH . '/uploads/pos_store_2_ibi_articles/')) {
 				mkdir(FCPATH . '/uploads/pos_store_2_ibi_articles/');
 			}
 
-			if (!empty($pos_store_2_ibi_articles_APERCU_uuid)) {
-				$pos_store_2_ibi_articles_APERCU_name_copy = date('YmdHis') . '-' . $pos_store_2_ibi_articles_APERCU_name;
+			if (!empty($pos_store_2_ibi_articles_APERCU_ARTICLE_uuid)) {
+				$pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy = date('YmdHis') . '-' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name;
 
-				rename(FCPATH . 'uploads/tmp/' . $pos_store_2_ibi_articles_APERCU_uuid . '/' . $pos_store_2_ibi_articles_APERCU_name, 
-						FCPATH . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_name_copy);
+				rename(FCPATH . 'uploads/tmp/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_uuid . '/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name, 
+						FCPATH . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy);
 
-				if (!is_file(FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_name_copy)) {
+				if (!is_file(FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy)) {
 					echo json_encode([
 						'success' => false,
 						'message' => 'Error uploading file'
@@ -262,7 +257,7 @@ class Pos_store_2_ibi_articles extends Admin
 					exit;
 				}
 
-				$save_data['APERCU'] = $pos_store_2_ibi_articles_APERCU_name_copy;
+				$save_data['APERCU_ARTICLE'] = $pos_store_2_ibi_articles_APERCU_ARTICLE_name_copy;
 			}
 		
 			
@@ -356,8 +351,8 @@ class Pos_store_2_ibi_articles extends Admin
 	{
 		$pos_store_2_ibi_articles = $this->model_pos_store_2_ibi_articles->find($id);
 
-		if (!empty($pos_store_2_ibi_articles->APERCU)) {
-			$path = FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU;
+		if (!empty($pos_store_2_ibi_articles->APERCU_ARTICLE)) {
+			$path = FCPATH . '/uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE;
 
 			if (is_file($path)) {
 				$delete_file = unlink($path);
@@ -372,7 +367,7 @@ class Pos_store_2_ibi_articles extends Admin
 	* Upload Image Pos Store 2 Ibi Articles	* 
 	* @return JSON
 	*/
-	public function upload_APERCU_file()
+	public function upload_APERCU_ARTICLE_file()
 	{
 		if (!$this->is_allowed('pos_store_2_ibi_articles_add', false)) {
 			echo json_encode([
@@ -394,7 +389,7 @@ class Pos_store_2_ibi_articles extends Admin
 	* Delete Image Pos Store 2 Ibi Articles	* 
 	* @return JSON
 	*/
-	public function delete_APERCU_file($uuid)
+	public function delete_APERCU_ARTICLE_file($uuid)
 	{
 		if (!$this->is_allowed('pos_store_2_ibi_articles_delete', false)) {
 			echo json_encode([
@@ -407,10 +402,10 @@ class Pos_store_2_ibi_articles extends Admin
 		echo $this->delete_file([
             'uuid'              => $uuid, 
             'delete_by'         => $this->input->get('by'), 
-            'field_name'        => 'APERCU', 
+            'field_name'        => 'APERCU_ARTICLE', 
             'upload_path_tmp'   => './uploads/tmp/',
             'table_name'        => 'pos_store_2_ibi_articles',
-            'primary_key'       => 'ID',
+            'primary_key'       => 'ID_ARTICLE',
             'upload_path'       => 'uploads/pos_store_2_ibi_articles/'
         ]);
 	}
@@ -419,7 +414,7 @@ class Pos_store_2_ibi_articles extends Admin
 	* Get Image Pos Store 2 Ibi Articles	* 
 	* @return JSON
 	*/
-	public function get_APERCU_file($id)
+	public function get_APERCU_ARTICLE_file($id)
 	{
 		if (!$this->is_allowed('pos_store_2_ibi_articles_update', false)) {
 			echo json_encode([
@@ -434,11 +429,11 @@ class Pos_store_2_ibi_articles extends Admin
 		echo $this->get_file([
             'uuid'              => $id, 
             'delete_by'         => 'id', 
-            'field_name'        => 'APERCU', 
+            'field_name'        => 'APERCU_ARTICLE', 
             'table_name'        => 'pos_store_2_ibi_articles',
-            'primary_key'       => 'ID',
+            'primary_key'       => 'ID_ARTICLE',
             'upload_path'       => 'uploads/pos_store_2_ibi_articles/',
-            'delete_endpoint'   => 'administrator/pos_store_2_ibi_articles/delete_APERCU_file'
+            'delete_endpoint'   => 'administrator/pos_store_2_ibi_articles/delete_APERCU_ARTICLE_file'
         ]);
 	}
 	

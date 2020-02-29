@@ -82,7 +82,7 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="RATE_TAXE" class="col-sm-2 control-label">Taux Imposition 
+                            <label for="RATE_TAXE" class="col-sm-2 control-label">Taux d'imposition 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">

@@ -84,6 +84,7 @@
                          
                                                 <div class="form-group ">
                             <label for="DISCOUNT_TYPE_GROUP" class="col-sm-2 control-label">Type De Remise 
+                            <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
                                 <select  class="form-control chosen chosen-select-deselect" name="DISCOUNT_TYPE_GROUP" id="DISCOUNT_TYPE_GROUP" data-placeholder="Select DISCOUNT TYPE GROUP" >
@@ -120,6 +121,7 @@
                                                  
                                                 <div class="form-group ">
                             <label for="DISCOUNT_ENABLE_SCHEDULE_GROUP" class="col-sm-2 control-label">Activer La Planification 
+                            <i class="required">*</i>
                             </label>
                             <div class="col-sm-6">
                                 <div class="col-md-2 padding-left-0">

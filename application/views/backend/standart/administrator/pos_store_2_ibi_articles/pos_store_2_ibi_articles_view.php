@@ -57,10 +57,10 @@ jQuery(document).ready(domo);
                   <div class="form-horizontal" name="form_pos_store_2_ibi_articles" id="form_pos_store_2_ibi_articles" >
                    
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">ID </label>
+                        <label for="content" class="col-sm-2 control-label">ID ARTICLE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->ID); ?>
+                           <?= _ent($pos_store_2_ibi_articles->ID_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -68,7 +68,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Nom Du Produit </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->DESIGN); ?>
+                           <?= _ent($pos_store_2_ibi_articles->DESIGN_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -84,8 +84,8 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Categorie </label>
 
                         <div class="col-sm-8">
-                             <?php 
-                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_CATEGORIE,'ID_CATEGORIE');
+                           <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->ID_CATEGORIE,'ID_CATEGORIE');
                               if($user>0)
                                 {
 
@@ -101,32 +101,45 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Sous categorie </label>
+                        <label for="content" class="col-sm-2 control-label">Sous Categorie </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->NOM_CATEGORIE); ?>
+                           <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_SOUS_CATEGORIE_ARTICLE,'ID_CATEGORIE');
+                              if($user>0)
+                                {
+
+                                  foreach ($user as $value) 
+                                    {
+                                    
+                                      echo "".$value->NOM_CATEGORIE;
+                                    
+                                    }
+                                }
+                             ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Part N0 </label>
+                        <label for="content" class="col-sm-2 control-label">Part No </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->REF_PROVIDER); ?>
+                           <?= _ent($pos_store_2_ibi_articles->SKU_ARTICLE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Type Articles </label>
+                        <label for="content" class="col-sm-2 control-label">Type Article </label>
 
                         <div class="col-sm-8">
-                           <?php $type=$pos_store_2_ibi_articles->TYPE; 
+
+                           <?php $type=$pos_store_2_ibi_articles->TYPE_ARTICLE; 
 
                               if($type==1){
-                                echo"Article numerique";
+                                echo"Article physique";
                               }
                               else{
-                                echo"Article physique";
+                                echo"Article numerique";
                               }
 
                            ?>
@@ -137,7 +150,8 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Etat </label>
 
                         <div class="col-sm-8">
-                           <?php $status=$pos_store_2_ibi_articles->STATUS; 
+                           
+                           <?php $status=$pos_store_2_ibi_articles->STATUS_ARTICLE; 
                               if($status==1){
                                 echo "En vente";
                               }
@@ -154,7 +168,8 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Gestion De Stock </label>
 
                         <div class="col-sm-8">
-                           <?php $stock_enabled=$pos_store_2_ibi_articles->STOCK_ENABLED; 
+                           
+                           <?php $stock_enabled=$pos_store_2_ibi_articles->STOCK_ENABLED_ARTICLE; 
                               if($stock_enabled==1){
                                 echo"Active";
                               }
@@ -169,7 +184,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Prix De Vente </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->PRIX_DE_VENTE); ?>
+                           <?= _ent($pos_store_2_ibi_articles->PRIX_DE_VENTE_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -177,7 +192,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Prix Fictif </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->SHADOW_PRICE); ?>
+                           <?= _ent($pos_store_2_ibi_articles->SHADOW_PRICE_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -185,7 +200,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Prix Promotionnel </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->PRIX_PROMOTIONEL); ?>
+                           <?= _ent($pos_store_2_ibi_articles->PRIX_PROMOTIONEL_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -193,7 +208,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Debut De La Promotion </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_START_DATE); ?>
+                           <?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_START_DATE_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -201,7 +216,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Fin De La Promotion </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_END_DATE); ?>
+                           <?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_END_DATE_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -209,7 +224,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Taille </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->TAILLE); ?>
+                           <?= _ent($pos_store_2_ibi_articles->TAILLE_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -217,8 +232,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Unite </label>
 
                         <div class="col-sm-8">
-
-                           <?= _ent($pos_store_2_ibi_articles->POIDS); ?>
+                           <?= _ent($pos_store_2_ibi_articles->POIDS_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -226,7 +240,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Couleur </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->COULEUR); ?>
+                           <?= _ent($pos_store_2_ibi_articles->COULEUR_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -234,7 +248,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Hauteur </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->HAUTEUR); ?>
+                           <?= _ent($pos_store_2_ibi_articles->HAUTEUR_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -242,7 +256,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Largeur </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->LARGEUR); ?>
+                           <?= _ent($pos_store_2_ibi_articles->LARGEUR_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -250,22 +264,22 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Description </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->DESCRIPTION); ?>
+                           <?= _ent($pos_store_2_ibi_articles->DESCRIPTION_ARTICLE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label"> Apercu </label>
                         <div class="col-sm-8">
-                             <?php if (is_image($pos_store_2_ibi_articles->APERCU)): ?>
-                              <a class="fancybox" rel="group" href="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU; ?>">
-                                <img src="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU; ?>" class="image-responsive" alt="image pos_store_2_ibi_articles" title="APERCU pos_store_2_ibi_articles" width="40px">
+                             <?php if (is_image($pos_store_2_ibi_articles->APERCU_ARTICLE)): ?>
+                              <a class="fancybox" rel="group" href="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>">
+                                <img src="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>" class="image-responsive" alt="image pos_store_2_ibi_articles" title="APERCU_ARTICLE pos_store_2_ibi_articles" width="40px">
                               </a>
                               <?php else: ?>
                               <label>
-                                <a href="<?= BASE_URL . 'administrator/file/download/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU; ?>">
-                                 <img src="<?= get_icon_file($pos_store_2_ibi_articles->APERCU); ?>" class="image-responsive" alt="image pos_store_2_ibi_articles" title="APERCU <?= $pos_store_2_ibi_articles->APERCU; ?>" width="40px"> 
-                               <?= $pos_store_2_ibi_articles->APERCU ?>
+                                <a href="<?= BASE_URL . 'administrator/file/download/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>">
+                                 <img src="<?= get_icon_file($pos_store_2_ibi_articles->APERCU_ARTICLE); ?>" class="image-responsive" alt="image pos_store_2_ibi_articles" title="APERCU_ARTICLE <?= $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>" width="40px"> 
+                               <?= $pos_store_2_ibi_articles->APERCU_ARTICLE ?>
                                </a>
                                </label>
                               <?php endif; ?>
@@ -273,26 +287,18 @@ jQuery(document).ready(domo);
                     </div>
                                        
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Codebar </label>
+                        <label for="content" class="col-sm-2 control-label">Date de creation de l'article </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->CODEBAR); ?>
+                           <?= _ent($pos_store_2_ibi_articles->DATE_CREATION_ARTICLE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Date Creation </label>
+                        <label for="content" class="col-sm-2 control-label">Date de modification de l'article </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->DATE_CREATION); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Date Modification </label>
-
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_articles->DATE_MOD); ?>
+                           <?= _ent($pos_store_2_ibi_articles->DATE_MOD_ARTICLE); ?>
                         </div>
                     </div>
                                          
@@ -300,8 +306,9 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">Auteur </label>
 
                         <div class="col-sm-8">
+                           
                            <?php 
-                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_store_2_ibi_articles->AUTHOR,'id');
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_store_2_ibi_articles->AUTHOR_ARTICLE,'id');
                                 foreach ($user as $value) {
                                   echo "".$value->username;
                                 }
@@ -314,7 +321,7 @@ jQuery(document).ready(domo);
 
                     <div class="view-nav">
                         <?php is_allowed('pos_store_2_ibi_articles_update', function() use ($pos_store_2_ibi_articles){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_articles (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_articles/edit/'.$pos_store_2_ibi_articles->ID); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Articles']); ?> </a>
+                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_articles (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_articles/edit/'.$pos_store_2_ibi_articles->ID_ARTICLE); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Articles']); ?> </a>
                         <?php }) ?>
                         <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= site_url('administrator/pos_store_2_ibi_articles/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pos Store 2 Ibi Articles']); ?></a>
                      </div>

@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pos_store_2_ibi_articles extends MY_Model {
 
-	private $primary_key 	= 'ID';
+	private $primary_key 	= 'ID_ARTICLE';
 	private $table_name 	= 'pos_store_2_ibi_articles';
-	private $field_search 	= ['DESIGN', 'REF_CATEGORIE', 'REF_SOUS_CATEGORIE', 'REF_PROVIDER', 'PRIX_DE_VENTE', 'AUTHOR'];
+	private $field_search 	= ['DESIGN_ARTICLE', 'REF_RAYON_ARTICLE', 'REF_CATEGORIE_ARTICLE', 'REF_SOUS_CATEGORIE_ARTICLE', 'SKU_ARTICLE', 'TYPE_ARTICLE', 'STATUS_ARTICLE', 'STOCK_ENABLED_ARTICLE', 'PRIX_DE_VENTE_ARTICLE', 'SHADOW_PRICE_ARTICLE', 'PRIX_PROMOTIONEL_ARTICLE', 'SPECIAL_PRICE_START_DATE_ARTICLE', 'SPECIAL_PRICE_END_DATE_ARTICLE', 'TAILLE_ARTICLE', 'POIDS_ARTICLE', 'COULEUR_ARTICLE', 'HAUTEUR_ARTICLE', 'LARGEUR_ARTICLE', 'DESCRIPTION_ARTICLE', 'APERCU_ARTICLE', 'AUTHOR_ARTICLE'];
 
 	public function __construct()
 	{
@@ -85,15 +85,14 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_store_2_ibi_rayons', 'pos_store_2_ibi_rayons.ID_RAYON = pos_store_2_ibi_articles.REF_RAYON', 'LEFT');
-        $this->db->join('pos_ibi_categories', 'pos_ibi_categories.ID_CATEGORIE = pos_store_2_ibi_articles.REF_CATEGORIE', 'LEFT');
-        $this->db->join('pos_ibi_categories pos_ibi_categories1', 'pos_ibi_categories1.ID_CATEGORIE = pos_store_2_ibi_articles.REF_SOUS_CATEGORIE', 'LEFT');
+        $this->db->join('pos_store_2_ibi_rayons', 'pos_store_2_ibi_rayons.ID_RAYON = pos_store_2_ibi_articles.REF_RAYON_ARTICLE', 'LEFT');
+        $this->db->join('pos_ibi_categories', 'pos_ibi_categories.ID_CATEGORIE = pos_store_2_ibi_articles.REF_CATEGORIE_ARTICLE', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
-    	$this->db->where('AUTHOR', get_user_data('id'));
+        $this->db->where('AUTHOR_ARTICLE', get_user_data('id'));
         
         return $this;
     }

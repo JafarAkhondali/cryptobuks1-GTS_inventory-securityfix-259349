@@ -82,7 +82,7 @@ jQuery(document).ready(domo);
                            </th>
                            <th>Nom De La Taxe</th>
                            <th>Description De La Taxe</th>
-                           <th>Taux Imposition</th>
+                           <th>Taux d'imposition</th>
                            <th>Auteur</th>
                            <th>Action</th>
                         </tr>
@@ -96,7 +96,7 @@ jQuery(document).ready(domo);
                            
                            <td><?= _ent($pos_ibi_taxes->NAME_TAXE); ?></td> 
                            <td><?= _ent($pos_ibi_taxes->DESCRIPTION_TAXE); ?></td> 
-                           <td><?= _ent($pos_ibi_taxes->RATE_TAXE); ?></td> 
+                           <td><?= _ent($pos_ibi_taxes->RATE_TAXE); ?>%</td> 
                            <td>
                              <?php 
                               $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_ibi_taxes->AUTHOR_TAXE,'id');
