@@ -53,8 +53,9 @@ class client_file extends Admin
 
 
 		}else{
-            // $this->view($id);
-			redirect(base_url('administrator/client_file/view/'.$id));
+        
+			redirect(base_url('administrator/client_file/view/'.$file['ID_CLIENT_FILE']));
+
 			
 		}
 
@@ -409,7 +410,7 @@ class client_file extends Admin
 
 		$this->data['client_file'] = $this->model_client_file->join_avaiable()->filter_avaiable()->find($id);
 
-		$this->template->title('Pos Store 2 Ibi Client File Detail');
+		$this->template->title('Détail de la fiche');
 		$this->render('backend/standart/administrator/client_file/client_file_view', $this->data);
 	}
 	
