@@ -77,12 +77,7 @@ jQuery(document).ready(domo);
 
    $fiche_id=$this->uri->segment(4);
 
-   $client_id=$this->uri->segment(5);
-
-    /* $projet = $project_proforma->project_proforma_devis_id;
-     $client = $project_proforma->project_proforma_client_id;*/
-
-     //echo $project."/".$client; ?> 
+  ?> 
 
    <div class="row" >
 
@@ -105,9 +100,7 @@ jQuery(document).ready(domo);
 
                       <?php
 
-                  $requete = $this->db->query('SELECT cf.PROFORMA_ID_CLIENT_FILE,cf.REF_CLIENT_FILE,cf.REF_PROFORMA_CODE_CLIENT_FILE,cf.NUMBER_PURCHASE_CLIENT_FILE,cf.DATE_CREATION_CLIENT_FILE,cf.FILE_PURCHASE_CLIENT_FILE,cf.COMMISSIONING_CLIENT_FILE,cf.CONTRAT_GARANTIE_CLIENT_FILE,cf.CONTRAT_MAINTENANCE_CLIENT_FILE,cf.CLOSURE_DATE_CLIENT_FILE,cf.CLOSURE_BY_CLIENT_FILE,cf.AUTHOR,c.NOM_CLIENT,c.PRENOM_CLIENT,c.TEL_CLIENT,c.EMAIL_CLIENT,c.ADRESSE_CLIENT,c.CITY_CLIENT,c.COUNTRY_CLIENT,c.COMPANY_NAME_CLIENT,cg.NAME_GROUP FROM pos_store_2_ibi_client_file cf, pos_ibi_clients c, pos_ibi_clients_groups cg, pos_store_2_ibi_proforma p WHERE p.ID_PROFORMA=cf.PROFORMA_ID_CLIENT_FILE AND c.ID_CLIENT=cf.REF_CLIENT_FILE AND c.REF_GROUP_CLIENT=cg.ID_GROUP AND cf.ID_CLIENT_FILE="'.$fiche_id.'"');
-
-                  // $requete=$this->db->query('SELECT f.project_client_file_id, f.project_client_file_project_client_id as client_id,c.*,ca.project_categories_name as category_name,p.personne_contact_name,p.personne_contact_tel,p.personne_contact_email,p.personne_contact_grade,p.project_id,f.project_client_file_invoice_number,f.project_client_file_date_creation,f.project_client_file_opening_status,f.project_client_file_number,f.project_client_file_purchase_number,pro.project_proforma_codes,f.project_client_file_create_by,f.project_client_file_closure_by,f.project_client_file_closure_date,f.client_file_purchase_file,f.commissioning,f.contant_garantie,f.contrat_maintenance FROM project p,project_client_file f, project_clients c,project_categories ca,project_proforma pro WHERE f.project_client_file_project_id=p.project_id AND c.project_clients_id=f.project_client_file_project_client_id AND ca.project_categories_id=p.project_id_discussion_category AND pro.project_proforma_id=f.project_client_file_proforma_code AND  f.project_client_file_project_client_id="'.$client_id.'" AND f.project_client_file_id="'.$fiche_id.'"');
+                  $requete = $this->db->query('SELECT cf.PROFORMA_ID_CLIENT_FILE,cf.REF_CLIENT_FILE,cf.REF_PROFORMA_CODE_CLIENT_FILE,cf.NUMBER_PURCHASE_CLIENT_FILE,cf.DATE_CREATION_CLIENT_FILE,cf.FILE_PURCHASE_CLIENT_FILE,cf.COMMISSIONING_CLIENT_FILE,cf.CONTRAT_GARANTIE_CLIENT_FILE,cf.CONTRAT_MAINTENANCE_CLIENT_FILE,cf.CLOSURE_DATE_CLIENT_FILE,cf.CLOSURE_BY_CLIENT_FILE,cf.AUTHOR,c.NOM_CLIENT,c.PRENOM_CLIENT,c.TEL_CLIENT,c.EMAIL_CLIENT,c.ADRESSE_CLIENT,c.CITY_CLIENT,c.COUNTRY_CLIENT,c.STATE_CLIENT,c.COMPANY_NAME_CLIENT,cg.NAME_GROUP FROM pos_store_2_ibi_client_file cf, pos_ibi_clients c, pos_ibi_clients_groups cg, pos_store_2_ibi_proforma p WHERE p.ID_PROFORMA=cf.PROFORMA_ID_CLIENT_FILE AND c.ID_CLIENT=cf.REF_CLIENT_FILE AND c.REF_GROUP_CLIENT=cg.ID_GROUP AND cf.ID_CLIENT_FILE="'.$fiche_id.'"');
 
                         if ($requete->num_rows() > 0) {
 
@@ -136,7 +129,7 @@ jQuery(document).ready(domo);
 
                             $project_id="";
 
-                            $nif="";
+                            $nif=$value->STATE_CLIENT;
 
                             $project_commande_number=$value->NUMBER_PURCHASE_CLIENT_FILE;
 
@@ -161,8 +154,6 @@ jQuery(document).ready(domo);
                             $contrat_maintenance=$value->CONTRAT_MAINTENANCE_CLIENT_FILE;
 
                             $date=date('d-m-Y',strtotime($value->DATE_CREATION_CLIENT_FILE));
-
-                            /*$client_adress = ($clients_commune.' &nbsp;&nbsp;'.'Q.'.$clients_quartier. '&nbsp;&nbsp;Avenue'.'&nbsp;&nbsp;'.$client_rue.'&nbsp; '.'N°&nbsp; '.$clients_numero_maison);*/
                             
                           }
                        
@@ -233,13 +224,13 @@ jQuery(document).ready(domo);
 
                       <div class="form-group ">
 
-                            <label for="quartier" class="col-sm-12 ">
+                            <label for="groupe" class="col-sm-12 ">
                                 Groupe client
                             </label>
 
                             <div class="col-sm-12">
 
-                                <input type="text" readonly class="form-control" name="quartier" id="quartier" placeholder="Quartier" value="<?php echo $group_client; ?>">
+                                <input type="text" readonly class="form-control" name="groupe" id="groupe" placeholder="Groupe" value="<?php echo $group_client; ?>">
 
                                 <small class="info help-block">
 

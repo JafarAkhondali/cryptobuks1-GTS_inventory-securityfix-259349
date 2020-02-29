@@ -119,15 +119,19 @@
 
                                   $clients_numero_maison='';
 
-                                  $clients_quartier=$client_data['ADRESSE_CLIENT'];
+                                  $clients_adresse=$client_data['ADRESSE_CLIENT'];
+                                  $group_client='';
+                                  // $group_client=$client_data['NAME_GROUP_CLIENT'];
 
                                   $clients_commune=$client_data['STATE_CLIENT'];
                                   $client_tel=$client_data['TEL_CLIENT'];
                                   $client_mail=$client_data['EMAIL_CLIENT'];
+                                  $country_client=$client_data['COUNTRY_CLIENT'];
                                   $city=$client_data['CITY_CLIENT'];
                                   $company_name=$client_data['COMPANY_NAME_CLIENT'];
                                   $client_id=$client_data['ID_CLIENT'];
-                                  $nif="";
+                                  $client_bp='';
+                                  $nif=$client_data['STATE_CLIENT'];
                                   
                                   $proforma_ids=$proforma['ID_PROFORMA'];
                                   $proforma_number=$proforma['CODE_PROFORMA'];
@@ -189,30 +193,17 @@
                             </div>
 
                       </div>
-
-                      <div class="form-group ">
+                      
+                       <div class="form-group ">
 
                             <label for="physical_adress" class="col-sm-12 ">
-
-                            Adresse Physique
+                                Pays
 
                             </label>
 
                             <div class="col-sm-12">
 
-                                <input type="text" class="form-control" name="physical_adress" id="physical_adress" placeholder="Physical Adress" readonly value="<?php echo $clients_commune;
-                                if ($clients_quartier!='') {
-                                     echo'&nbsp;&nbsp;Q.&nbsp; '.$clients_quartier;
-                                   } 
-                                  if ($client_rue!='') {
-                                    
-                                    echo'Avenue'.'&nbsp;&nbsp;'.$client_rue.'&nbsp; ';
-                                  }
-
-                                  if ($clients_numero_maison!='') {
-                                   
-                                   echo'N°&nbsp; '.$clients_numero_maison;
-                                  } ?>">
+                                <input type="text" readonly class="form-control" name="physical_adress" id="physical_adress" placeholder="Physical Adress" value="<?php echo $country_client; ?>">
 
                                 <small class="info help-block">
 
@@ -224,15 +215,13 @@
 
                       <div class="form-group ">
 
-                            <label for="quartier" class="col-sm-12 ">
-
-                              Quartier
-
+                            <label for="groupe" class="col-sm-12 ">
+                                Groupe client
                             </label>
 
                             <div class="col-sm-12">
 
-                                <input type="text" class="form-control" name="quartier" id="quartier" readonly placeholder="Quartier" value="<?php echo $clients_quartier; ?>">
+                                <input type="text" readonly class="form-control" name="groupe" id="groupe" placeholder="Groupe" value="<?php echo $group_client; ?>">
 
                                 <small class="info help-block">
 
@@ -266,6 +255,28 @@
 
                     <div class="form-group ">
 
+                            <label for="physical_adress" class="col-sm-12 ">
+
+                            Adresse Physique
+
+                            </label>
+
+                            <div class="col-sm-12">
+
+                                <input type="text" readonly class="form-control" name="physical_adress" id="physical_adress" placeholder="Physical Adress" value="<?php 
+                                     echo'&nbsp;&nbsp;Q.&nbsp; '.$clients_adresse;
+                                   ?>">
+
+                                <small class="info help-block">
+
+                                </small>
+
+                            </div>
+
+                      </div>
+
+                    <!-- <div class="form-group ">
+
                       <label for="industry" class="col-sm-12 ">
 
                         Industrie
@@ -282,7 +293,7 @@
 
                             </div>
 
-                      </div>
+                      </div> -->
 
                       <div class="form-group ">
 
@@ -305,6 +316,29 @@
                       </div>
 
                         <div class="row">
+
+                          <div class="col-sm-6">
+
+                            <div class="form-group ">
+
+                            <label for="bp" class="col-sm-12 ">
+                          B.P
+
+                      </label>
+
+                        <div class="col-sm-12">
+
+                          <input type="text" readonly class="form-control" name="bp" id="bp" placeholder="B.P" value="<?php echo $client_bp; ?>">
+
+                                <small class="info help-block">
+
+                                </small>
+
+                            </div>
+
+                          </div>
+
+                          </div>
 
                           <div class="col-sm-6">
 
