@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/proforma/add';
+       window.location.href = BASE_URL + '/administrator/facturation/add';
        return false;
    });
 
@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Liste de proforma <small></small>
+      Liste de Factures<small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Liste de proforma</li>
+      <li class="active">Facture</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -52,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('proforma_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
+                        <?php is_allowed('facturation_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Créer la facture" href="<?=  site_url('administrator/registers'); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
-                        <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/proforma/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
+                        <?php is_allowed('facturation_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/facturation/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
-                        <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/proforma/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
+                        <?php is_allowed('facturation_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/facturation/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Proforma</h3>
-                     <h5 class="widget-user-desc"><i class="label bg-yellow"><?= $proforma_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Facturation</h3>
+                     <h5 class="widget-user-desc"><i class="label bg-yellow"><?= $facturation_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_proforma" id="form_proforma" action="<?= base_url('administrator/proforma/index'); ?>">
+                  <form name="form_facturation" id="form_facturation" action="<?= base_url('administrator/facturation/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -80,66 +80,45 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Numéro de la proforma</th>
-                           <th>Titre</th>
-                           <th>Client</th>
-                           <th>Total</th>
-                           <th>Paiement</th>
-                           <th>Statut</th>
+                           <th>Numéro de la facture</th>
+                           <th>Code de la commande</th>
+                           <th>Store</th>
                            <th>Date</th>
                            <th>Par</th>
+                           <th>Statut</th>
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody_proforma">
-                     <?php foreach($proformas as $proforma): 
-
-                      $ref_client=$this->model_registers->getOne('pos_ibi_clients',array('ID_CLIENT'=>$proforma->REF_CLIENT_PROFORMA));
-                      $author_PROFORMA=$this->model_registers->getOne('aauth_users',array('id'=>$proforma->AUTHOR_PROFORMA));
-
-                      if($proforma->TYPE_PROFORMA == 'ibi_proforma_pv'){
-                          $type_proforma = "Proforma point de vente";
-                      }elseif($proforma->TYPE_PROFORMA == 'ibi_proforma_devis'){
-                          $type_proforma = "Proforma devis";
-                      }else{
-                          $type_proforma = "Aucun";
-                      }
-
-                      ?>
+                     <tbody id="tbody_facturation">
+                     <?php foreach($facturations as $facturation): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $proforma->ID_PROFORMA; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $facturation->ID_FACTURE; ?>">
                            </td>
                            
-                           <td><?= _ent($proforma->CODE_PROFORMA); ?></td> 
-                           <td><?= _ent($proforma->TITRE_PROFORMA); ?></td>
-                             
-                           <td><?= _ent($ref_client['NOM_CLIENT']); ?></td> 
-                           <td><?= _ent($proforma->TOTAL_PROFORMA); ?></td>
-                           <td></td> 
-                           <td><?= _ent($type_proforma);?></td>
-                           <td><?= _ent($proforma->DATE_CREATION_PROFORMA); ?></td>
-                           <td><?= _ent($author_PROFORMA['username']); ?></td> 
+                           <td><?= _ent($facturation->NUMERO_FACTURE); ?></td> 
+                           <td><?= _ent($facturation->REF_CODE_COMMAND_FACTURE); ?></td> 
+                           <td><?= _ent($facturation->STORE_BY_FACTURE); ?></td> 
+                           <td><?= _ent($facturation->DATE_CREATION_FACTURE); ?></td> 
+                           <td><?= _ent($facturation->AUTHOR_FACTURE); ?></td> 
+                           <td><?= _ent($facturation->STATUT_FACTURE); ?></td> 
                            <td width="200">
-                              <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/print/' . $proforma->ID_PROFORMA); ?>" title="Proforma" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                              <?php }) ?>
-                              <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/client_file/add/' . $proforma->ID_PROFORMA); ?>" title="Nouvelle fiche sur bon de commande" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
-                              <?php }) ?>
-                              <?php is_allowed('proforma_update', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/edit/' . $proforma->ID_PROFORMA); ?>" class="btn btn-info btn-sm"><i class="fa fa-edit "></i></a>
-                              <?php }) ?>
-                              <?php is_allowed('proforma_delete', function() use ($proforma){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/proforma/delete/' . $proforma->ID_PROFORMA); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
+                             <?php is_allowed('facturation_delete', function() use ($facturation){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/facturation/delete/' . $facturation->ID_FACTURE); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
+                              <?php is_allowed('facturation_view', function() use ($facturation){?>
+                              <a href="<?= site_url('administrator/facturation/print/' . $facturation->ID_FACTURE); ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                              <?php }) ?>
+                              <?php is_allowed('facturation_update', function() use ($facturation){?>
+                              <a href="<?= site_url('administrator/facturation/edit/' . $facturation->ID_FACTURE); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($proforma_counts == 0) :?>
+                      <?php if ($facturation_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Pos Store Ibi proforma data is not available
+                           Facture data is not available
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -166,11 +145,12 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'TITRE' ? 'selected' :''; ?> value="TITRE">TITRE</option>
-                           <option <?= $this->input->get('f') == 'REF_CLIENT' ? 'selected' :''; ?> value="REF_CLIENT">REF CLIENT</option>
-                           <option <?= $this->input->get('f') == 'DATE_CREATION' ? 'selected' :''; ?> value="DATE_CREATION">DATE CREATION</option>
-                           <option <?= $this->input->get('f') == 'DATE_MOD' ? 'selected' :''; ?> value="DATE_MOD">DATE MOD</option>
-                           <option <?= $this->input->get('f') == 'AUTHOR' ? 'selected' :''; ?> value="AUTHOR">AUTHOR</option>
+                            <option <?= $this->input->get('f') == 'NUMERO_FACTURE' ? 'selected' :''; ?> value="NUMERO_FACTURE">NUMERO FACTURE</option>
+                           <option <?= $this->input->get('f') == 'REF_CODE_COMMAND_FACTURE' ? 'selected' :''; ?> value="REF_CODE_COMMAND_FACTURE">REF CODE COMMAND FACTURE</option>
+                           <option <?= $this->input->get('f') == 'STORE_BY_FACTURE' ? 'selected' :''; ?> value="STORE_BY_FACTURE">STORE BY FACTURE</option>
+                           <option <?= $this->input->get('f') == 'DATE_CREATION_FACTURE' ? 'selected' :''; ?> value="DATE_CREATION_FACTURE">DATE CREATION FACTURE</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_FACTURE' ? 'selected' :''; ?> value="AUTHOR_FACTURE">AUTHOR FACTURE</option>
+                           <option <?= $this->input->get('f') == 'STATUT_FACTURE' ? 'selected' :''; ?> value="STATUT_FACTURE">STATUT FACTURE</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -179,7 +159,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/proforma');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/facturation');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -231,7 +211,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_proforma').serialize();
+      var serialize_bulk = $('#form_facturation').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -247,7 +227,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/proforma/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/facturation/delete?' + serialize_bulk;      
             }
           });
 

@@ -124,6 +124,34 @@ class Model_registers extends MY_Model {
         return $randomString;
 
     }
+    function generate_invoice(){
+
+        $randomString = '';
+            $datemonth=date('m');
+            $maxdate='/'.date('m').'/'.date('Y');
+
+            $lastid = $this->db->query("SELECT LPAD(MAX(Maxcount)+1,4,0) as Maxcounts from (SELECT MAX(CAST(REPLACE(NUMERO_FACTURE,'".$maxdate."','') AS UNSIGNED)) as Maxcount from pos_ibi_facture f WHERE MONTH(f.DATE_CREATION_FACTURE)='".$datemonth."')t");
+            
+             foreach ($lastid->result_array() as $key => $value) {
+                
+                if($value['Maxcounts']==NULL){
+                    $Countmax="0001";
+                }else{
+                    $Countmax=$value['Maxcounts'];
+                }
+             }
+
+            $date=date('Y-m-d');
+            $annee=date("Y", strtotime($date));
+            $mois=date("m", strtotime($date));
+
+
+            $randomString = $Countmax.'/'.$mois.'/'.$annee;
+
+
+        return $randomString;
+
+    }
     public function random_code($length = 6)
 
     {
