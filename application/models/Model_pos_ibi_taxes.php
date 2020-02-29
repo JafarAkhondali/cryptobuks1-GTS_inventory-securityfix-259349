@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pos_store_2_ibi_articles extends MY_Model {
+class Model_pos_ibi_taxes extends MY_Model {
 
-	private $primary_key 	= 'ID_ARTICLE';
-	private $table_name 	= 'pos_store_2_ibi_articles';
-	private $field_search 	= ['DESIGN_ARTICLE', 'REF_RAYON_ARTICLE', 'REF_CATEGORIE_ARTICLE', 'REF_SOUS_CATEGORIE_ARTICLE', 'SKU_ARTICLE', 'TYPE_ARTICLE', 'STATUS_ARTICLE', 'STOCK_ENABLED_ARTICLE', 'PRIX_DE_VENTE_ARTICLE', 'SHADOW_PRICE_ARTICLE', 'PRIX_PROMOTIONEL_ARTICLE', 'SPECIAL_PRICE_START_DATE_ARTICLE', 'SPECIAL_PRICE_END_DATE_ARTICLE', 'TAILLE_ARTICLE', 'POIDS_ARTICLE', 'COULEUR_ARTICLE', 'HAUTEUR_ARTICLE', 'LARGEUR_ARTICLE', 'DESCRIPTION_ARTICLE', 'APERCU_ARTICLE', 'AUTHOR_ARTICLE'];
+	private $primary_key 	= 'ID_TAXE';
+	private $table_name 	= 'pos_ibi_taxes';
+	private $field_search 	= ['NAME_TAXE', 'DESCRIPTION_TAXE', 'RATE_TAXE', 'AUTHOR_TAXE'];
 
 	public function __construct()
 	{
@@ -29,16 +29,16 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -59,16 +59,16 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_ibi_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_ibi_taxes.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -78,26 +78,24 @@ class Model_pos_store_2_ibi_articles extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('pos_store_2_ibi_articles.'.$this->primary_key, "DESC");
+        $this->db->order_by('pos_ibi_taxes.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
 
 		return $query->result();
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_store_2_ibi_rayons', 'pos_store_2_ibi_rayons.ID_RAYON = pos_store_2_ibi_articles.REF_RAYON_ARTICLE', 'LEFT');
-        $this->db->join('pos_ibi_categories', 'pos_ibi_categories.ID_CATEGORIE = pos_store_2_ibi_articles.REF_CATEGORIE_ARTICLE', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
-        $this->db->where('AUTHOR_ARTICLE', get_user_data('id'));
+        $this->db->where('AUTHOR_TAXE', get_user_data('id'));
         
         return $this;
     }
 
 }
 
-/* End of file Model_pos_store_2_ibi_articles.php */
-/* Location: ./application/models/Model_pos_store_2_ibi_articles.php */
+/* End of file Model_pos_ibi_taxes.php */
+/* Location: ./application/models/Model_pos_ibi_taxes.php */

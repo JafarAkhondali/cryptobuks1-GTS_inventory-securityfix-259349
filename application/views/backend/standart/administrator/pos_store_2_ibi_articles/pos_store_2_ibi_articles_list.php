@@ -81,11 +81,13 @@ jQuery(document).ready(domo);
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
                            <th>Nom Du Produit</th>
+                           
                            <th>Categorie</th>
-                           <th>Sous categorie</th>
-                           <th>Part N0</th>
+                           <th>Sous Categorie</th>
+                           <th>Part No</th>
+            
                            <th>Prix De Vente</th>
-                           <th>Auteur</th>
+                           
                            <th>Action</th>
                         </tr>
                      </thead>
@@ -93,13 +95,15 @@ jQuery(document).ready(domo);
                      <?php foreach($pos_store_2_ibi_articless as $pos_store_2_ibi_articles): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_articles->ID; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_articles->ID_ARTICLE; ?>">
                            </td>
                            
-                           <td><?= _ent($pos_store_2_ibi_articles->DESIGN); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->DESIGN_ARTICLE); ?></td> 
+                           
+                             
                            <td>
-                             <?php 
-                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_CATEGORIE,'ID_CATEGORIE');
+                              <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->ID_CATEGORIE,'ID_CATEGORIE');
                               if($user>0)
                                 {
 
@@ -113,27 +117,59 @@ jQuery(document).ready(domo);
                              ?>
                            </td>
                              
-                           <td><?= _ent($pos_store_2_ibi_articles->NOM_CATEGORIE); ?></td>
-                             
-                           <td><?= _ent($pos_store_2_ibi_articles->REF_PROVIDER); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_articles->PRIX_DE_VENTE); ?></td> 
                            <td>
-                              <?php 
-                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('aauth_users',$pos_store_2_ibi_articles->AUTHOR,'id');
-                                foreach ($user as $value) {
-                                  echo "".$value->username;
+                             <?php 
+                                $user = $this->model_pos_ibi_fournisseurs->get_user_info('pos_ibi_categories',$pos_store_2_ibi_articles->REF_SOUS_CATEGORIE_ARTICLE,'ID_CATEGORIE');
+                              if($user>0)
+                                {
+
+                                  foreach ($user as $value) 
+                                    {
+                                    
+                                      echo "".$value->NOM_CATEGORIE;
+                                    
+                                    }
                                 }
-                               ?>
+                             ?>
+                             
                            </td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->SKU_ARTICLE); ?></td> 
+                           
+                           <td><?= _ent($pos_store_2_ibi_articles->PRIX_DE_VENTE_ARTICLE); ?></td> 
+                          <!--  <td><?= _ent($pos_store_2_ibi_articles->SHADOW_PRICE_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->PRIX_PROMOTIONEL_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_START_DATE_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->SPECIAL_PRICE_END_DATE_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->TAILLE_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->POIDS_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->COULEUR_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->HAUTEUR_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->LARGEUR_ARTICLE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_articles->DESCRIPTION_ARTICLE); ?></td> 
+                           <td>
+                              <?php if (!empty($pos_store_2_ibi_articles->APERCU_ARTICLE)): ?>
+                                <?php if (is_image($pos_store_2_ibi_articles->APERCU_ARTICLE)): ?>
+                                <a class="fancybox" rel="group" href="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>">
+                                  <img src="<?= BASE_URL . 'uploads/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>" class="image-responsive" alt="image pos_store_2_ibi_articles" title="APERCU_ARTICLE pos_store_2_ibi_articles" width="40px">
+                                </a>
+                                <?php else: ?>
+                                  <a href="<?= BASE_URL . 'administrator/file/download/pos_store_2_ibi_articles/' . $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>">
+                                   <img src="<?= get_icon_file($pos_store_2_ibi_articles->APERCU_ARTICLE); ?>" class="image-responsive image-icon" alt="image pos_store_2_ibi_articles" title="APERCU_ARTICLE <?= $pos_store_2_ibi_articles->APERCU_ARTICLE; ?>" width="40px"> 
+                                 </a>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                           </td>
+                            
+                           <td><?= _ent($pos_store_2_ibi_articles->AUTHOR_ARTICLE); ?></td>  -->
                            <td width="200">
                               <?php is_allowed('pos_store_2_ibi_articles_view', function() use ($pos_store_2_ibi_articles){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/view/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/view/' . $pos_store_2_ibi_articles->ID_ARTICLE); ?>" class="btn btn-warning btn-sm"><span  class="glyphicon glyphicon-eye-open"></span></a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_articles_update', function() use ($pos_store_2_ibi_articles){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/edit/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_articles/edit/' . $pos_store_2_ibi_articles->ID_ARTICLE); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_articles_delete', function() use ($pos_store_2_ibi_articles){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_articles/delete/' . $pos_store_2_ibi_articles->ID); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_articles/delete/' . $pos_store_2_ibi_articles->ID_ARTICLE); ?>" class="btn btn-danger btn-sm remove-data"><span class="glyphicon glyphicon-remove"></span></a>
                                <?php }) ?>
                            </td>
                         </tr>
@@ -168,12 +204,27 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'DESIGN' ? 'selected' :''; ?> value="DESIGN">DESIGN</option>
-                           <option <?= $this->input->get('f') == 'REF_CATEGORIE' ? 'selected' :''; ?> value="REF_CATEGORIE">REF CATEGORIE</option>
-                           <option <?= $this->input->get('f') == 'REF_SOUS_CATEGORIE' ? 'selected' :''; ?> value="REF_SOUS_CATEGORIE">REF SOUS CATEGORIE</option>
-                           <option <?= $this->input->get('f') == 'REF_PROVIDER' ? 'selected' :''; ?> value="REF_PROVIDER">REF PROVIDER</option>
-                           <option <?= $this->input->get('f') == 'PRIX_DE_VENTE' ? 'selected' :''; ?> value="PRIX_DE_VENTE">PRIX DE VENTE</option>
-                           <option <?= $this->input->get('f') == 'AUTHOR' ? 'selected' :''; ?> value="AUTHOR">AUTHOR</option>
+                            <option <?= $this->input->get('f') == 'DESIGN_ARTICLE' ? 'selected' :''; ?> value="DESIGN_ARTICLE">DESIGN ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'REF_RAYON_ARTICLE' ? 'selected' :''; ?> value="REF_RAYON_ARTICLE">REF RAYON ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'REF_CATEGORIE_ARTICLE' ? 'selected' :''; ?> value="REF_CATEGORIE_ARTICLE">REF CATEGORIE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'REF_SOUS_CATEGORIE_ARTICLE' ? 'selected' :''; ?> value="REF_SOUS_CATEGORIE_ARTICLE">REF SOUS CATEGORIE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'SKU_ARTICLE' ? 'selected' :''; ?> value="SKU_ARTICLE">SKU ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'TYPE_ARTICLE' ? 'selected' :''; ?> value="TYPE_ARTICLE">TYPE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'STATUS_ARTICLE' ? 'selected' :''; ?> value="STATUS_ARTICLE">STATUS ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'STOCK_ENABLED_ARTICLE' ? 'selected' :''; ?> value="STOCK_ENABLED_ARTICLE">STOCK ENABLED ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'PRIX_DE_VENTE_ARTICLE' ? 'selected' :''; ?> value="PRIX_DE_VENTE_ARTICLE">PRIX DE VENTE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'SHADOW_PRICE_ARTICLE' ? 'selected' :''; ?> value="SHADOW_PRICE_ARTICLE">SHADOW PRICE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'PRIX_PROMOTIONEL_ARTICLE' ? 'selected' :''; ?> value="PRIX_PROMOTIONEL_ARTICLE">PRIX PROMOTIONEL ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'SPECIAL_PRICE_START_DATE_ARTICLE' ? 'selected' :''; ?> value="SPECIAL_PRICE_START_DATE_ARTICLE">SPECIAL PRICE START DATE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'SPECIAL_PRICE_END_DATE_ARTICLE' ? 'selected' :''; ?> value="SPECIAL_PRICE_END_DATE_ARTICLE">SPECIAL PRICE END DATE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'TAILLE_ARTICLE' ? 'selected' :''; ?> value="TAILLE_ARTICLE">TAILLE ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'POIDS_ARTICLE' ? 'selected' :''; ?> value="POIDS_ARTICLE">POIDS ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'COULEUR_ARTICLE' ? 'selected' :''; ?> value="COULEUR_ARTICLE">COULEUR ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'HAUTEUR_ARTICLE' ? 'selected' :''; ?> value="HAUTEUR_ARTICLE">HAUTEUR ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'LARGEUR_ARTICLE' ? 'selected' :''; ?> value="LARGEUR_ARTICLE">LARGEUR ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'DESCRIPTION_ARTICLE' ? 'selected' :''; ?> value="DESCRIPTION_ARTICLE">DESCRIPTION ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'APERCU_ARTICLE' ? 'selected' :''; ?> value="APERCU_ARTICLE">APERCU ARTICLE</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_ARTICLE' ? 'selected' :''; ?> value="AUTHOR_ARTICLE">AUTHOR ARTICLE</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">

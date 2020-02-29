@@ -65,7 +65,8 @@
                             'id'      => 'form_pos_store_2_ibi_articles', 
                             'method'  => 'POST'
                             ]); ?>
-                                            <ul class="nav nav-tabs">
+
+                              <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#identification">Identification</a></li>
   <li><a data-toggle="tab" href="#inventaire">Inventaire</a></li>
   <li><a data-toggle="tab" href="#prix">Prix</a></li>
@@ -75,25 +76,26 @@
 <div class="tab-content">
                          <div id="identification" class="tab-pane fade in active">
                                                <p>
+                         
                                                 <div class="form-group ">
-                            <label for="DESIGN" class="col-sm-2 control-label">Nom Du Produit 
+                            <label for="DESIGN_ARTICLE" class="col-sm-2 control-label">Nom Du Produit 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="DESIGN" id="DESIGN" placeholder="Nom Du Produit" value="<?= set_value('DESIGN', $pos_store_2_ibi_articles->DESIGN); ?>">
+                                <input type="text" class="form-control" name="DESIGN_ARTICLE" id="DESIGN_ARTICLE" placeholder="Nom Du Produit" value="<?= set_value('DESIGN_ARTICLE', $pos_store_2_ibi_articles->DESIGN_ARTICLE); ?>">
                                 <small class="info help-block">
-                                </small>
+                                <b>Input DESIGN ARTICLE</b> Max Length : 200.</small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="REF_RAYON" class="col-sm-2 control-label">Emplacement 
+                            <label for="REF_RAYON_ARTICLE" class="col-sm-2 control-label">Emplacement 
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="REF_RAYON" id="REF_RAYON" data-placeholder="Select REF RAYON" >
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_RAYON_ARTICLE" id="REF_RAYON_ARTICLE" data-placeholder="Select REF RAYON ARTICLE" >
                                     <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_store_2_ibi_rayons') as $row): ?>
-                                    <option <?=  $row->ID_RAYON ==  $pos_store_2_ibi_articles->REF_RAYON ? 'selected' : ''; ?> value="<?= $row->ID_RAYON ?>"><?= $row->TITRE_RAYON; ?></option>
+                                    <option <?=  $row->ID_RAYON ==  $pos_store_2_ibi_articles->REF_RAYON_ARTICLE ? 'selected' : ''; ?> value="<?= $row->ID_RAYON ?>"><?= $row->TITRE_RAYON; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -103,14 +105,14 @@
 
                                                  
                                                 <div class="form-group ">
-                            <label for="REF_CATEGORIE" class="col-sm-2 control-label">Categorie 
+                            <label for="REF_CATEGORIE_ARTICLE" class="col-sm-2 control-label">Categorie 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="REF_CATEGORIE" id="REF_CATEGORIE" data-placeholder="Select REF CATEGORIE" >
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_CATEGORIE_ARTICLE" id="REF_CATEGORIE_ARTICLE" data-placeholder="Select REF CATEGORIE ARTICLE" >
                                     <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_ibi_categories') as $row): ?>
-                                    <option <?=  $row->ID_CATEGORIE ==  $pos_store_2_ibi_articles->REF_CATEGORIE ? 'selected' : ''; ?> value="<?= $row->ID_CATEGORIE ?>"><?= $row->NOM_CATEGORIE; ?></option>
+                                    <option <?=  $row->ID_CATEGORIE ==  $pos_store_2_ibi_articles->REF_CATEGORIE_ARTICLE ? 'selected' : ''; ?> value="<?= $row->ID_CATEGORIE ?>"><?= $row->ID_CATEGORIE; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -120,53 +122,47 @@
 
                                                  
                                                 <div class="form-group ">
-                            <label for="REF_SOUS_CATEGORIE" class="col-sm-2 control-label">REF SOUS CATEGORIE 
+                            <label for="REF_SOUS_CATEGORIE_ARTICLE" class="col-sm-2 control-label">Sous Categorie 
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="REF_SOUS_CATEGORIE" id="REF_SOUS_CATEGORIE" data-placeholder="Select REF SOUS CATEGORIE" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('pos_ibi_categories') as $row): ?>
-                                    <option <?=  $row->ID_CATEGORIE ==  $pos_store_2_ibi_articles->REF_SOUS_CATEGORIE ? 'selected' : ''; ?> value="<?= $row->ID_CATEGORIE ?>"><?= $row->NOM_CATEGORIE; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
+                                <input type="text" class="form-control" name="REF_SOUS_CATEGORIE_ARTICLE" id="REF_SOUS_CATEGORIE_ARTICLE" placeholder="Sous Categorie" value="<?= set_value('REF_SOUS_CATEGORIE_ARTICLE', $pos_store_2_ibi_articles->REF_SOUS_CATEGORIE_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
-
                                                  
                                                 <div class="form-group ">
-                            <label for="REF_PROVIDER" class="col-sm-2 control-label">Part N0 
+                            <label for="SKU_ARTICLE" class="col-sm-2 control-label">Part No 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="REF_PROVIDER" id="REF_PROVIDER" placeholder="Part N0" value="<?= set_value('REF_PROVIDER', $pos_store_2_ibi_articles->REF_PROVIDER); ?>">
+                                <input type="text" class="form-control" name="SKU_ARTICLE" id="SKU_ARTICLE" placeholder="Part No" value="<?= set_value('SKU_ARTICLE', $pos_store_2_ibi_articles->SKU_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
 
-                        </p>
+                         </p>
                         </div>
 
                         <div id="inventaire" class="tab-pane fade">
                         <p>
                                                  
                                                 <div class="form-group ">
-                            <label for="TYPE" class="col-sm-2 control-label">Type Articles 
+                            <label for="TYPE_ARTICLE" class="col-sm-2 control-label">Type Article 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-6">
                                 <div class="col-md-2 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="TYPE" id="TYPE"  value="yes" <?= $pos_store_2_ibi_articles->TYPE == "yes" ? "checked" : ""; ?>>
-                                        Yes
+                                        <input type="radio" class="flat-red" name="TYPE_ARTICLE" id="TYPE_ARTICLE"  value="1" <?= $pos_store_2_ibi_articles->TYPE_ARTICLE == "1" ? "checked" : ""; ?>>
+                                        Article physique
                                     </label>
                                 </div>
                                 <div class="col-md-14">
                                     <label>
-                                        <input type="radio" class="flat-red" name="TYPE" id="TYPE"  value="no" <?= $pos_store_2_ibi_articles->TYPE == "no" ? "checked" : ""; ?>>
-                                        No
+                                        <input type="radio" class="flat-red" name="TYPE_ARTICLE" id="TYPE_ARTICLE"  value="0" <?= $pos_store_2_ibi_articles->TYPE_ARTICLE == "0" ? "checked" : ""; ?>>
+                                        Article numerique
                                     </label>
                                 </div>
                                 <small class="info help-block">
@@ -175,20 +171,20 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="STATUS" class="col-sm-2 control-label">Etat 
+                            <label for="STATUS_ARTICLE" class="col-sm-2 control-label">Etat 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-6">
                                 <div class="col-md-2 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="STATUS" id="STATUS"  value="yes" <?= $pos_store_2_ibi_articles->STATUS == "yes" ? "checked" : ""; ?>>
-                                        Yes
+                                        <input type="radio" class="flat-red" name="STATUS_ARTICLE" id="STATUS_ARTICLE"  value="1" <?= $pos_store_2_ibi_articles->STATUS_ARTICLE == "1" ? "checked" : ""; ?>>
+                                        En vente
                                     </label>
                                 </div>
                                 <div class="col-md-14">
                                     <label>
-                                        <input type="radio" class="flat-red" name="STATUS" id="STATUS"  value="no" <?= $pos_store_2_ibi_articles->STATUS == "no" ? "checked" : ""; ?>>
-                                        No
+                                        <input type="radio" class="flat-red" name="STATUS_ARTICLE" id="STATUS_ARTICLE"  value="0" <?= $pos_store_2_ibi_articles->STATUS_ARTICLE == "0" ? "checked" : ""; ?>>
+                                        Indisponible
                                     </label>
                                 </div>
                                 <small class="info help-block">
@@ -197,170 +193,169 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="STOCK_ENABLED" class="col-sm-2 control-label">Gestion De Stock 
+                            <label for="STOCK_ENABLED_ARTICLE" class="col-sm-2 control-label">Gestion De Stock 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-6">
                                 <div class="col-md-2 padding-left-0">
                                     <label>
-                                        <input type="radio" class="flat-red" name="STOCK_ENABLED" id="STOCK_ENABLED"  value="yes" <?= $pos_store_2_ibi_articles->STOCK_ENABLED == "yes" ? "checked" : ""; ?>>
-                                        Yes
+                                        <input type="radio" class="flat-red" name="STOCK_ENABLED_ARTICLE" id="STOCK_ENABLED_ARTICLE"  value="1" <?= $pos_store_2_ibi_articles->STOCK_ENABLED_ARTICLE == "1" ? "checked" : ""; ?>>
+                                        Active
                                     </label>
                                 </div>
                                 <div class="col-md-14">
                                     <label>
-                                        <input type="radio" class="flat-red" name="STOCK_ENABLED" id="STOCK_ENABLED"  value="no" <?= $pos_store_2_ibi_articles->STOCK_ENABLED == "no" ? "checked" : ""; ?>>
-                                        No
+                                        <input type="radio" class="flat-red" name="STOCK_ENABLED_ARTICLE" id="STOCK_ENABLED_ARTICLE"  value="0" <?= $pos_store_2_ibi_articles->STOCK_ENABLED_ARTICLE == "0" ? "checked" : ""; ?>>
+                                        Desactive
                                     </label>
                                 </div>
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
-                                       </p>
+                                 
+                          </p>
                                    </div>  
 
                                   <div id="prix" class="tab-pane fade">
                         <p>            
+
+
                                                 <div class="form-group ">
-                            <label for="PRIX_DE_VENTE" class="col-sm-2 control-label">Prix De Vente 
+                            <label for="PRIX_DE_VENTE_ARTICLE" class="col-sm-2 control-label">Prix De Vente 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="PRIX_DE_VENTE" id="PRIX_DE_VENTE" placeholder="Prix De Vente" value="<?= set_value('PRIX_DE_VENTE', $pos_store_2_ibi_articles->PRIX_DE_VENTE); ?>">
+                                <input type="number" class="form-control" name="PRIX_DE_VENTE_ARTICLE" id="PRIX_DE_VENTE_ARTICLE" placeholder="Prix De Vente" value="<?= set_value('PRIX_DE_VENTE_ARTICLE', $pos_store_2_ibi_articles->PRIX_DE_VENTE_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="SHADOW_PRICE" class="col-sm-2 control-label">Prix Fictif 
-                            <i class="required">*</i>
+                            <label for="SHADOW_PRICE_ARTICLE" class="col-sm-2 control-label">Prix Fictif 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="SHADOW_PRICE" id="SHADOW_PRICE" placeholder="Prix Fictif" value="<?= set_value('SHADOW_PRICE', $pos_store_2_ibi_articles->SHADOW_PRICE); ?>">
+                                <input type="number" class="form-control" name="SHADOW_PRICE_ARTICLE" id="SHADOW_PRICE_ARTICLE" placeholder="Prix Fictif" value="<?= set_value('SHADOW_PRICE_ARTICLE', $pos_store_2_ibi_articles->SHADOW_PRICE_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="PRIX_PROMOTIONEL" class="col-sm-2 control-label">Prix Promotionnel 
+                            <label for="PRIX_PROMOTIONEL_ARTICLE" class="col-sm-2 control-label">Prix Promotionnel 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="PRIX_PROMOTIONEL" id="PRIX_PROMOTIONEL" placeholder="Prix Promotionnel" value="<?= set_value('PRIX_PROMOTIONEL', $pos_store_2_ibi_articles->PRIX_PROMOTIONEL); ?>">
+                                <input type="number" class="form-control" name="PRIX_PROMOTIONEL_ARTICLE" id="PRIX_PROMOTIONEL_ARTICLE" placeholder="Prix Promotionnel" value="<?= set_value('PRIX_PROMOTIONEL_ARTICLE', $pos_store_2_ibi_articles->PRIX_PROMOTIONEL_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="SPECIAL_PRICE_START_DATE" class="col-sm-2 control-label">Debut De La Promotion 
+                            <label for="SPECIAL_PRICE_START_DATE_ARTICLE" class="col-sm-2 control-label">Debut De La Promotion 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="SPECIAL_PRICE_START_DATE"  placeholder="Debut De La Promotion" id="SPECIAL_PRICE_START_DATE" value="<?= set_value('SPECIAL_PRICE_START_DATE', $pos_store_2_ibi_articles->SPECIAL_PRICE_START_DATE); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="SPECIAL_PRICE_START_DATE_ARTICLE"  placeholder="Debut De La Promotion" id="SPECIAL_PRICE_START_DATE_ARTICLE" value="<?= set_value('SPECIAL_PRICE_START_DATE_ARTICLE', $pos_store_2_ibi_articles->SPECIAL_PRICE_START_DATE_ARTICLE); ?>">
                             </div>
                             <small class="info help-block">
                             </small>
                             </div>
                         </div>
-
-
-
-
                                                  
                                                 <div class="form-group ">
-                            <label for="SPECIAL_PRICE_END_DATE" class="col-sm-2 control-label">Fin De La Promotion 
+                            <label for="SPECIAL_PRICE_END_DATE_ARTICLE" class="col-sm-2 control-label">Fin De La Promotion 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="SPECIAL_PRICE_END_DATE"  placeholder="Fin De La Promotion" id="SPECIAL_PRICE_END_DATE" value="<?= set_value('SPECIAL_PRICE_END_DATE', $pos_store_2_ibi_articles->SPECIAL_PRICE_END_DATE); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="SPECIAL_PRICE_END_DATE_ARTICLE"  placeholder="Fin De La Promotion" id="SPECIAL_PRICE_END_DATE_ARTICLE" value="<?= set_value('SPECIAL_PRICE_END_DATE_ARTICLE', $pos_store_2_ibi_articles->SPECIAL_PRICE_END_DATE_ARTICLE); ?>">
                             </div>
                             <small class="info help-block">
                             </small>
                             </div>
                         </div>
-                        </p>
+                                    </p>
                         </div>
                                                  
                                <div id="caracteristiques" class="tab-pane fade">
                         <p> 
+
+
+                                                <div class="form-group ">
+                            <label for="TAILLE_ARTICLE" class="col-sm-2 control-label">Taille 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TAILLE_ARTICLE" id="TAILLE_ARTICLE" placeholder="Taille" value="<?= set_value('TAILLE_ARTICLE', $pos_store_2_ibi_articles->TAILLE_ARTICLE); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TAILLE" class="col-sm-2 control-label">Taille 
+                            <label for="POIDS_ARTICLE" class="col-sm-2 control-label">Unite 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TAILLE" id="TAILLE" placeholder="Taille" value="<?= set_value('TAILLE', $pos_store_2_ibi_articles->TAILLE); ?>">
+                                <input type="text" class="form-control" name="POIDS_ARTICLE" id="POIDS_ARTICLE" placeholder="Unite" value="<?= set_value('POIDS_ARTICLE', $pos_store_2_ibi_articles->POIDS_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="POIDS" class="col-sm-2 control-label">Unite 
+                            <label for="COULEUR_ARTICLE" class="col-sm-2 control-label">Couleur 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="POIDS" id="POIDS" placeholder="Unite" value="<?= set_value('POIDS', $pos_store_2_ibi_articles->POIDS); ?>">
+                                <input type="text" class="form-control" name="COULEUR_ARTICLE" id="COULEUR_ARTICLE" placeholder="Couleur" value="<?= set_value('COULEUR_ARTICLE', $pos_store_2_ibi_articles->COULEUR_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="COULEUR" class="col-sm-2 control-label">Couleur 
+                            <label for="HAUTEUR_ARTICLE" class="col-sm-2 control-label">Hauteur 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="COULEUR" id="COULEUR" placeholder="Couleur" value="<?= set_value('COULEUR', $pos_store_2_ibi_articles->COULEUR); ?>">
+                                <input type="text" class="form-control" name="HAUTEUR_ARTICLE" id="HAUTEUR_ARTICLE" placeholder="Hauteur" value="<?= set_value('HAUTEUR_ARTICLE', $pos_store_2_ibi_articles->HAUTEUR_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="HAUTEUR" class="col-sm-2 control-label">Hauteur 
+                            <label for="LARGEUR_ARTICLE" class="col-sm-2 control-label">Largeur 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="HAUTEUR" id="HAUTEUR" placeholder="Hauteur" value="<?= set_value('HAUTEUR', $pos_store_2_ibi_articles->HAUTEUR); ?>">
+                                <input type="text" class="form-control" name="LARGEUR_ARTICLE" id="LARGEUR_ARTICLE" placeholder="Largeur" value="<?= set_value('LARGEUR_ARTICLE', $pos_store_2_ibi_articles->LARGEUR_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="LARGEUR" class="col-sm-2 control-label">Largeur 
+                            <label for="DESCRIPTION_ARTICLE" class="col-sm-2 control-label">Description 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="LARGEUR" id="LARGEUR" placeholder="Largeur" value="<?= set_value('LARGEUR', $pos_store_2_ibi_articles->LARGEUR); ?>">
+                                <textarea id="DESCRIPTION_ARTICLE" name="DESCRIPTION_ARTICLE" rows="10" cols="80"> <?= set_value('DESCRIPTION_ARTICLE', $pos_store_2_ibi_articles->DESCRIPTION_ARTICLE); ?></textarea>
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DESCRIPTION" class="col-sm-2 control-label">Description 
+                            <label for="APERCU_ARTICLE" class="col-sm-2 control-label">Apercu 
                             </label>
                             <div class="col-sm-8">
-                                <textarea id="DESCRIPTION" name="DESCRIPTION" rows="10" cols="80"> <?= set_value('DESCRIPTION', $pos_store_2_ibi_articles->DESCRIPTION); ?></textarea>
+                                <div id="pos_store_2_ibi_articles_APERCU_ARTICLE_galery"></div>
+                                <input class="data_file data_file_uuid" name="pos_store_2_ibi_articles_APERCU_ARTICLE_uuid" id="pos_store_2_ibi_articles_APERCU_ARTICLE_uuid" type="hidden" value="<?= set_value('pos_store_2_ibi_articles_APERCU_ARTICLE_uuid'); ?>">
+                                <input class="data_file" name="pos_store_2_ibi_articles_APERCU_ARTICLE_name" id="pos_store_2_ibi_articles_APERCU_ARTICLE_name" type="hidden" value="<?= set_value('pos_store_2_ibi_articles_APERCU_ARTICLE_name', $pos_store_2_ibi_articles->APERCU_ARTICLE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="APERCU" class="col-sm-2 control-label">Apercu 
-                            </label>
-                            <div class="col-sm-8">
-                                <div id="pos_store_2_ibi_articles_APERCU_galery"></div>
-                                <input class="data_file data_file_uuid" name="pos_store_2_ibi_articles_APERCU_uuid" id="pos_store_2_ibi_articles_APERCU_uuid" type="hidden" value="<?= set_value('pos_store_2_ibi_articles_APERCU_uuid'); ?>">
-                                <input class="data_file" name="pos_store_2_ibi_articles_APERCU_name" id="pos_store_2_ibi_articles_APERCU_name" type="hidden" value="<?= set_value('pos_store_2_ibi_articles_APERCU_name', $pos_store_2_ibi_articles->APERCU); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                           </p>
-                        </div>                       
+                                </p>
+                        </div>                    
                         
                         <div class="message"></div>
                         <div class="row-fluid col-md-7">
@@ -394,8 +389,8 @@
 <script>
     $(document).ready(function(){
       
-      CKEDITOR.replace('DESCRIPTION'); 
-      var DESCRIPTION = CKEDITOR.instances.DESCRIPTION;
+      CKEDITOR.replace('DESCRIPTION_ARTICLE'); 
+      var DESCRIPTION_ARTICLE = CKEDITOR.instances.DESCRIPTION_ARTICLE;
                    
       $('#btn_cancel').click(function(){
         swal({
@@ -420,7 +415,7 @@
     
       $('.btn_save').click(function(){
         $('.message').fadeOut();
-        $('#DESCRIPTION').val(DESCRIPTION.getData());
+        $('#DESCRIPTION_ARTICLE').val(DESCRIPTION_ARTICLE.getData());
                     
         var form_pos_store_2_ibi_articles = $('#form_pos_store_2_ibi_articles');
         var data_post = form_pos_store_2_ibi_articles.serializeArray();
@@ -466,15 +461,15 @@
                      var params = {};
        params[csrf] = token;
 
-       $('#pos_store_2_ibi_articles_APERCU_galery').fineUploader({
+       $('#pos_store_2_ibi_articles_APERCU_ARTICLE_galery').fineUploader({
           template: 'qq-template-gallery',
           request: {
-              endpoint: BASE_URL + '/administrator/pos_store_2_ibi_articles/upload_APERCU_file',
+              endpoint: BASE_URL + '/administrator/pos_store_2_ibi_articles/upload_APERCU_ARTICLE_file',
               params : params
           },
           deleteFile: {
               enabled: true, // defaults to false
-              endpoint: BASE_URL + '/administrator/pos_store_2_ibi_articles/delete_APERCU_file'
+              endpoint: BASE_URL + '/administrator/pos_store_2_ibi_articles/delete_APERCU_ARTICLE_file'
           },
           thumbnails: {
               placeholders: {
@@ -483,7 +478,7 @@
               }
           },
            session : {
-             endpoint: BASE_URL + 'administrator/pos_store_2_ibi_articles/get_APERCU_file/<?= $pos_store_2_ibi_articles->ID; ?>',
+             endpoint: BASE_URL + 'administrator/pos_store_2_ibi_articles/get_APERCU_ARTICLE_file/<?= $pos_store_2_ibi_articles->ID_ARTICLE; ?>',
              refreshOnRequest:true
            },
           multiple : false,
@@ -497,25 +492,25 @@
           callbacks: {
               onComplete : function(id, name, xhr) {
                 if (xhr.success) {
-                   var uuid = $('#pos_store_2_ibi_articles_APERCU_galery').fineUploader('getUuid', id);
-                   $('#pos_store_2_ibi_articles_APERCU_uuid').val(uuid);
-                   $('#pos_store_2_ibi_articles_APERCU_name').val(xhr.uploadName);
+                   var uuid = $('#pos_store_2_ibi_articles_APERCU_ARTICLE_galery').fineUploader('getUuid', id);
+                   $('#pos_store_2_ibi_articles_APERCU_ARTICLE_uuid').val(uuid);
+                   $('#pos_store_2_ibi_articles_APERCU_ARTICLE_name').val(xhr.uploadName);
                 } else {
                    toastr['error'](xhr.error);
                 }
               },
               onSubmit : function(id, name) {
-                  var uuid = $('#pos_store_2_ibi_articles_APERCU_uuid').val();
-                  $.get(BASE_URL + '/administrator/pos_store_2_ibi_articles/delete_APERCU_file/' + uuid);
+                  var uuid = $('#pos_store_2_ibi_articles_APERCU_ARTICLE_uuid').val();
+                  $.get(BASE_URL + '/administrator/pos_store_2_ibi_articles/delete_APERCU_ARTICLE_file/' + uuid);
               },
               onDeleteComplete : function(id, xhr, isError) {
                 if (isError == false) {
-                  $('#pos_store_2_ibi_articles_APERCU_uuid').val('');
-                  $('#pos_store_2_ibi_articles_APERCU_name').val('');
+                  $('#pos_store_2_ibi_articles_APERCU_ARTICLE_uuid').val('');
+                  $('#pos_store_2_ibi_articles_APERCU_ARTICLE_name').val('');
                 }
               }
           }
-      }); /*end APERCU galey*/
+      }); /*end APERCU_ARTICLE galey*/
               
        
            

@@ -224,47 +224,47 @@ ALTER TABLE `pos_ibi_categories`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 CREATE TABLE `pos_store_2_ibi_articles` (
-  `ID` int(11) NOT NULL,
-  `DESIGN` varchar(200) NOT NULL,
-  `REF_RAYON` int(11) NOT NULL,
-  `REF_SHIPPING` int(11) NOT NULL,
-  `REF_CATEGORIE` int(11) NOT NULL,
-  `REF_SOUS_CATEGORIE` int(11) DEFAULT NULL,
-  `REF_PROVIDER` int(11) NOT NULL,
-  `REF_TAXE` int(11) NOT NULL,
-  `QUANTITY` int(11) NOT NULL,
-  `SKU` varchar(200) NOT NULL,
-  `QUANTITE_RESTANTE` int(11) NOT NULL,
-  `QUANTITE_VENDU` int(11) NOT NULL,
-  `DEFECTUEUX` int(11) NOT NULL,
-  `PRIX_DACHAT` float NOT NULL,
-  `FRAIS_ACCESSOIRE` float NOT NULL,
-  `COUT_DACHAT` float NOT NULL,
-  `TAUX_DE_MARGE` float NOT NULL,
-  `PRIX_DE_VENTE` float NOT NULL,
-  `PRIX_DE_VENTE_TTC` float NOT NULL,
-  `SHADOW_PRICE` float NOT NULL,
-  `TAILLE` varchar(200) NOT NULL,
-  `POIDS` varchar(200) NOT NULL,
-  `COULEUR` varchar(200) NOT NULL,
-  `HAUTEUR` varchar(200) NOT NULL,
-  `LARGEUR` varchar(200) NOT NULL,
-  `PRIX_PROMOTIONEL` float NOT NULL,
-  `SPECIAL_PRICE_START_DATE` datetime NOT NULL,
-  `SPECIAL_PRICE_END_DATE` datetime NOT NULL,
-  `DESCRIPTION` text NOT NULL,
-  `APERCU` varchar(200) NOT NULL,
-  `CODEBAR` varchar(200) NOT NULL,
-  `DATE_CREATION` datetime NOT NULL,
-  `DATE_MOD` datetime NOT NULL,
-  `AUTHOR` varchar(200) NOT NULL,
-  `TYPE` int(11) NOT NULL COMMENT 'pour Article physique la valeur est 0 et pour les articles numeriques c''est 0',
-  `STATUS` int(11) NOT NULL COMMENT 'pour l''etat en vente c''est 1 et pour indisponible c''est 0',
-  `STOCK_ENABLED` int(11) NOT NULL COMMENT 'Losque la valeur est 1 c''est a dire que c''est active et si on 0 c''est a dire que c''est desactive ',
-  `AUTO_BARCODE` int(11) NOT NULL,
-  `BARCODE_TYPE` varchar(200) NOT NULL,
-  `USE_VARIATION` int(11) NOT NULL,
-  `MINIMUM_QUANTITY` float NOT NULL
+  `ID_ARTICLE` int(11) NOT NULL,
+  `DESIGN_ARTICLE` varchar(200) NOT NULL,
+  `REF_RAYON_ARTICLE` int(11) NOT NULL,
+  `REF_SHIPPING_ARTICLE` int(11) NOT NULL,
+  `REF_CATEGORIE_ARTICLE` int(11) NOT NULL,
+  `REF_SOUS_CATEGORIE_ARTICLE` int(11) DEFAULT NULL,
+  `REF_PROVIDER_ARTICLE` int(11) NOT NULL,
+  `REF_TAXE_ARTICLE` int(11) NOT NULL,
+  `QUANTITY_ARTICLE` int(11) NOT NULL,
+  `SKU_ARTICLE` varchar(200) NOT NULL,
+  `QUANTITE_RESTANTE_ARTICLE` int(11) NOT NULL,
+  `QUANTITE_VENDU_ARTICLE` int(11) NOT NULL,
+  `DEFECTUEUX_ARTICLE` int(11) NOT NULL,
+  `PRIX_DACHAT_ARTICLE` float NOT NULL,
+  `FRAIS_ACCESSOIRE_ARTICLE` float NOT NULL,
+  `COUT_DACHAT_ARTICLE` float NOT NULL,
+  `TAUX_DE_MARGE_ARTICLE` float NOT NULL,
+  `PRIX_DE_VENTE_ARTICLE` float NOT NULL,
+  `PRIX_DE_VENTE_TTC_ARTICLE` float NOT NULL,
+  `SHADOW_PRICE_ARTICLE` float NOT NULL,
+  `TAILLE_ARTICLE` varchar(200) NOT NULL,
+  `POIDS_ARTICLE` varchar(200) NOT NULL,
+  `COULEUR_ARTICLE` varchar(200) NOT NULL,
+  `HAUTEUR_ARTICLE` varchar(200) NOT NULL,
+  `LARGEUR_ARTICLE` varchar(200) NOT NULL,
+  `PRIX_PROMOTIONEL_ARTICLE` float NOT NULL,
+  `SPECIAL_PRICE_START_DATE_ARTICLE` datetime NOT NULL,
+  `SPECIAL_PRICE_END_DATE_ARTICLE` datetime NOT NULL,
+  `DESCRIPTION_ARTICLE` text NOT NULL,
+  `APERCU_ARTICLE` varchar(200) NOT NULL,
+  `CODEBAR_ARTICLE` varchar(200) NOT NULL,
+  `DATE_CREATION_ARTICLE` datetime NOT NULL,
+  `DATE_MOD_ARTICLE` datetime NOT NULL,
+  `AUTHOR_ARTICLE` varchar(200) NOT NULL,
+  `TYPE_ARTICLE` int(11) NOT NULL COMMENT 'pour Article physique la valeur est 0 et pour les articles numeriques c''est 0',
+  `STATUS_ARTICLE` int(11) NOT NULL COMMENT 'pour l''etat en vente c''est 1 et pour indisponible c''est 0',
+  `STOCK_ENABLED_ARTICLE` int(11) NOT NULL COMMENT 'Losque la valeur est 1 c''est a dire que c''est active et si on 0 c''est a dire que c''est desactive ',
+  `AUTO_BARCODE_ARTICLE` int(11) NOT NULL,
+  `BARCODE_TYPE_ARTICLE` varchar(200) NOT NULL,
+  `USE_VARIATION_ARTICLE` int(11) NOT NULL,
+  `MINIMUM_QUANTITY_ARTICLE` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -347,3 +347,40 @@ ALTER TABLE `pos_store_2_ibi_rayons`
 --
 ALTER TABLE `pos_store_2_ibi_rayons`
   MODIFY `ID_RAYON` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+  CREATE TABLE `pos_ibi_taxes` (
+  `ID_TAXE` int(11) NOT NULL,
+  `NAME_TAXE` varchar(200) NOT NULL,
+  `DESCRIPTION_TAXE` text NOT NULL,
+  `RATE_TAXE` float NOT NULL,
+  `AUTHOR_TAXE` int(11) NOT NULL,
+  `DATE_CREATION_TAXE` datetime NOT NULL,
+  `DATE_MOD_TAXE` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `pos_ibi_taxes`
+--
+
+INSERT INTO `pos_ibi_taxes` (`ID_TAXE`, `NAME_TAXE`, `DESCRIPTION_TAXE`, `RATE_TAXE`, `AUTHOR_TAXE`, `DATE_CREATION_TAXE`, `DATE_MOD_TAXE`) VALUES
+(1, 'tva', 'j', 12, 1, '2020-02-27 15:29:44', '0000-00-00 00:00:00');
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `pos_ibi_taxes`
+--
+ALTER TABLE `pos_ibi_taxes`
+  ADD PRIMARY KEY (`ID_TAXE`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `pos_ibi_taxes`
+--
+ALTER TABLE `pos_ibi_taxes`
+  MODIFY `ID_TAXE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
