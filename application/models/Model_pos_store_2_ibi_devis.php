@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pos_store_2_categorie extends MY_Model {
+class Model_pos_store_2_ibi_devis extends MY_Model {
 
-	private $primary_key 	= 'categorie_id';
-	private $table_name 	= 'pos_store_2_categorie';
-	private $field_search 	= ['categorie_designation', 'categorie_user_id', 'categorie_type', 'categorie_date_creation', 'categorie_date_modification'];
+	private $primary_key 	= 'ID_DEVIS';
+	private $table_name 	= 'pos_store_2_ibi_devis';
+	private $field_search 	= ['TITRE_DEVIS', 'CODE_DEVIS', 'REF_CLIENT_DEVIS', 'TYPE_DEVIS', 'DATE_CREATION_DEVIS', 'DATE_MOD_DEVIS', 'AUTHOR_DEVIS', 'COEFFICIENT_DEVIS', 'TOTAL_DEVIS', 'TOTAL_FINAL_DEVIS', 'TYPE_DELAY_DEVIS', 'TEMPS_DELAY_DEVIS', 'COND_PAID_DEVIS', 'PERCENT_PAID_DEVIS', 'PERCENT_PAID_LIVR_DEVIS', 'VALID_OFFRE_DEVIS', 'STATUT_DEVIS'];
 
 	public function __construct()
 	{
@@ -29,19 +29,16 @@ class Model_pos_store_2_categorie extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	              
-
-	                $where .= "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'";
-
+	                $where .= "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -62,17 +59,16 @@ class Model_pos_store_2_categorie extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                
-	                $where .= "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'";
+	                $where .= "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_categorie.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -82,26 +78,24 @@ class Model_pos_store_2_categorie extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('pos_store_2_categorie.'.$this->primary_key, "DESC");
+        $this->db->order_by('pos_store_2_ibi_devis.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
 
 		return $query->result();
 	}
 
     public function join_avaiable() {
-
-    $this->db->join('aauth_users', 'aauth_users.id = pos_store_2_categorie.categorie_user_id', 'LEFT');
-        
+        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_devis.REF_CLIENT_DEVIS', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
         
-       // return $this;
+        return $this;
     }
 
 }
 
-/* End of file Model_pos_store_2_categorie.php */
-/* Location: ./application/models/Model_pos_store_2_categorie.php */
+/* End of file Model_pos_store_2_ibi_devis.php */
+/* Location: ./application/models/Model_pos_store_2_ibi_devis.php */

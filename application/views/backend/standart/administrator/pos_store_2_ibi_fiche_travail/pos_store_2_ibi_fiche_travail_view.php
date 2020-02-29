@@ -57,23 +57,39 @@ jQuery(document).ready(domo);
                   <div class="form-horizontal" name="form_pos_store_2_ibi_fiche_travail" id="form_pos_store_2_ibi_fiche_travail" >
                    
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Id </label>
+                        <label for="content" class="col-sm-2 control-label">ID FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_id); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->ID_FICHE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Numero </label>
+                        <label for="content" class="col-sm-2 control-label">TITRE FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_numero); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->TITRE_FICHE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Client Id </label>
+                        <label for="content" class="col-sm-2 control-label">DEVIS CODE FICHE </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_store_2_ibi_fiche_travail->DEVIS_CODE_FICHE); ?>
+                        </div>
+                    </div>
+                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">NUMERO FICHE </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_store_2_ibi_fiche_travail->NUMERO_FICHE); ?>
+                        </div>
+                    </div>
+                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">REF CLIENT FICHE </label>
 
                         <div class="col-sm-8">
                            <?= _ent($pos_store_2_ibi_fiche_travail->NOM_CLIENT); ?>
@@ -81,34 +97,58 @@ jQuery(document).ready(domo);
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche User Id </label>
+                        <label for="content" class="col-sm-2 control-label">TYPE DEVIS FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_user_id); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->TYPE_DEVIS_FICHE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Unite </label>
+                        <label for="content" class="col-sm-2 control-label">DATE CREATION FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_unite); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->DATE_CREATION_FICHE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Date </label>
+                        <label for="content" class="col-sm-2 control-label">DATE MOD FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_date); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->DATE_MOD_FICHE); ?>
                         </div>
                     </div>
                                          
                     <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">Fiche Date Modification </label>
+                        <label for="content" class="col-sm-2 control-label">AUTHOR FICHE </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_fiche_travail->fiche_date_modification); ?>
+                           <?= _ent($pos_store_2_ibi_fiche_travail->AUTHOR_FICHE); ?>
+                        </div>
+                    </div>
+                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">REF CATEGORIE FICHE </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_store_2_ibi_fiche_travail->REF_CATEGORIE_FICHE); ?>
+                        </div>
+                    </div>
+                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">TOTAL FICHE </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_store_2_ibi_fiche_travail->TOTAL_FICHE); ?>
+                        </div>
+                    </div>
+                                         
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">STATUT FICHE </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pos_store_2_ibi_fiche_travail->STATUT_FICHE); ?>
                         </div>
                     </div>
                                         
@@ -117,7 +157,7 @@ jQuery(document).ready(domo);
 
                     <div class="view-nav">
                         <?php is_allowed('pos_store_2_ibi_fiche_travail_update', function() use ($pos_store_2_ibi_fiche_travail){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_fiche_travail (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/'.$pos_store_2_ibi_fiche_travail->fiche_id); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Fiche Travail']); ?> </a>
+                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_fiche_travail (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/'.$pos_store_2_ibi_fiche_travail->ID_FICHE); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Fiche Travail']); ?> </a>
                         <?php }) ?>
                         <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pos Store 2 Ibi Fiche Travail']); ?></a>
                      </div>

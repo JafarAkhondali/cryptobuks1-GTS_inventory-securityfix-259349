@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pos_store_2_ibi_fiche_travail extends MY_Model {
 
-	private $primary_key 	= 'fiche_id';
+	private $primary_key 	= 'ID_FICHE';
 	private $table_name 	= 'pos_store_2_ibi_fiche_travail';
-	private $field_search 	= ['fiche_numero', 'fiche_client_id', 'fiche_user_id', 'fiche_date', 'fiche_date_modification'];
+	private $field_search 	= ['TITRE_FICHE', 'DEVIS_CODE_FICHE', 'NUMERO_FICHE', 'REF_CLIENT_FICHE', 'TYPE_DEVIS_FICHE', 'DATE_CREATION_FICHE', 'DATE_MOD_FICHE', 'AUTHOR_FICHE', 'REF_CATEGORIE_FICHE', 'TOTAL_FICHE', 'STATUT_FICHE'];
 
 	public function __construct()
 	{
@@ -85,13 +85,13 @@ class Model_pos_store_2_ibi_fiche_travail extends MY_Model {
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_fiche_travail.fiche_client_id', 'LEFT');
+        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_fiche_travail.REF_CLIENT_FICHE', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
-        $this->db->where('fiche_user_id', get_user_data('id'));
+        $this->db->where('AUTHOR_FICHE', get_user_data('id'));
         
         return $this;
     }

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pos_store_2_articles extends MY_Model {
+class Model_pos_store_2_ibi_proforma extends MY_Model {
 
-	private $primary_key 	= 'article_id';
-	private $table_name 	= 'pos_store_2_articles';
-	private $field_search 	= ['article_designation', 'article_categorie_id', 'article_emplacement_id', 'article_part_number', 'article_etiquitte', 'article_code', 'articles_prix_vente', 'articles_prix_vente_promotion', 'articles_date_debut_promotion', 'articles_date_fin_promotion', 'articles_unite', 'articles_description', 'article_date_creation', 'article_date_modification', 'article_user_creator_id', 'articles_image'];
+	private $primary_key 	= 'ID_PROFORMA';
+	private $table_name 	= 'pos_store_2_ibi_proforma';
+	private $field_search 	= ['TITRE_PROFORMA', 'CODE_PROFORMA', 'REF_CLIENT_PROFORMA', 'TYPE_PROFORMA', 'DATE_CREATION_PROFORMA', 'DATE_MOD_PROFORMA', 'PAYMENT_TYPE_PROFORMA', 'AUTHOR_PROFORMA', 'SOMME_PERCU_PROFORMA', 'TOTAL_PROFORMA', 'DISCOUNT_TYPE_PROFORMA', 'TVA_PROFORMA', 'GROUP_DISCOUNT_PROFORMA', 'REF_SHIPPING_ADDRESS_PROFORMA', 'SHIPPING_AMOUNT_PROFORMA', 'TYPE_DELAY_PROFORMA', 'TEMPS_DELAY_PROFORMA', 'COND_PAID_PROFORMA', 'PERCENT_PAID_PROFORMA', 'PERCENT_PAID_LIVR_PROFORMA', 'VALID_OFFRE_PROFORMA'];
 
 	public function __construct()
 	{
@@ -29,16 +29,16 @@ class Model_pos_store_2_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -59,16 +59,16 @@ class Model_pos_store_2_articles extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "pos_store_2_articles.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "pos_store_2_ibi_proforma.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -78,15 +78,14 @@ class Model_pos_store_2_articles extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('pos_store_2_articles.'.$this->primary_key, "DESC");
+        $this->db->order_by('pos_store_2_ibi_proforma.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
 
 		return $query->result();
 	}
 
     public function join_avaiable() {
-        $this->db->join('pos_store_2_categorie', 'pos_store_2_categorie.categorie_id = pos_store_2_articles.article_categorie_id', 'LEFT');
-        $this->db->join('pos_store_2_emplacements', 'pos_store_2_emplacements.emplacement_id = pos_store_2_articles.article_emplacement_id', 'LEFT');
+        $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_proforma.REF_CLIENT_PROFORMA', 'LEFT');
         
         return $this;
     }
@@ -98,5 +97,5 @@ class Model_pos_store_2_articles extends MY_Model {
 
 }
 
-/* End of file Model_pos_store_2_articles.php */
-/* Location: ./application/models/Model_pos_store_2_articles.php */
+/* End of file Model_pos_store_2_ibi_proforma.php */
+/* Location: ./application/models/Model_pos_store_2_ibi_proforma.php */
