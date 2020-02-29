@@ -55,7 +55,7 @@ class Registers extends Admin
 	{
 		$this->is_allowed('registers_add');
         $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles');
-		$this->template->title('Effectuer une vente');
+		$this->template->title('Effectuer une commande');
 		$this->render('backend/standart/administrator/registers/registers_add', $this->data);
 	}
 
@@ -543,7 +543,7 @@ class Registers extends Admin
 	
         $this->data['getProforma'] = $this->model_registers->getList('pos_store_2_ibi_proforma','STATUT_PROFORMA !=2');
         
-		$this->template->title('Effectuer une commande');
+		$this->template->title('Générer une commande');
 		$this->render('backend/standart/administrator/registers/registers_generate', $this->data);
 	}
 	public function generate_commande_post(){

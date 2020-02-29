@@ -133,7 +133,7 @@ jQuery(document).ready(domo);
                               <?php is_allowed('registers_update', function() use ($registers){?>
                               <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-default btn-sm">Modifier</span></a>
                               <?php }) ?>
-                              <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
+                              <a href="#" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
                            </td>
                         </tr>
                       <?php endforeach; ?>

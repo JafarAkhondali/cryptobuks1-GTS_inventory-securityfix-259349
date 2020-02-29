@@ -17,6 +17,7 @@ class Facturation extends Admin
 		parent::__construct();
 
 		$this->load->model('model_facturation');
+		$this->load->model('model_registers');
 	}
 
 	/**
@@ -43,7 +44,7 @@ class Facturation extends Admin
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->template->title('Facture List');
+		$this->template->title('Facturation');
 		$this->render('backend/standart/administrator/facturation/facturation_list', $this->data);
 	}
 	
@@ -242,18 +243,32 @@ class Facturation extends Admin
 	}
 
 		/**
-	* View view Pos Ibi Factures
+	* Print view Pos Ibi Factures
 	*
 	* @var $id String
 	*/
-	public function view($id)
+	public function print($id)
 	{
-		$this->is_allowed('facturation_view');
+		$this->is_allowed('facturation_print');
 
-		$this->data['facturation'] = $this->model_facturation->join_avaiable()->filter_avaiable()->find($id);
+		$facture = $this->model_registers->getOne('pos_ibi_facture',array('ID_FACTURE'=>$id));
 
-		$this->template->title('Facture Detail');
-		$this->render('backend/standart/administrator/facturation/facturation_view', $this->data);
+		$commande = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('CODE_COMMAND'=>$facture['REF_CODE_COMMAND_FACTURE']));
+
+		$this->data['NUMBER_FACTURE'] = $facture['NUMERO_FACTURE'];
+		$this->data['CODE_COMMAND_FACTURE'] = $facture['REF_CODE_COMMAND_FACTURE'];
+		$this->data['STORE_BY_FACTURE'] = $facture['STORE_BY_FACTURE'];
+		$this->data['DATE_CREATION_FACTURE'] = $facture['DATE_CREATION_FACTURE'];
+		$this->data['AUTHOR_FACTURE'] = $facture['AUTHOR_FACTURE'];
+		$this->data['REF_CLIENT'] = $commande['REF_CLIENT_COMMAND'];
+		$this->data['PAYMENT_TYPE_COMMAND'] = $commande['PAYMENT_TYPE_COMMAND'];
+		$this->data['TVA_COMMAND'] = $commande['TVA_COMMAND'];
+		$this->data['TOTAL_COMMAND'] = $commande['TOTAL_COMMAND'];
+
+		$this->data['commande_produits'] = $this->model_registers->getList('pos_store_2_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$facture['REF_CODE_COMMAND_FACTURE']));
+
+		$this->template->title('Facture');
+		$this->load->view('backend/standart/administrator/facturation/facturation_print', $this->data);
 	}
 	
 	/**

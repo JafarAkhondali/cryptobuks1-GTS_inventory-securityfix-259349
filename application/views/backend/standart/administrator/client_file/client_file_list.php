@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Fiche de client<small> Sur bon de commande</small>
+      Fiches de clients<small> Sur bon de commande</small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Fiche de client</li>
+      <li class="active">Fiches de clients</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -66,7 +66,7 @@ jQuery(document).ready(domo);
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Fiches du client</h3>
+                     <h3 class="widget-user-username">Fiches de clients</h3>
                      <h5 class="widget-user-desc"><i class="label bg-yellow"><?= $client_file_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
@@ -81,9 +81,9 @@ jQuery(document).ready(domo);
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
                            <th>Nom du client</th>
-                           <th>Numero du proforma</th>
-                           <th>Numero du bon de commande</th>
-                           <th>Numero de la fiche du client</th>
+                           <th>Numéro du proforma</th>
+                           <th>Numéro du bon de commande</th>
+                           <th>Numéro de la fiche du client</th>
                            <th>Fichier bon</th>
                            <th>Commiss</th>
                            <th>Garantie</th>

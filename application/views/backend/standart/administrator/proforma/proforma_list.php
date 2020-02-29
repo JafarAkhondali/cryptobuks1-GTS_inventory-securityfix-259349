@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Liste de proformas <small></small>
+      Liste de proforma <small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Liste de proformas</li>
+      <li class="active">Liste de proforma</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -80,7 +80,7 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>Numero de la proforma</th>
+                           <th>Numéro de la proforma</th>
                            <th>Titre</th>
                            <th>Client</th>
                            <th>Total</th>

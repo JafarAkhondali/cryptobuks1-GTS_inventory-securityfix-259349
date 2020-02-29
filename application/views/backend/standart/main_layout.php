@@ -130,19 +130,19 @@
               <li>
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
                 <?php 
-                      $store = $this->db->query("select * from pos_ibi_stores where STATUT='opened'");
+                      $store = $this->db->query("select * from pos_ibi_stores where STATUT_STORE='opened'");
                       foreach ($store->result() as $key => $value) {
-                              if($value->DESCRIPTION == ""){
+                              if($value->DESCRIPTION_STORE == ""){
                                 $description = "Aucune description disponible";
                               }
                         ?>
 
                   <li>
-                    <a href="<?=BASE_URL('administrator/stores/index/'.$value->ID.'')?>">
+                    <a href="<?=BASE_URL('administrator/stores/index/'.$value->ID_STORE.'')?>">
                         <div class="pull-left">
                             <img src="http://localhost/gts/ibi2/public/modules/ibi//images/default.png" class="img-circle" alt="User Image">
                         </div>
-                        <h4><?=$value->NAME?></h4>
+                        <h4><?=$value->NAME_STORE?></h4>
                         <p><?=$description?></p>
                      </a>
                     </li>

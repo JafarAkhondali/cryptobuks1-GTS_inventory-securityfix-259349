@@ -32,7 +32,7 @@ class client_file extends Admin
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->template->title('Pos Store 2 Ibi Client File List');
+		$this->template->title('Fiches de clients');
 		$this->render('backend/standart/administrator/client_file/client_file_list', $this->data);
 	}
 	

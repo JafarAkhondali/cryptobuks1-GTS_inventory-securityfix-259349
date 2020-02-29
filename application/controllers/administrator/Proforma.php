@@ -54,7 +54,7 @@ class Proforma extends Admin
 		$this->data['registers'] = $proforma;
         $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_PROFORMA_PROD FROM pos_store_2_ibi_proforma_produits WHERE REF_PROFORMA_CODE_PROD= "'.$proforma['CODE_PROFORMA'].'")', NULL, FALSE);
 
-		$this->template->title('Modifier le proforma');
+		$this->template->title('Modifier une proforma');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
 	}
 	public function view($id)
@@ -66,7 +66,7 @@ class Proforma extends Admin
         // print_r($this->data['proforma']);
 		// $this->data['proforma'] = $this->model_proforma->join_avaiable()->filter_avaiable()->find($id);
 
-		$this->template->title('Proforma detail');
+		$this->template->title('Détail du proforma');
 		$this->render('backend/standart/administrator/proforma/proforma_view', $this->data);
 	}
 	public function file_client($id){
