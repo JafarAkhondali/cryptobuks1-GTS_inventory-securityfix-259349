@@ -1,3 +1,12 @@
+<?php
+
+global $Options;
+$this->load->config( 'rest' );
+ $this->CI = & get_instance();
+            $userId = $this->CI->session->userdata('id');
+    $store=store_prefix();
+    $storeuri  =   'stores/' . $this->uri->segment( 3, 0 ) . '/';
+?>
 <style type="text/css">
   #myUL {
     /* Remove default list styling */
@@ -23,9 +32,7 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <div class="row">
-<div class="col-md-10 col-md-offset-1">
-  <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="info-box bg-purple"> <span class="info-box-icon"><i class="fa fa-random"></i></span>
                 <div class="info-box-content"> <a href="" id="commandes"><span class="info-box-text"><h4 style="color: white">
                     COMMANDES       </h4></span></a>
@@ -35,9 +42,9 @@
                     <span class="progress-description"></span> </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="info-box bg-red"> <span class="info-box-icon"><i class="fa fa-cog"></i></span>
                 <div class="info-box-content"> <a href="" id="gammes"><span class="info-box-text"><h4 style="color: white">
                     GAMMES         </h4></span></a>
@@ -48,32 +55,15 @@
             </div>
         </div>
     </div>
-<div id="nu-commandes" hidden>  
-
-            <?= form_open('', [
-
-              'name'    => 'form_nurse_activity',
-
-              'class'   => 'form-horizontal',
-
-              'id'      => 'insert_form1',
-
-              'enctype' => 'multipart/form-data',
-
-              'method'  => 'POST'
-
-            ]); ?>
-
-
-
-<!-- <form method="post" id="insert_form1"> -->
+<div id="nu-commandes" hidden>    
+<form method="post" id="insert_form1">
 <div class="row">
   <div class="col-md-8">
           <div class="form-group">
-            <input type="hidden" name="userId" value=""> 
+            <input type="hidden" name="userId" value="<?=$userId?>"> 
             <div class="input-group">
-                       <span class="input-group-addon">Description de l'article</span>
-                              <input type="text" id="titre" name="description_article" class="form-control titre">
+                       <span class="input-group-addon"><?php echo __( 'Description de l\'article', 'ibi' );?></span>
+                              <input type="text" id="titre" name="titre" class="form-control titre">
 
                         </div>
               </div>
@@ -81,26 +71,16 @@
           <div class="col-md-4">
           <div class="form-group">
             <div class="input-group">
-                       <span class="input-group-addon">catégorie</span>
+                       <span class="input-group-addon"><?php echo __( 'Categorie', 'ibi' );?></span>
                         <select type="text" name="categorie" id="categorie" class="selectpicker form-control categorie" data-show-subtext="true" data-live-search="true"  placeholder="Selectionner une categorie">
-                          <option value="">Sélectionner une catégorie</option>
-
-
-             
-
-
-                                 <?php
-                                  $getcategorie=$this->db->query("SELECT ID_CATEGORIE,NOM_CATEGORIE FROM pos_ibi_categories");
-                                  foreach ( $getcategorie->result() as $categorie) { ?>
-                                ?>
-                                <option value="<?=$categorie->ID_CATEGORIE ?>"><?php echo $categorie->NOM_CATEGORIE;?></option> 
-                              <?php } ?>
-
-
-
-
-
-                         
+                          <option value=""><?php echo __( 'Selectionner une categorie' );?></option>
+                          <?php
+                          $getCategorie=$this->db->query("SELECT * FROM pos5_".store_prefix() ."ibi_categories WHERE PARENT_REF_ID=0");
+                          foreach ( $getCategorie->result() as $categorie) { ?>
+                              <option value="<?=$categorie->ID ?>"><?php echo $categorie->NOM; ?></option>
+                            
+                        <?php }
+                          ?>
                       </select>
 
                         </div>
@@ -109,14 +89,14 @@
           <div class="col-md-6">
             <div class="form-group">
             <div class="input-group">
-                       <span class="input-group-addon">client</span>
-                                      <select type="text" name="client_id" id="client" class="selectpicker form-control client" data-show-subtext="true" data-live-search="true">
+                       <span class="input-group-addon"><?php echo __( 'Client', 'ibi' );?></span>
+                                      <select type="text" name="client" id="client" class="selectpicker form-control client" data-show-subtext="true" data-live-search="true">
                                   <option value="">--- choisir un client---</option>
                                 <?php
-                                  $getClient=$this->db->query("SELECT ID_CLIENT,NOM_CLIENT,PRENOM_CLIENT FROM pos_ibi_clients");
+                                  $getClient=$this->db->query("SELECT ID,NOM,PRENOM FROM pos5_".store_prefix().'ibi_clients');
                                   foreach ( $getClient->result() as $clients) { ?>
                                 ?>
-                                <option value="<?=$clients->ID_CLIENT ?>"><?php echo $clients->NOM_CLIENT.' '.$clients->PRENOM_CLIENT;?></option> 
+                                <option value="<?=$clients->ID?>"><?php echo $clients->NOM.' '.$clients->PRENOM;?></option> 
                               <?php } ?>
                               </select>
 
@@ -132,15 +112,17 @@
             <div class="box-header">
               <?php
 
-              $getProduit=$this->db->query("SELECT * FROM pos_store_2_ibi_articles");
+              $p='pos5_';
+
+              $getProduit=$this->db->query("SELECT * FROM ".$p.store_prefix() .'ibi_articles');
               ?>
       
-              <div id="comboboxDiv">
-                <select class="form-control combobox hidden" placeholder="Rechercher le nom du produit">
-                          <option value="">Rechercher le nom du produit</option>
+              <div id="comboboxDiv" hidden>
+                <select type="text" class="form-control combobox" placeholder="Rechercher le nom du produit">
+                          <option value=""><?php echo __( 'Rechercher le nom du produit' );?></option>
                           <?php
                           foreach ( $getProduit->result() as $articles) { ?>
-                              <option class="articleOption" value="<?=$articles->ID_ARTICLE ?> prix=<?=$articles->PRIX_DE_VENTE_ARTICLE ?> "><?php echo $articles->DESIGN_ARTICLE; ?></option>
+                              <option class="articleOption" value="<?=$articles->ID ?> prix=<?=$articles->PRIX_DE_VENTE ?> "><?php echo $articles->DESIGN; ?></option>
                             
                         <?php }
                           ?>
@@ -149,7 +131,7 @@
 
 
               </div>
-                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du produit">
+                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="<?php echo __( 'Rechercher le nom du produit', 'ibi' );?>">
                 <div id="list" hidden>
                   <ul id="myUL">
                          <?php
@@ -157,7 +139,7 @@
 
 
                             
-                            <li><a class="articleOption" articleId="<?=$articles->ID_ARTICLE ?>" id="<?=$articles->CODEBAR_ARTICLE ?>" quantRest="<?=$articles->QUANTITE_RESTANTE_ARTICLE ?>"  unit="<?=$articles->POIDS_ARTICLE ?>" price="<?=$articles->PRIX_DE_VENTE_ARTICLE ?>"><?php echo $articles->DESIGN_ARTICLE; ?></a>
+                            <li><a class="articleOption" articleId="<?=$articles->ID ?>" id="<?=$articles->CODEBAR ?>" quantRest="<?=$articles->QUANTITE_RESTANTE ?>"  unit="<?=$articles->POIDS ?>" price="<?=$articles->PRIX_DE_VENTE ?>"><?php echo $articles->DESIGN; ?></a>
 
 
 
@@ -168,20 +150,23 @@
                 </div>
             </div>
           </div>
+      
+      <div><input type="hidden" name="store" value="<?=$store?>"></div> 
+      <div><input type="hidden" name="storeuri" value="<?=$storeuri?>"></div> 
 
             <caption><span id="error"></span></caption>
             <div class="box">
-                <div class="box-header" style="text-align: center">Liste des articles</div>
+                <div class="box-header" style="text-align: center"><?php echo __( 'Liste des articles', 'stock-manager' );?></div>
                 <div class="box-body no-padding">
                     <table class="table table-bordered table-striped" id="tableId">
                       
                         <thead>
                             <tr>
-                                <td width="400">Article</td>
-                                <td width="150">Prix</td>
-                                <td width="150">Quantité</td>
-                                <td width="100">Unité</td>
-                                <td width="150">Total</td>
+                                <td width="400"><?php echo __( 'Article', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Prix', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Quantité', 'stock-manager' );?></td>
+                                <td width="100"><?php echo __( 'Unité', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Total', 'stock-manager' );?></td>
                                 <td width="50"></td>
                             </tr>
                         </thead>
@@ -191,24 +176,7 @@
                       <!-- <div>Total price: $<span class="total-cart"></span></div> -->
                     </div>
                   <div class="box-footer">
-
-
-
- 
-
-
-
-                    <button class="btn btn-flat btn-primary btn_save btn_action btn_save_back" id="btn_save" data-stype='back' title="Enregistrer et retourner à la liste">
-                            <i class="fa fa-save" ></i> Enregistrer
-                            </button>
-
-
-
-
-
-
-<!-- 
-                    <button   data-stype='stay' class="btn btn-primary btn_save btn_action">Enregistrer et retourner à la liste</button> -->
+                    <button type="submit"  class="btn btn-primary"><?php echo __( 'Enregistrer et retourner à la liste','ibi');?></button>
                   </div>
             </div>
           </div>
@@ -221,9 +189,9 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <div class="input-group">
-                                         <span class="input-group-addon">Délai
-                                           <select type="text" name="delais" id="temps">
-                                             <option value="0">--choisir--</option>
+                                         <span class="input-group-addon"><?php echo __( 'Délai', 'ibi' );?>
+                                           <select type="text" name="temps" id="temps">
+                                             <option value="">--choisir--</option>
                                              <option value="1">jour</option>
                                              <option value="2">semaine</option>
                                            </select>
@@ -231,16 +199,16 @@
                                                 <select type="text" name="delai" class="form-control delai" id="delai">
                                                   <option value="">Stock en vente</option>
                                                 </select>
-                                                <input type="number" name="delai_value" class="form-control delai" id="delai1" style="display: none;">
+                                                <input type="number" name="delai" class="form-control delai" id="delai1" style="display: none;">
                                           </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="input-group">
-                                           <span class="input-group-addon">Condition de paiement
+                                           <span class="input-group-addon"><?php echo __( 'Condition de paiement', 'ibi' );?>
                                            </span>
-                                          <select type="text" name="condition_payement" id="condPayer" class="selectpicker form-control condPayer" data-show-subtext="true" data-live-search="true">
+                                          <select type="text" name="condPayer" id="condPayer" class="selectpicker form-control condPayer" data-show-subtext="true" data-live-search="true">
                                                     <option value="1" selected>Commande</option>
                                                     <option value="2">Customiser</option>
                                                   </select>
@@ -249,21 +217,40 @@
                               </div>
                             </div>
                             <div class="row">
-       
+            <?php $auth=$this->db->query('SELECT AUG.group_id,AG.name FROM pos5_aauth_user_to_group AUG,pos5_aauth_groups AG WHERE AUG.group_id=AG.id AND  AUG.user_id='.$userId.'');
+            foreach ($auth->result() as $kvalue) {
+            $in_group=$kvalue->name;
+            }
+            if($in_group=='master' OR $in_group=='administrator'){
+            ?>
                               <div class="col-md-6">
                                 <div class="form-group">
                                           <div class="input-group">
-                                             <span class="input-group-addon">validité offerte
-                                          <select type="text" name="validites" id="tempsvalid">
+                                             <span class="input-group-addon"><?php echo __( 'validite offre', 'ibi' );?>
+                                               <select type="text" name="tempsvalid" id="tempsvalid">
                                                  <option value="1" selected>jour</option>
                                                  <option value="2">semaine</option>
                                                </select>
                                              </span>
-                                                    <input type="number" name="validite_value" class="form-control delai" id="validOff" value="3">
+                                                    <input type="number" name="validOff" class="form-control delai" id="validOff" value="3">
                                               </div>
                                     </div>
                                 </div>
-                                
+                                <?php }else{?>
+                                  <div class="col-md-4" hidden>
+                                    <div class="form-group">
+                                          <div class="input-group">
+                                             <span class="input-group-addon"><?php echo __( 'validite offre', 'ibi' );?>
+                                               <select type="text" name="tempsvalid" id="tempsvalid">
+                                                 <option value="1" selected>jour</option>
+                                                 <option value="2">semaine</option>
+                                               </select>
+                                             </span>
+                                                    <input type="number" name="validOff" class="form-control delai" id="validOff" value="3">
+                                              </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
                                 <div class="col-md-6" id="customer" style="display: none;">
                                   <div class="form-group">
                                             <div class="input-group"><span class="input-group-addon">a la commande</span><input type="number" id="typeCond" name="typeCond1" class="form-control"></div><div class="input-group"><span class="input-group-addon">a la livraison</span><input type="number" id="typeCond" name="typeCond2" class="form-control"></div>
@@ -278,8 +265,7 @@
                       </div>
                     </div>
                   </div>
-                   <?= form_close(); ?>
-   <!-- </form> -->
+   </form>
 <!-- content -->
  </div>
 <!-- content -->
@@ -288,15 +274,24 @@
  <!-- GAMME -->
 <div id="nu-gammes" hidden>
   <form method="post" id="insert_form2">
+            <input type="hidden" name="store" id="store" value="<?=$store?>">
+            <input type="hidden" name="storeuri" value="<?=$storeuri?>">
+            <input type="hidden" name="userId" value="<?=$userId?>"> 
     <div class="row">
       <caption><span id="error"></span></caption>
       <div class="col-md-8">
           <div class="form-group">
             <div class="input-group">
-                       <span class="input-group-addon">Description de l'article</span>
+                       <span class="input-group-addon"><?php echo __( 'Description de l\'article', 'ibi' );?></span>
                               <select id="code_gamme" name="code_gamme" class="selectpicker form-control client" data-show-subtext="true" data-live-search="true">
                                     <option value="">--Selectionner la gamme--</option>
-                                  
+                                    <?php 
+                                         $queryBDA = $this->db->query("SELECT TITRE,CODE,ID FROM pos5_".store_prefix()."ibi_devis_gammes");
+                                        foreach ($queryBDA->result() as $key) {
+                                        ?>
+                                  <option value="<?=$key->CODE?>"><?=$key->TITRE?></option>
+                                    <?php  
+                                       } ?> 
                               </select>
                         </div>
                  </div>
@@ -304,14 +299,14 @@
         <div class="col-md-4">
             <div class="form-group">
             <div class="input-group">
-                       <span class="input-group-addon">client</span>
+                       <span class="input-group-addon"><?php echo __( 'Client', 'ibi' );?></span>
                                       <select type="text" name="client" id="client12" class="selectpicker form-control" data-show-subtext="true" data-live-search="true">
                                   <option value="">--- choisir un client---</option>
                                 <?php
-                                  $getClient=$this->db->query("SELECT ID_CLIENT,NOM_CLIENT,PRENOM_CLIENT FROM pos_ibi_clients");
+                                  $getClient=$this->db->query("SELECT ID,NOM,PRENOM FROM pos5_".store_prefix().'ibi_clients');
                                   foreach ( $getClient->result() as $clients) { ?>
                                 ?>
-                                <option value="<?=$clients->ID_CLIENT?>"><?php echo $clients->NOM_CLIENT.' '.$clients->PRENOM_CLIENT;?></option> 
+                                <option value="<?=$clients->ID?>"><?php echo $clients->NOM.' '.$clients->PRENOM;?></option> 
                               <?php } ?>
                               </select>
 
@@ -323,17 +318,17 @@
     <div class="col-md-12">
       <caption><span id="error"></span></caption>
             <div class="box">
-                <div class="box-header" style="text-align: center">Liste des articles</div>
+                <div class="box-header" style="text-align: center"><?php echo __( 'Liste des articles', 'stock-manager' );?></div>
                 <div class="box-body no-padding">
                     <table class="table table-bordered table-striped" id="tableId">
                       
                         <thead>
                             <tr>
-                                <td width="400">Article</td>
-                                <td width="150">Prix</td>
-                                <td width="150">Quantité</td>
-                                <td width="100">Unité</td>
-                                <td width="150">Total</td>
+                                <td width="400"><?php echo __( 'Article', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Prix', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Quantité', 'stock-manager' );?></td>
+                                <td width="100"><?php echo __( 'Unité', 'stock-manager' );?></td>
+                                <td width="150"><?php echo __( 'Total', 'stock-manager' );?></td>
                                 <td width="50"></td>
                             </tr>
                         </thead>
@@ -342,29 +337,23 @@
                       </table>
                     </div>
                   <div class="box-footer">
-                    <button type="submit"  class="btn btn-primary">Enregistrer et retourner à la liste</button>
+                    <button type="submit"  class="btn btn-primary"><?php echo __( 'Enregistrer et retourner à la liste','ibi');?></button>
                   </div>
             </div>
         </div>
     </div>
     </form>
 </div>
-</div>
-</div>
 <script type="text/javascript">
     $(document).ready(function(){
        $('#commandes').on('click',function(){
             $('#nu-commandes').show();
             $('#nu-gammes').hide();
-            return false;
        });
        $('#gammes').on('click',function(){
             $('#nu-commandes').hide();
             $('#nu-gammes').show();
-            return false;
        });
-
-
     });
 </script>
 <script type="text/javascript">
@@ -418,26 +407,26 @@
     const price = stringToNumber($(data).closest('tr').find('td.price').text());
     const qty = initial + 1;
     // alert "$quantRest";
-    // if(qty>quantRest){
-    //   alert("La quantité restante du produit n'est pas suffisante.");
-    // }else{
+    if(qty>quantRest){
+      alert("La quantité restante du produit n'est pas suffisante.");
+    }else{
       $(data).closest('tr').find('td div input').val(qty);
       $(data).closest('tr').find('td.total').text(price * qty);
-    // }
+    }
   }
   function search(data){
     const quantRest = $(data).closest('tr').find("td.quantRest").text();
     const initial = stringToNumber($(data).closest('tr').find('td div input').val());
     const price = stringToNumber($(data).closest('tr').find('td.price').text());
  
-    // if(quantRest<initial){
-    //   alert("La quantité restante du produit n'est pas suffisante.");
-    //   $(data).closest('tr').find('td div input').val(quantRest);
-    //   $(data).closest('tr').find('td.total').text(price * quantRest);
-    // }else{
+    if(quantRest<initial){
+      alert("La quantité restante du produit n'est pas suffisante.");
+      $(data).closest('tr').find('td div input').val(quantRest);
+      $(data).closest('tr').find('td.total').text(price * quantRest);
+    }else{
       $(data).closest('tr').find('td div input').val(initial);
       $(data).closest('tr').find('td.total').text(price * initial);
-    // }
+    }
     }
     function commandeclient(){
       $("#commandeclient").modal();
@@ -502,10 +491,10 @@
         alert("Cet produit existe deja dans le tableau");
       }else {
         const quantRest = $(this).attr("quantRest");
-//alert(quantRest);
-      // if(quantRest<1){
-      //   swal('Attention!','Impossible d\'ajouter ce produit, car son stock est épuisé.')
-      // }else{
+
+      if(quantRest<1){
+        swal('Attention!','Impossible d\'ajouter ce produit, car son stock est épuisé.')
+      }else{
       $("#list").attr("hidden", 'true');
         let row = "<tr id="+articleId+">";
         row += '<td style="line-height: 35px;" class="article"><input type="hidden" name="article[]" value="'+codebar+'"/><input type="hidden" name="name[]" value="'+name+'"/>'+name+'</td>';
@@ -542,15 +531,17 @@
         //   $("#tableId").text("No item has been added");
         // }
         
-      // }
+      }
         
       }
   
 
     });
 
-    $('.btn_save').click(function() {
 
+        $('#insert_form1').on('submit', function (event) {
+             event.preventDefault();
+             
             var error = '';
             $('.titre').each(function () {
                 // var titre = $('#titre');
@@ -572,118 +563,32 @@
                     error += "<p>Entrer le client...</p>";
                     return false;
                 }
-             });
-
-
-
-
-      avoid_multi_click_btn('btn_save', 5000);
-
-      $('.message').fadeOut();
-
-
-        var form_nurse_activity = $('#insert_form1');
-
-        var data_post = form_nurse_activity.serializeArray();
-
-        var save_type = $(this).attr('data-stype');
-
-
-
-        data_post.push({
-          name: 'save_type',
-          value: save_type
-        });
-
-
-
-        $('.loading').show();
-
-
-
-        $.ajax({
-
-            url: BASE_URL + '/administrator/pos_store_2_ibi_commande/add_save',
-
-            type: 'POST',
-
-            dataType: 'json',
-
-            data: data_post,
-
-          })
-
-          .done(function(res) {
-
-            if (res.success) {
-
-
-
-              if (save_type == 'back') {
-
-                window.location.href = res.redirect;
-
-                return;
-
-              }
-
-
-
-              $('.message').printMessage({
-                message: res.message
-              });
-
-              $('.message').fadeIn();
-
-              resetForm();
-
-              $('.chosen option').prop('selected', false).trigger('chosen:updated');
-
-
-
-            } else {
-
-              $('.message').printMessage({
-                message: res.message,
-                type: 'warning'
-              });
-
-            }
-
-
-
-          })
-
-          .fail(function() {
-
-            $('.message').printMessage({
-              message: 'Error save data',
-              type: 'warning'
             });
 
-          })
-
-          .always(function() {
-
-            $('.loading').hide();
-
-            $('html, body').animate({
-              scrollTop: $(document).height()
-            }, 2000);
-
-          });
-
-
-
-
-        return false;
-      
-
-
-    }); /*end btn save*/
-
-
-
+             var form_data = $(this).serialize();
+              
+             if (error == '') {  
+                
+                $.ajax({ 
+                    url: "http://gts.ibi-africa.com/ibi2/test/devis40.php",
+                    method: "POST",
+                    data: form_data,
+                    dataType: 'json',
+                    success: function (data) {
+                      if (data.message === "success") {
+                        $('#error').html('<div class="alert alert-success">Enregistrement du devis fait avec success</div>');
+                         window.location.href = data.redirect;
+                        } else {
+                          alert(data.message);
+                        }
+                    }
+                });
+            }
+            else {
+                $('#error').html('<div class="alert alert-danger">' + error + '</div>');
+            }
+        /*insert form submit*/
+        });
       /*is gamme*/
         $('#code_gamme').on('change',function(){
             var code_gamme=$('#code_gamme').val();
@@ -740,16 +645,4 @@
 
       /*document ready*/
     });
-
-  function avoid_multi_click_btn(btn_id, period) {
-    $('.' + btn_id).attr('disabled', true);
-
-    var my_interval = setInterval(function() {
-
-      $('.' + btn_id).attr('disabled', false);
-
-      clearInterval(my_interval);
-
-    }, period);
-  }
 </script>

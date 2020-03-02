@@ -60,25 +60,45 @@
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="fiche_numero" class="col-sm-2 control-label">Fiche Numero 
+                            <label for="TITRE_FICHE" class="col-sm-2 control-label">TITRE FICHE 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="fiche_numero" id="fiche_numero" placeholder="Fiche Numero" value="<?= set_value('fiche_numero', $pos_store_2_ibi_fiche_travail->fiche_numero); ?>">
+                                <input type="text" class="form-control" name="TITRE_FICHE" id="TITRE_FICHE" placeholder="TITRE FICHE" value="<?= set_value('TITRE_FICHE', $pos_store_2_ibi_fiche_travail->TITRE_FICHE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="fiche_client_id" class="col-sm-2 control-label">Fiche Client Id 
+                            <label for="DEVIS_CODE_FICHE" class="col-sm-2 control-label">DEVIS CODE FICHE 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="DEVIS_CODE_FICHE" id="DEVIS_CODE_FICHE" placeholder="DEVIS CODE FICHE" value="<?= set_value('DEVIS_CODE_FICHE', $pos_store_2_ibi_fiche_travail->DEVIS_CODE_FICHE); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="NUMERO_FICHE" class="col-sm-2 control-label">NUMERO FICHE 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="NUMERO_FICHE" id="NUMERO_FICHE" placeholder="NUMERO FICHE" value="<?= set_value('NUMERO_FICHE', $pos_store_2_ibi_fiche_travail->NUMERO_FICHE); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="REF_CLIENT_FICHE" class="col-sm-2 control-label">REF CLIENT FICHE 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="fiche_client_id" id="fiche_client_id" data-placeholder="Select Fiche Client Id" >
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_CLIENT_FICHE" id="REF_CLIENT_FICHE" data-placeholder="Select REF CLIENT FICHE" >
                                     <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>
-                                    <option <?=  $row->ID_CLIENT ==  $pos_store_2_ibi_fiche_travail->fiche_client_id ? 'selected' : ''; ?> value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
+                                    <option <?=  $row->ID_CLIENT ==  $pos_store_2_ibi_fiche_travail->REF_CLIENT_FICHE ? 'selected' : ''; ?> value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -87,24 +107,22 @@
                         </div>
 
                                                  
-                         
                                                 <div class="form-group ">
-                            <label for="fiche_unite" class="col-sm-2 control-label">Fiche Unite 
-                            <i class="required">*</i>
+                            <label for="TYPE_DEVIS_FICHE" class="col-sm-2 control-label">TYPE DEVIS FICHE 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="fiche_unite" id="fiche_unite" placeholder="Fiche Unite" value="<?= set_value('fiche_unite', $pos_store_2_ibi_fiche_travail->fiche_unite); ?>">
+                                <input type="text" class="form-control" name="TYPE_DEVIS_FICHE" id="TYPE_DEVIS_FICHE" placeholder="TYPE DEVIS FICHE" value="<?= set_value('TYPE_DEVIS_FICHE', $pos_store_2_ibi_fiche_travail->TYPE_DEVIS_FICHE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="fiche_date" class="col-sm-2 control-label">Fiche Date 
+                            <label for="DATE_CREATION_FICHE" class="col-sm-2 control-label">DATE CREATION FICHE 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="fiche_date"  placeholder="Fiche Date" id="fiche_date" value="<?= set_value('fiche_date', $pos_store_2_ibi_fiche_travail->fiche_date); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_CREATION_FICHE"  placeholder="DATE CREATION FICHE" id="DATE_CREATION_FICHE" value="<?= set_value('DATE_CREATION_FICHE', $pos_store_2_ibi_fiche_travail->DATE_CREATION_FICHE); ?>">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -112,14 +130,45 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="fiche_date_modification" class="col-sm-2 control-label">Fiche Date Modification 
+                            <label for="DATE_MOD_FICHE" class="col-sm-2 control-label">DATE MOD FICHE 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="fiche_date_modification"  placeholder="Fiche Date Modification" id="fiche_date_modification" value="<?= set_value('fiche_date_modification', $pos_store_2_ibi_fiche_travail->fiche_date_modification); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_MOD_FICHE"  placeholder="DATE MOD FICHE" id="DATE_MOD_FICHE" value="<?= set_value('DATE_MOD_FICHE', $pos_store_2_ibi_fiche_travail->DATE_MOD_FICHE); ?>">
                             </div>
                             <small class="info help-block">
                             </small>
+                            </div>
+                        </div>
+                                                 
+                         
+                                                <div class="form-group ">
+                            <label for="REF_CATEGORIE_FICHE" class="col-sm-2 control-label">REF CATEGORIE FICHE 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="REF_CATEGORIE_FICHE" id="REF_CATEGORIE_FICHE" placeholder="REF CATEGORIE FICHE" value="<?= set_value('REF_CATEGORIE_FICHE', $pos_store_2_ibi_fiche_travail->REF_CATEGORIE_FICHE); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="TOTAL_FICHE" class="col-sm-2 control-label">TOTAL FICHE 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TOTAL_FICHE" id="TOTAL_FICHE" placeholder="TOTAL FICHE" value="<?= set_value('TOTAL_FICHE', $pos_store_2_ibi_fiche_travail->TOTAL_FICHE); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="STATUT_FICHE" class="col-sm-2 control-label">STATUT FICHE 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="STATUT_FICHE" id="STATUT_FICHE" placeholder="STATUT FICHE" value="<?= set_value('STATUT_FICHE', $pos_store_2_ibi_fiche_travail->STATUT_FICHE); ?>">
+                                <small class="info help-block">
+                                </small>
                             </div>
                         </div>
                                                 
