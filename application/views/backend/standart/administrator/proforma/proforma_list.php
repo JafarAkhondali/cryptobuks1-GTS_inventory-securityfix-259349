@@ -139,7 +139,7 @@ jQuery(document).ready(domo);
                       <?php if ($proforma_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Pos Store Ibi proforma data is not available
+                           Les données proforma ne sont pas disponibles
                            </td>
                          </tr>
                       <?php endif; ?>

@@ -21,11 +21,11 @@ class Stores extends Admin
 	public function index($store)
 	{ 
 		
-		if (!$this->aauth->is_allowed('dashboard')) {
-			redirect('/','refresh');
-		}
+		// if (!$this->aauth->is_allowed('dashboard')) {
+		// 	redirect('/','refresh');
+		// }
 
-		$data = [];
+		// $data = [];
 		// $this->render('backend/standart/dashboard', $data);
 		redirect(base_url('administrator/dashboard/index/'.$store));
 	}
