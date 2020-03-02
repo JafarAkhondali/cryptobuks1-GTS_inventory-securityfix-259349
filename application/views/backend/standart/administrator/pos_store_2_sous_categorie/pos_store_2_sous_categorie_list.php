@@ -40,7 +40,7 @@ jQuery(document).ready(domo);
       <li class="active">Pos Store 2 Sous Categorie</li>
    </ol>
 </section>
-<!-- Main content -->
+<!-- Main content  -->
 <section class="content">
    <div class="row" >
       
