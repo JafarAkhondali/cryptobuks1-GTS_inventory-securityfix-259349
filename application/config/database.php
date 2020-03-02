@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '192.168.1.16',
 	'username' => 'ibiafric_gts2',
 	'password' => 'ibiafric_gts2',
 	'database' => 'ibiafric_gts2',
