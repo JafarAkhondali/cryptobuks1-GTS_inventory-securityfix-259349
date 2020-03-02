@@ -1,11 +1,4 @@
 
-<!-- Fine Uploader Gallery CSS file
-    ====================================================================== -->
-<link href="<?= BASE_ASSET; ?>/fine-upload/fine-uploader-gallery.min.css" rel="stylesheet">
-<!-- Fine Uploader jQuery JS file
-    ====================================================================== -->
-<script src="<?= BASE_ASSET; ?>/fine-upload/jquery.fine-uploader.js"></script>
-<?php $this->load->view('core_template/fine_upload'); ?>
 <script src="<?= BASE_ASSET; ?>/js/jquery.hotkeys.js"></script>
 <script type="text/javascript">
     function domo(){
@@ -33,11 +26,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pos Store 2 Articles        <small><?= cclang('new', ['Pos Store 2 Articles']); ?> </small>
+        Pos Store 2 Ibi Proforma        <small><?= cclang('new', ['Pos Store 2 Ibi Proforma']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a  href="<?= site_url('administrator/pos_store_2_articles'); ?>">Pos Store 2 Articles</a></li>
+        <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_proforma'); ?>">Pos Store 2 Ibi Proforma</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -55,37 +48,46 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pos Store 2 Articles</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Pos Store 2 Articles']); ?></h5>
+                            <h3 class="widget-user-username">Pos Store 2 Ibi Proforma</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Pos Store 2 Ibi Proforma']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name'    => 'form_pos_store_2_articles', 
+                            'name'    => 'form_pos_store_2_ibi_proforma', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pos_store_2_articles', 
+                            'id'      => 'form_pos_store_2_ibi_proforma', 
                             'enctype' => 'multipart/form-data', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="article_designation" class="col-sm-2 control-label">Article 
-                            <i class="required">*</i>
+                            <label for="TITRE_PROFORMA" class="col-sm-2 control-label">TITRE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="article_designation" id="article_designation" placeholder="Article" value="<?= set_value('article_designation'); ?>">
+                                <input type="text" class="form-control" name="TITRE_PROFORMA" id="TITRE_PROFORMA" placeholder="TITRE PROFORMA" value="<?= set_value('TITRE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="article_categorie_id" class="col-sm-2 control-label">Article Categorie Id 
+                            <label for="CODE_PROFORMA" class="col-sm-2 control-label">CODE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="article_categorie_id" id="article_categorie_id" data-placeholder="Select Article Categorie Id" >
+                                <input type="text" class="form-control" name="CODE_PROFORMA" id="CODE_PROFORMA" placeholder="CODE PROFORMA" value="<?= set_value('CODE_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="REF_CLIENT_PROFORMA" class="col-sm-2 control-label">REF CLIENT PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_CLIENT_PROFORMA" id="REF_CLIENT_PROFORMA" data-placeholder="Select REF CLIENT PROFORMA" >
                                     <option value=""></option>
-                                    <?php foreach (db_get_all_data('pos_store_2_categorie') as $row): ?>
-                                    <option value="<?= $row->categorie_id ?>"><?= $row->categorie_designation; ?></option>
+                                    <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>
+                                    <option value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -95,79 +97,21 @@
 
                                                  
                                                 <div class="form-group ">
-                            <label for="article_emplacement_id" class="col-sm-2 control-label">Emplacement 
-                            <i class="required">*</i>
+                            <label for="TYPE_PROFORMA" class="col-sm-2 control-label">TYPE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="article_emplacement_id" id="article_emplacement_id" data-placeholder="Select Article Emplacement Id" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('pos_store_2_emplacements') as $row): ?>
-                                    <option value="<?= $row->emplacement_id ?>"><?= $row->emplacement_designation; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-
-                                                 
-                                                <div class="form-group ">
-                            <label for="article_part_number" class="col-sm-2 control-label">Numéro 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="article_part_number" id="article_part_number" placeholder="Numéro" value="<?= set_value('article_part_number'); ?>">
+                                <input type="text" class="form-control" name="TYPE_PROFORMA" id="TYPE_PROFORMA" placeholder="TYPE PROFORMA" value="<?= set_value('TYPE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="article_etiquitte" class="col-sm-2 control-label">Etiquitte 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="article_etiquitte" id="article_etiquitte" placeholder="Etiquitte" value="<?= set_value('article_etiquitte'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="article_code" class="col-sm-2 control-label">Code 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="article_code" id="article_code" placeholder="Code" value="<?= set_value('article_code'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="articles_prix_vente" class="col-sm-2 control-label">Articles Prix Vente 
-                            <i class="required">*</i>
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="articles_prix_vente" id="articles_prix_vente" placeholder="Articles Prix Vente" value="<?= set_value('articles_prix_vente'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="articles_prix_vente_promotion" class="col-sm-2 control-label">Prix De Vente Promotion 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="articles_prix_vente_promotion" id="articles_prix_vente_promotion" placeholder="Prix De Vente Promotion" value="<?= set_value('articles_prix_vente_promotion'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="articles_date_debut_promotion" class="col-sm-2 control-label">Date De Debut De La Promotion 
+                            <label for="DATE_CREATION_PROFORMA" class="col-sm-2 control-label">DATE CREATION PROFORMA 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="articles_date_debut_promotion"  id="articles_date_debut_promotion">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_CREATION_PROFORMA"  id="DATE_CREATION_PROFORMA">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -175,11 +119,11 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="articles_date_fin_promotion" class="col-sm-2 control-label">Date De Fin De La Promotion 
+                            <label for="DATE_MOD_PROFORMA" class="col-sm-2 control-label">DATE MOD PROFORMA 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="articles_date_fin_promotion"  id="articles_date_fin_promotion">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_MOD_PROFORMA"  id="DATE_MOD_PROFORMA">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -187,66 +131,150 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="articles_unite" class="col-sm-2 control-label">Unité 
+                            <label for="PAYMENT_TYPE_PROFORMA" class="col-sm-2 control-label">PAYMENT TYPE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="articles_unite" id="articles_unite" placeholder="Unité" value="<?= set_value('articles_unite'); ?>">
+                                <input type="text" class="form-control" name="PAYMENT_TYPE_PROFORMA" id="PAYMENT_TYPE_PROFORMA" placeholder="PAYMENT TYPE PROFORMA" value="<?= set_value('PAYMENT_TYPE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="articles_description" class="col-sm-2 control-label">Description 
+                            <label for="AUTHOR_PROFORMA" class="col-sm-2 control-label">AUTHOR PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <textarea id="articles_description" name="articles_description" rows="5" cols="80"><?= set_value('Articles Description'); ?></textarea>
+                                <input type="text" class="form-control" name="AUTHOR_PROFORMA" id="AUTHOR_PROFORMA" placeholder="AUTHOR PROFORMA" value="<?= set_value('AUTHOR_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="article_date_creation" class="col-sm-2 control-label">Date De La Création 
-                            </label>
-                            <div class="col-sm-6">
-                            <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="article_date_creation"  id="article_date_creation">
-                            </div>
-                            <small class="info help-block">
-                            </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="article_date_modification" class="col-sm-2 control-label">Date De La Modification 
-                            </label>
-                            <div class="col-sm-6">
-                            <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="article_date_modification"  id="article_date_modification">
-                            </div>
-                            <small class="info help-block">
-                            </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="article_user_creator_id" class="col-sm-2 control-label">Crée Par 
+                            <label for="SOMME_PERCU_PROFORMA" class="col-sm-2 control-label">SOMME PERCU PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="article_user_creator_id" id="article_user_creator_id" placeholder="Crée Par" value="<?= set_value('article_user_creator_id'); ?>">
+                                <input type="text" class="form-control" name="SOMME_PERCU_PROFORMA" id="SOMME_PERCU_PROFORMA" placeholder="SOMME PERCU PROFORMA" value="<?= set_value('SOMME_PERCU_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="articles_image" class="col-sm-2 control-label">Articles Image 
+                            <label for="TOTAL_PROFORMA" class="col-sm-2 control-label">TOTAL PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <div id="pos_store_2_articles_articles_image_galery"></div>
-                                <input class="data_file" name="pos_store_2_articles_articles_image_uuid" id="pos_store_2_articles_articles_image_uuid" type="hidden" value="<?= set_value('pos_store_2_articles_articles_image_uuid'); ?>">
-                                <input class="data_file" name="pos_store_2_articles_articles_image_name" id="pos_store_2_articles_articles_image_name" type="hidden" value="<?= set_value('pos_store_2_articles_articles_image_name'); ?>">
+                                <input type="text" class="form-control" name="TOTAL_PROFORMA" id="TOTAL_PROFORMA" placeholder="TOTAL PROFORMA" value="<?= set_value('TOTAL_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="DISCOUNT_TYPE_PROFORMA" class="col-sm-2 control-label">DISCOUNT TYPE PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="DISCOUNT_TYPE_PROFORMA" id="DISCOUNT_TYPE_PROFORMA" placeholder="DISCOUNT TYPE PROFORMA" value="<?= set_value('DISCOUNT_TYPE_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="TVA_PROFORMA" class="col-sm-2 control-label">TVA PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TVA_PROFORMA" id="TVA_PROFORMA" placeholder="TVA PROFORMA" value="<?= set_value('TVA_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="GROUP_DISCOUNT_PROFORMA" class="col-sm-2 control-label">GROUP DISCOUNT PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="GROUP_DISCOUNT_PROFORMA" id="GROUP_DISCOUNT_PROFORMA" placeholder="GROUP DISCOUNT PROFORMA" value="<?= set_value('GROUP_DISCOUNT_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="REF_SHIPPING_ADDRESS_PROFORMA" class="col-sm-2 control-label">REF SHIPPING ADDRESS PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="REF_SHIPPING_ADDRESS_PROFORMA" id="REF_SHIPPING_ADDRESS_PROFORMA" placeholder="REF SHIPPING ADDRESS PROFORMA" value="<?= set_value('REF_SHIPPING_ADDRESS_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="SHIPPING_AMOUNT_PROFORMA" class="col-sm-2 control-label">SHIPPING AMOUNT PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="SHIPPING_AMOUNT_PROFORMA" id="SHIPPING_AMOUNT_PROFORMA" placeholder="SHIPPING AMOUNT PROFORMA" value="<?= set_value('SHIPPING_AMOUNT_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="TYPE_DELAY_PROFORMA" class="col-sm-2 control-label">TYPE DELAY PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TYPE_DELAY_PROFORMA" id="TYPE_DELAY_PROFORMA" placeholder="TYPE DELAY PROFORMA" value="<?= set_value('TYPE_DELAY_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="TEMPS_DELAY_PROFORMA" class="col-sm-2 control-label">TEMPS DELAY PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TEMPS_DELAY_PROFORMA" id="TEMPS_DELAY_PROFORMA" placeholder="TEMPS DELAY PROFORMA" value="<?= set_value('TEMPS_DELAY_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="COND_PAID_PROFORMA" class="col-sm-2 control-label">COND PAID PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="COND_PAID_PROFORMA" id="COND_PAID_PROFORMA" placeholder="COND PAID PROFORMA" value="<?= set_value('COND_PAID_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="PERCENT_PAID_PROFORMA" class="col-sm-2 control-label">PERCENT PAID PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="PERCENT_PAID_PROFORMA" id="PERCENT_PAID_PROFORMA" placeholder="PERCENT PAID PROFORMA" value="<?= set_value('PERCENT_PAID_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="PERCENT_PAID_LIVR_PROFORMA" class="col-sm-2 control-label">PERCENT PAID LIVR PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="PERCENT_PAID_LIVR_PROFORMA" id="PERCENT_PAID_LIVR_PROFORMA" placeholder="PERCENT PAID LIVR PROFORMA" value="<?= set_value('PERCENT_PAID_LIVR_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="VALID_OFFRE_PROFORMA" class="col-sm-2 control-label">VALID OFFRE PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="VALID_OFFRE_PROFORMA" id="VALID_OFFRE_PROFORMA" placeholder="VALID OFFRE PROFORMA" value="<?= set_value('VALID_OFFRE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -278,12 +306,9 @@
     </div>
 </section>
 <!-- /.content -->
-<script src="<?= BASE_ASSET; ?>ckeditor/ckeditor.js"></script>
 <!-- Page script -->
 <script>
     $(document).ready(function(){
-            CKEDITOR.replace('articles_description'); 
-      var articles_description = CKEDITOR.instances.articles_description;
                    
       $('#btn_cancel').click(function(){
         swal({
@@ -299,7 +324,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/pos_store_2_articles';
+              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_proforma';
             }
           });
     
@@ -308,10 +333,9 @@
     
       $('.btn_save').click(function(){
         $('.message').fadeOut();
-        $('#articles_description').val(articles_description.getData());
-                    
-        var form_pos_store_2_articles = $('#form_pos_store_2_articles');
-        var data_post = form_pos_store_2_articles.serializeArray();
+            
+        var form_pos_store_2_ibi_proforma = $('#form_pos_store_2_ibi_proforma');
+        var data_post = form_pos_store_2_ibi_proforma.serializeArray();
         var save_type = $(this).attr('data-stype');
 
         data_post.push({name: 'save_type', value: save_type});
@@ -319,14 +343,13 @@
         $('.loading').show();
     
         $.ajax({
-          url: BASE_URL + '/administrator/pos_store_2_articles/add_save',
+          url: BASE_URL + '/administrator/pos_store_2_ibi_proforma/add_save',
           type: 'POST',
           dataType: 'json',
           data: data_post,
         })
         .done(function(res) {
           if(res.success) {
-            var id_articles_image = $('#pos_store_2_articles_articles_image_galery').find('li').attr('qq-file-id');
             
             if (save_type == 'back') {
               window.location.href = res.redirect;
@@ -336,11 +359,7 @@
             $('.message').printMessage({message : res.message});
             $('.message').fadeIn();
             resetForm();
-            if (typeof id_articles_image !== 'undefined') {
-                    $('#pos_store_2_articles_articles_image_galery').fineUploader('deleteFile', id_articles_image);
-                }
             $('.chosen option').prop('selected', false).trigger('chosen:updated');
-            articles_description.setData('');
                 
           } else {
             $('.message').printMessage({message : res.message, type : 'warning'});
@@ -358,56 +377,7 @@
         return false;
       }); /*end btn save*/
       
-              var params = {};
-       params[csrf] = token;
-
-       $('#pos_store_2_articles_articles_image_galery').fineUploader({
-          template: 'qq-template-gallery',
-          request: {
-              endpoint: BASE_URL + '/administrator/pos_store_2_articles/upload_articles_image_file',
-              params : params
-          },
-          deleteFile: {
-              enabled: true, 
-              endpoint: BASE_URL + '/administrator/pos_store_2_articles/delete_articles_image_file',
-          },
-          thumbnails: {
-              placeholders: {
-                  waitingPath: BASE_URL + '/asset/fine-upload/placeholders/waiting-generic.png',
-                  notAvailablePath: BASE_URL + '/asset/fine-upload/placeholders/not_available-generic.png'
-              }
-          },
-          multiple : false,
-          validation: {
-              allowedExtensions: ["*"],
-              sizeLimit : 0,
-                        },
-          showMessage: function(msg) {
-              toastr['error'](msg);
-          },
-          callbacks: {
-              onComplete : function(id, name, xhr) {
-                if (xhr.success) {
-                   var uuid = $('#pos_store_2_articles_articles_image_galery').fineUploader('getUuid', id);
-                   $('#pos_store_2_articles_articles_image_uuid').val(uuid);
-                   $('#pos_store_2_articles_articles_image_name').val(xhr.uploadName);
-                } else {
-                   toastr['error'](xhr.error);
-                }
-              },
-              onSubmit : function(id, name) {
-                  var uuid = $('#pos_store_2_articles_articles_image_uuid').val();
-                  $.get(BASE_URL + '/administrator/pos_store_2_articles/delete_articles_image_file/' + uuid);
-              },
-              onDeleteComplete : function(id, xhr, isError) {
-                if (isError == false) {
-                  $('#pos_store_2_articles_articles_image_uuid').val('');
-                  $('#pos_store_2_articles_articles_image_name').val('');
-                }
-              }
-          }
-      }); /*end articles_image galery*/
-              
+       
  
        
     

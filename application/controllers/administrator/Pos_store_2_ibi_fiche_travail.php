@@ -74,19 +74,23 @@ class Pos_store_2_ibi_fiche_travail extends Admin
 			exit;
 		}
 
-		$this->form_validation->set_rules('fiche_numero', 'Fiche Numero', 'trim|required');
-		$this->form_validation->set_rules('fiche_client_id', 'Fiche Client Id', 'trim|required');
-		$this->form_validation->set_rules('fiche_unite', 'Fiche Unite', 'trim|required');
+		$this->form_validation->set_rules('TITRE_FICHE', 'TITRE FICHE', 'trim|required');
+		$this->form_validation->set_rules('REF_CLIENT_FICHE', 'REF CLIENT FICHE', 'trim|required');
 		
 
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'fiche_numero' => $this->input->post('fiche_numero'),
-				'fiche_client_id' => $this->input->post('fiche_client_id'),
-				'fiche_user_id' => get_user_data('id'),				'fiche_unite' => $this->input->post('fiche_unite'),
-				'fiche_date' => $this->input->post('fiche_date'),
-				'fiche_date_modification' => $this->input->post('fiche_date_modification'),
+				'TITRE_FICHE' => $this->input->post('TITRE_FICHE'),
+				'DEVIS_CODE_FICHE' => $this->input->post('DEVIS_CODE_FICHE'),
+				'NUMERO_FICHE' => $this->input->post('NUMERO_FICHE'),
+				'REF_CLIENT_FICHE' => $this->input->post('REF_CLIENT_FICHE'),
+				'TYPE_DEVIS_FICHE' => $this->input->post('TYPE_DEVIS_FICHE'),
+				'DATE_CREATION_FICHE' => $this->input->post('DATE_CREATION_FICHE'),
+				'DATE_MOD_FICHE' => $this->input->post('DATE_MOD_FICHE'),
+				'AUTHOR_FICHE' => get_user_data('id'),				'REF_CATEGORIE_FICHE' => $this->input->post('REF_CATEGORIE_FICHE'),
+				'TOTAL_FICHE' => $this->input->post('TOTAL_FICHE'),
+				'STATUT_FICHE' => $this->input->post('STATUT_FICHE'),
 			];
 
 			
@@ -158,18 +162,22 @@ class Pos_store_2_ibi_fiche_travail extends Admin
 			exit;
 		}
 		
-		$this->form_validation->set_rules('fiche_numero', 'Fiche Numero', 'trim|required');
-		$this->form_validation->set_rules('fiche_client_id', 'Fiche Client Id', 'trim|required');
-		$this->form_validation->set_rules('fiche_unite', 'Fiche Unite', 'trim|required');
+		$this->form_validation->set_rules('TITRE_FICHE', 'TITRE FICHE', 'trim|required');
+		$this->form_validation->set_rules('REF_CLIENT_FICHE', 'REF CLIENT FICHE', 'trim|required');
 		
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'fiche_numero' => $this->input->post('fiche_numero'),
-				'fiche_client_id' => $this->input->post('fiche_client_id'),
-				'fiche_user_id' => get_user_data('id'),				'fiche_unite' => $this->input->post('fiche_unite'),
-				'fiche_date' => $this->input->post('fiche_date'),
-				'fiche_date_modification' => $this->input->post('fiche_date_modification'),
+				'TITRE_FICHE' => $this->input->post('TITRE_FICHE'),
+				'DEVIS_CODE_FICHE' => $this->input->post('DEVIS_CODE_FICHE'),
+				'NUMERO_FICHE' => $this->input->post('NUMERO_FICHE'),
+				'REF_CLIENT_FICHE' => $this->input->post('REF_CLIENT_FICHE'),
+				'TYPE_DEVIS_FICHE' => $this->input->post('TYPE_DEVIS_FICHE'),
+				'DATE_CREATION_FICHE' => $this->input->post('DATE_CREATION_FICHE'),
+				'DATE_MOD_FICHE' => $this->input->post('DATE_MOD_FICHE'),
+				'AUTHOR_FICHE' => get_user_data('id'),				'REF_CATEGORIE_FICHE' => $this->input->post('REF_CATEGORIE_FICHE'),
+				'TOTAL_FICHE' => $this->input->post('TOTAL_FICHE'),
+				'STATUT_FICHE' => $this->input->post('STATUT_FICHE'),
 			];
 
 			

@@ -53,14 +53,14 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('pos_store_2_ibi_fiche_travail_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Aller à l'ajout du fiche" href="<?=  site_url('administrator/pos_store_2_ibi_fiche_travail/add'); ?>"><i class="fa fa-plus-square-o" ></i> Fiche de travail</a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Fiche Travail']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_store_2_ibi_fiche_travail/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Fiche Travail']); ?></a>
                         <?php }) ?>
-                        <?php //is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
-                      <!--   <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> Pos Store 2 Ibi Fiche Travail" href="<?//= site_url('administrator/pos_store_2_ibi_fiche_travail/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?//= cclang('export'); ?> XLS</a>
-                        <?php// }) ?> -->
-                        <?php// is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
-                        <!-- <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> pdf Pos Store 2 Ibi Fiche Travail" href="<?//= site_url('administrator/pos_store_2_ibi_fiche_travail/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?//= cclang('export'); ?> PDF</a> -->
-                        <?php //}) ?>
+                        <?php is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store 2 Ibi Fiche Travail" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php }) ?>
+                        <?php is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store 2 Ibi Fiche Travail" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
@@ -76,34 +76,52 @@ jQuery(document).ready(domo);
                   <div class="table-responsive"> 
                   <table class="table table-bordered table-striped dataTable">
                      <thead>
-                        <tr>
-                           
-                           <th>&#8470; du fiche</th>
-                           <th>Description</th>
-                           <th>client</th>
-                            <th>Utilisateur</th>
-                           <th>Date de création</th>
+                        <tr class="">
+                           <th>
+                            <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
+                           </th>
+                           <th>TITRE FICHE</th>
+                           <th>DEVIS CODE FICHE</th>
+                           <th>NUMERO FICHE</th>
+                           <th>REF CLIENT FICHE</th>
+                           <th>TYPE DEVIS FICHE</th>
+                           <th>DATE CREATION FICHE</th>
+                           <th>DATE MOD FICHE</th>
+                           <th>AUTHOR FICHE</th>
+                           <th>REF CATEGORIE FICHE</th>
+                           <th>TOTAL FICHE</th>
+                           <th>STATUT FICHE</th>
                            <th>Action</th>
                         </tr>
                      </thead>
                      <tbody id="tbody_pos_store_2_ibi_fiche_travail">
                      <?php foreach($pos_store_2_ibi_fiche_travails as $pos_store_2_ibi_fiche_travail): ?>
                         <tr>
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->fiche_numero); ?></td>  <td><?= _ent($pos_store_2_ibi_fiche_travail->NOM_CLIENT); ?></td>
+                           <td width="5">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_fiche_travail->ID_FICHE; ?>">
+                           </td>
+                           
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TITRE_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DEVIS_CODE_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->NUMERO_FICHE); ?></td> 
                            <td><?= _ent($pos_store_2_ibi_fiche_travail->NOM_CLIENT); ?></td>
                              
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->fiche_user_id); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->fiche_date); ?></td> 
-                           
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TYPE_DEVIS_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DATE_CREATION_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DATE_MOD_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->AUTHOR_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->REF_CATEGORIE_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TOTAL_FICHE); ?></td> 
+                           <td><?= _ent($pos_store_2_ibi_fiche_travail->STATUT_FICHE); ?></td> 
                            <td width="200">
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_view', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/view/' . $pos_store_2_ibi_fiche_travail->fiche_id); ?>" class="btn btn-warning btn-xs"><i class="fa fa-eye-slash"></i></a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/view/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_update', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/' . $pos_store_2_ibi_fiche_travail->fiche_id); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit "></i> </a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_delete', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/delete/' . $pos_store_2_ibi_fiche_travail->fiche_id); ?>" class="btn btn-danger btn-xs remove-data"><i class="fa fa-close"></i></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/delete/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
                                <?php }) ?>
                            </td>
                         </tr>
@@ -138,12 +156,17 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'fiche_numero' ? 'selected' :''; ?> value="fiche_numero">Fiche Numero</option>
-                           <option <?= $this->input->get('f') == 'fiche_client_id' ? 'selected' :''; ?> value="fiche_client_id">Fiche Client Id</option>
-                           <option <?= $this->input->get('f') == 'fiche_user_id' ? 'selected' :''; ?> value="fiche_user_id">Fiche User Id</option>
-                           <option <?= $this->input->get('f') == 'fiche_unite' ? 'selected' :''; ?> value="fiche_unite">Fiche Unite</option>
-                           <option <?= $this->input->get('f') == 'fiche_date' ? 'selected' :''; ?> value="fiche_date">Fiche Date</option>
-                           <option <?= $this->input->get('f') == 'fiche_date_modification' ? 'selected' :''; ?> value="fiche_date_modification">Fiche Date Modification</option>
+                            <option <?= $this->input->get('f') == 'TITRE_FICHE' ? 'selected' :''; ?> value="TITRE_FICHE">TITRE FICHE</option>
+                           <option <?= $this->input->get('f') == 'DEVIS_CODE_FICHE' ? 'selected' :''; ?> value="DEVIS_CODE_FICHE">DEVIS CODE FICHE</option>
+                           <option <?= $this->input->get('f') == 'NUMERO_FICHE' ? 'selected' :''; ?> value="NUMERO_FICHE">NUMERO FICHE</option>
+                           <option <?= $this->input->get('f') == 'REF_CLIENT_FICHE' ? 'selected' :''; ?> value="REF_CLIENT_FICHE">REF CLIENT FICHE</option>
+                           <option <?= $this->input->get('f') == 'TYPE_DEVIS_FICHE' ? 'selected' :''; ?> value="TYPE_DEVIS_FICHE">TYPE DEVIS FICHE</option>
+                           <option <?= $this->input->get('f') == 'DATE_CREATION_FICHE' ? 'selected' :''; ?> value="DATE_CREATION_FICHE">DATE CREATION FICHE</option>
+                           <option <?= $this->input->get('f') == 'DATE_MOD_FICHE' ? 'selected' :''; ?> value="DATE_MOD_FICHE">DATE MOD FICHE</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_FICHE' ? 'selected' :''; ?> value="AUTHOR_FICHE">AUTHOR FICHE</option>
+                           <option <?= $this->input->get('f') == 'REF_CATEGORIE_FICHE' ? 'selected' :''; ?> value="REF_CATEGORIE_FICHE">REF CATEGORIE FICHE</option>
+                           <option <?= $this->input->get('f') == 'TOTAL_FICHE' ? 'selected' :''; ?> value="TOTAL_FICHE">TOTAL FICHE</option>
+                           <option <?= $this->input->get('f') == 'STATUT_FICHE' ? 'selected' :''; ?> value="STATUT_FICHE">STATUT FICHE</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
