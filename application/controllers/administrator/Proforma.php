@@ -19,8 +19,9 @@ class Proforma extends Admin
 	*
 	* @var $offset String
 	*/
-	public function index($offset = 0)
+	public function index($store, $offset = 0)
 	{
+
 		$this->is_allowed('proforma_list');
 
 		$filter = $this->input->get('q');
@@ -41,7 +42,7 @@ class Proforma extends Admin
 		$this->template->title('Liste de proforma');
 		$this->render('backend/standart/administrator/proforma/proforma_list', $this->data);
 	}
-	public function edit($id)
+	public function edit($store, $id)
 	{
 		$this->is_allowed('registers_update');
 

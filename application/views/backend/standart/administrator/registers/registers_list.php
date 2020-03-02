@@ -53,13 +53,13 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('registers_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add/'.$this->uri->segment(4).''); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/registers/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/registers/export/'.$this->uri->segment(4).''); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('registers_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/registers/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/registers/export_pdf/'.$this->uri->segment(4).''); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
@@ -125,13 +125,13 @@ jQuery(document).ready(domo);
                            <td><?= _ent($author_command['username']); ?></td> 
                            <td width="200">
                             <?php is_allowed('registers_delete', function() use ($registers){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/delete/' . $registers->ID_COMMAND); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/delete/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                               <?php is_allowed('registers_view', function() use ($registers){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/generate_facture/' . $registers->ID_COMMAND); ?>" titre="Générer la facture" class="btn btn-warning btn-sm invoice-data"><i class="fa fa-dedent default"></i></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/generate_facture/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" titre="Générer la facture" class="btn btn-warning btn-sm invoice-data"><i class="fa fa-dedent default"></i></a>
                               <?php }) ?>
                               <?php is_allowed('registers_update', function() use ($registers){?>
-                              <a href="<?= site_url('administrator/registers/edit/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-default btn-sm">Modifier</span></a>
+                              <a href="<?= site_url('administrator/registers/edit/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-default btn-sm">Modifier</span></a>
                               <?php }) ?>
                               <a href="#" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
                            </td>

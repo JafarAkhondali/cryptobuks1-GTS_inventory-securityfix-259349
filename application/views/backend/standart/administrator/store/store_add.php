@@ -33,11 +33,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pos Ibi Stores        <small><?= cclang('new', ['Pos Ibi Stores']); ?> </small>
+        Créer une nouvelle boutique       <small> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a  href="<?= site_url('administrator/pos_ibi_stores'); ?>">Pos Ibi Stores</a></li>
+        <li class=""><a  href="<?= site_url('administrator/store'); ?>">Liste</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -55,24 +55,24 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pos Ibi Stores</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Pos Ibi Stores']); ?></h5>
+                            <h3 class="widget-user-username">Boutique</h3>
+                            <h5 class="widget-user-desc"></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name'    => 'form_pos_ibi_stores', 
+                            'name'    => 'form_store', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pos_ibi_stores', 
+                            'id'      => 'form_store', 
                             'enctype' => 'multipart/form-data', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="STATUT" class="col-sm-2 control-label">STATUT 
+                            <label for="STATUT" class="col-sm-2 control-label">Etat de la boutique 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select" name="STATUT" id="STATUT" data-placeholder="Select STATUT" >
+                                <select  class="form-control chosen chosen-select" name="STATUT" id="STATUT" data-placeholder="Selectionner l'Etat" >
                                     <option value=""></option>
                                     <option value="opened">Ouvert</option>
                                     <option value="close">Fermé</option>
@@ -83,35 +83,33 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="NAME" class="col-sm-2 control-label">NAME 
+                            <label for="NAME" class="col-sm-2 control-label">Nom de la boutique
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="NAME" id="NAME" placeholder="NAME" value="<?= set_value('NAME'); ?>">
-                                <small class="info help-block">
-                                <b>Input NAME</b> Max Length : 50.</small>
+                                <input type="text" class="form-control" name="NAME" id="NAME" placeholder="Nom" value="<?= set_value('NAME'); ?>">
+                                <small class="info help-block"></small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="IMAGE" class="col-sm-2 control-label">IMAGE 
+                            <label for="IMAGE" class="col-sm-2 control-label">Aperçu 
                             </label>
                             <div class="col-sm-8">
-                                <div id="pos_ibi_stores_IMAGE_galery"></div>
-                                <input class="data_file" name="pos_ibi_stores_IMAGE_uuid" id="pos_ibi_stores_IMAGE_uuid" type="hidden" value="<?= set_value('pos_ibi_stores_IMAGE_uuid'); ?>">
-                                <input class="data_file" name="pos_ibi_stores_IMAGE_name" id="pos_ibi_stores_IMAGE_name" type="hidden" value="<?= set_value('pos_ibi_stores_IMAGE_name'); ?>">
+                                <div id="store_IMAGE_galery"></div>
+                                <input class="data_file" name="store_IMAGE_uuid" id="store_IMAGE_uuid" type="hidden" value="<?= set_value('store_IMAGE_uuid'); ?>">
+                                <input class="data_file" name="store_IMAGE_name" id="store_IMAGE_name" type="hidden" value="<?= set_value('store_IMAGE_name'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DESCRIPTION" class="col-sm-2 control-label">DESCRIPTION 
+                            <label for="DESCRIPTION" class="col-sm-2 control-label">Description
                             </label>
                             <div class="col-sm-8">
                                 <textarea id="DESCRIPTION" name="DESCRIPTION" rows="5" cols="80"><?= set_value('DESCRIPTION'); ?></textarea>
-                                <small class="info help-block">
-                                <b>Input DESCRIPTION</b> Max Length : 200.</small>
+                                <small class="info help-block"></small>
                             </div>
                         </div>
                                                  
@@ -164,7 +162,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/pos_ibi_stores';
+              window.location.href = BASE_URL + 'administrator/store';
             }
           });
     
@@ -175,8 +173,8 @@
         $('.message').fadeOut();
         $('#DESCRIPTION').val(DESCRIPTION.getData());
                     
-        var form_pos_ibi_stores = $('#form_pos_ibi_stores');
-        var data_post = form_pos_ibi_stores.serializeArray();
+        var form_store = $('#form_store');
+        var data_post = form_store.serializeArray();
         var save_type = $(this).attr('data-stype');
 
         data_post.push({name: 'save_type', value: save_type});
@@ -184,14 +182,14 @@
         $('.loading').show();
     
         $.ajax({
-          url: BASE_URL + '/administrator/pos_ibi_stores/add_save',
+          url: BASE_URL + '/administrator/store/add_save',
           type: 'POST',
           dataType: 'json',
           data: data_post,
         })
         .done(function(res) {
           if(res.success) {
-            var id_IMAGE = $('#pos_ibi_stores_IMAGE_galery').find('li').attr('qq-file-id');
+            var id_IMAGE = $('#store_IMAGE_galery').find('li').attr('qq-file-id');
             
             if (save_type == 'back') {
               window.location.href = res.redirect;
@@ -202,7 +200,7 @@
             $('.message').fadeIn();
             resetForm();
             if (typeof id_IMAGE !== 'undefined') {
-                    $('#pos_ibi_stores_IMAGE_galery').fineUploader('deleteFile', id_IMAGE);
+                    $('#store_IMAGE_galery').fineUploader('deleteFile', id_IMAGE);
                 }
             $('.chosen option').prop('selected', false).trigger('chosen:updated');
             DESCRIPTION.setData('');
@@ -226,15 +224,15 @@
               var params = {};
        params[csrf] = token;
 
-       $('#pos_ibi_stores_IMAGE_galery').fineUploader({
+       $('#store_IMAGE_galery').fineUploader({
           template: 'qq-template-gallery',
           request: {
-              endpoint: BASE_URL + '/administrator/pos_ibi_stores/upload_IMAGE_file',
+              endpoint: BASE_URL + '/administrator/store/upload_IMAGE_file',
               params : params
           },
           deleteFile: {
               enabled: true, 
-              endpoint: BASE_URL + '/administrator/pos_ibi_stores/delete_IMAGE_file',
+              endpoint: BASE_URL + '/administrator/store/delete_IMAGE_file',
           },
           thumbnails: {
               placeholders: {
@@ -253,21 +251,21 @@
           callbacks: {
               onComplete : function(id, name, xhr) {
                 if (xhr.success) {
-                   var uuid = $('#pos_ibi_stores_IMAGE_galery').fineUploader('getUuid', id);
-                   $('#pos_ibi_stores_IMAGE_uuid').val(uuid);
-                   $('#pos_ibi_stores_IMAGE_name').val(xhr.uploadName);
+                   var uuid = $('#store_IMAGE_galery').fineUploader('getUuid', id);
+                   $('#store_IMAGE_uuid').val(uuid);
+                   $('#store_IMAGE_name').val(xhr.uploadName);
                 } else {
                    toastr['error'](xhr.error);
                 }
               },
               onSubmit : function(id, name) {
-                  var uuid = $('#pos_ibi_stores_IMAGE_uuid').val();
-                  $.get(BASE_URL + '/administrator/pos_ibi_stores/delete_IMAGE_file/' + uuid);
+                  var uuid = $('#store_IMAGE_uuid').val();
+                  $.get(BASE_URL + '/administrator/store/delete_IMAGE_file/' + uuid);
               },
               onDeleteComplete : function(id, xhr, isError) {
                 if (isError == false) {
-                  $('#pos_ibi_stores_IMAGE_uuid').val('');
-                  $('#pos_ibi_stores_IMAGE_name').val('');
+                  $('#store_IMAGE_uuid').val('');
+                  $('#store_IMAGE_name').val('');
                 }
               }
           }

@@ -87,7 +87,8 @@
                             </label>
 
                             <div class="col-sm-9">
-
+                                <input type="text" name="store_prefix" value="store_<?=$this->uri->segment(4)?>">
+                                <input type="text" name="store_uri" value="<?=$this->uri->segment(4)?>">
                                 <select  class="form-control chosen chosen-select-deselect" name="ref_client" id="ref_client" data-placeholder="Selectionner le Client" >
                                   <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>

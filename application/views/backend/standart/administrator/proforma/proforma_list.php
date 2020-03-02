@@ -53,13 +53,13 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('proforma_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add'); ?>"><i class="fa fa-plus" ></i></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Ajouter" href="<?=  site_url('administrator/registers/add/'.$this->uri->segment(4).''); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/proforma/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/proforma/export/'.$this->uri->segment(4).''); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
                         <?php is_allowed('proforma_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/proforma/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/proforma/export_pdf/'.$this->uri->segment(4).''); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
@@ -122,16 +122,16 @@ jQuery(document).ready(domo);
                            <td><?= _ent($author_PROFORMA['username']); ?></td> 
                            <td width="200">
                               <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/print/' . $proforma->ID_PROFORMA); ?>" title="Proforma" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                              <a href="<?= site_url('administrator/proforma/print/'.$this->uri->segment(4).'/' . $proforma->ID_PROFORMA); ?>" title="Proforma" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
                               <?php }) ?>
                               <?php is_allowed('proforma_view', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/client_file/add/' . $proforma->ID_PROFORMA); ?>" title="Nouvelle fiche sur bon de commande" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
+                              <a href="<?= site_url('administrator/client_file/add/'.$this->uri->segment(4).'/' . $proforma->ID_PROFORMA); ?>" title="Nouvelle fiche sur bon de commande" class="btn btn-warning btn-sm"><i class="fa fa-eye"></i></a>
                               <?php }) ?>
                               <?php is_allowed('proforma_update', function() use ($proforma){?>
-                              <a href="<?= site_url('administrator/proforma/edit/' . $proforma->ID_PROFORMA); ?>" class="btn btn-info btn-sm"><i class="fa fa-edit "></i></a>
+                              <a href="<?= site_url('administrator/proforma/edit/'.$this->uri->segment(4).'/' . $proforma->ID_PROFORMA); ?>" class="btn btn-info btn-sm"><i class="fa fa-edit "></i></a>
                               <?php }) ?>
                               <?php is_allowed('proforma_delete', function() use ($proforma){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/proforma/delete/' . $proforma->ID_PROFORMA); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/proforma/delete/'.$this->uri->segment(4).'/' . $proforma->ID_PROFORMA); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                            </td>
                         </tr>
