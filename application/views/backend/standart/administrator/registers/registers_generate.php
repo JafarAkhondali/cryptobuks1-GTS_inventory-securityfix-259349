@@ -55,10 +55,12 @@
                                                 
   <div class="row-fluid">
     <div class="col-md-12">
+            <input type="hidden" name="store_prefix" id="store_prefix" value="store_<?=$this->uri->segment(4)?>">
+            <input type="hidden" name="store_uri" id="store_uri" value="<?=$this->uri->segment(4)?>">
             <div class="form-group">
               <div id="comboboxDiv" hidden>
                 <select name="article_codebar" type="text" class="form-control combobox" placeholder="Rechercher le nom du produit">
-                          <option value="">Rechercher le nom du proforma, le numero du proforma</option>
+                          <option value="">Rechercher le nom du proforma, le numéro du proforma</option>
                           <?php
                           foreach ( $getProforma as $getProformas) { ?>
                                <option class="articleOption" value="<?=$getProformas['CODE_PROFORMA'] ?>"><?php echo $getProformas['TITRE_PROFORMA'];?></option>
@@ -70,7 +72,7 @@
 
 
               </div>
-                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du proforma, le numero du proforma">
+                <input type="text" id="myInput" class="search-input form-control input-lg" placeholder="Rechercher le nom du proforma, le numéro du proforma">
                 <div id="list" hidden>
                   <ul id="myUL">
                         <?php
@@ -99,7 +101,7 @@
                                 <td width="150">Quantité</td>
                                 <td width="100">Remise</td>
                                 <td width="150">Total</td>
-                                <td width="50">Unité</td>
+                                <td width="50"></td>
                             </tr>
                         </thead>
                         <tbody id='tableProforma'>
@@ -112,6 +114,34 @@
                   </div>
             </div>
           </div>
+
+          <div class="modal fade" id="remiseId">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                          <h4 class="text-center">Appliquer une remise : <span id="discount_type"><span class="label label-primary">au pourcentage</span></span></h4>
+                          <span id="discount_price" style="display: none"></span>
+                          <span id="discount_initial" style="display: none"></span>
+                          <span id="discount_idart" style="display: none"></span>
+                          <input type="hidden" class="discount_idart">
+                          <div class="input-group input-group-lg">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default percentage_discount active" id="percentage_discount" type="button">Pourcentage</button>
+                            </span>
+                            <input type="number" class="form-control discount_value" id="discount_value" value="0" placeholder="Définir le montant ou le pourcentage ici...">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default flat_discount" id="flat_discount" type="button">Espèces</button>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" onclick="save_discount(this);">OK</button>
+                          <!-- <button type="button" class="btn btn-primary save_discount">OK</button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                                                  
                          
                         
@@ -221,8 +251,169 @@
 </script>
 
 <script type="text/javascript">
+  function getRidOfTheComma(data){
+      var toReturn = "";
+      var toFilter = data.split("");
+      const toMakeString = toFilter.filter(element => element !== ",");
+      const times = toMakeString.length;
+      for(i=0; i<times; i++){
+          toReturn += toMakeString[i];
+      }
+      return toReturn;
+  }
+
+  function stringToNumber(data){
+      var toReturn = 0;
+      var toMakeInt = "";
+      if(data === ""){
+          return toReturn;
+      } else {
+          toMakeInt = getRidOfTheComma(data);
+          toReturn = parseFloat(toMakeInt);
+          return toReturn;
+      }
+  }
+  function toRemise(data){
+    $("#remiseId").modal();
+    const initial = stringToNumber($(data).closest('tr').find('td div input').val());
+    const price = stringToNumber($(data).closest('tr').find('td.price').text());
+    const idart = ($(data).closest('tr').attr('id'));
+   
+    document.getElementById('discount_price').innerHTML = price;
+    document.getElementById('discount_initial').innerHTML = initial;
+    // document.getElementById('discount_idart').innerHTML = idart;
+    $('.discount_idart').val(idart);
+  }
+  function save_discount(data){
+       const discount_type = document.getElementById("discount_type").innerHTML;
+       const discount_price = document.getElementById("discount_price").innerHTML;
+       const discount_initial = document.getElementById("discount_initial").innerHTML;
+       // const discount_idart = document.getElementById("discount_idart").innerHTML;
+       const discount_idart = $('.discount_idart').val();
+       const discount_value = $('.discount_value').val();
+
+      if(discount_type == 'Espèces'){
+      
+        // if(discount_value = discount_price){
+        //       alert('La remise fixe ne peut pas excéder la valeur actuelle du panier. Le montant de la remise à été réduite à la valeur du panier.');
+        //       document.getElementById('remise'+discount_idart+'').innerHTML = discount_price;
+        //       $('#remiseId').modal('hide');
+        // }else 
+        if(discount_value == ''){
+                // document.getElementById('remise'+discount_idart+'').innerHTML = 0;
+                $('#remise'+discount_idart+'').text(0);
+                $('.remise'+discount_idart+'').val(0);
+                $('#remiseId').modal('hide');
+          }else{
+           const price = discount_price * discount_initial - discount_value;
+           // document.getElementById('remise'+discount_idart+'').innerHTML = discount_value;
+           $('#remise'+discount_idart+'').text(discount_value);
+           $(data).closest('tr').find('td.total').text(price);
+           $('.remise'+discount_idart+'').val(discount_value);
+           $('#remiseId').modal('hide');
+        }
+           
+        }else if(discount_type == 'Pourcentage'){
+          if(discount_value>100){
+                // document.getElementById('remise'+discount_idart+'').innerHTML = 100+'%';
+                $('#remise'+discount_idart+'').text(100+'%');
+                $('.remise'+discount_idart+'').val(100+'%');
+                $('#remiseId').modal('hide');
+          }else if(discount_value == ''){
+                $('#remise'+discount_idart+'').text(0+'%');
+                $('.remise'+discount_idart+'').val(0+'%');
+                $('#remiseId').modal('hide');
+          }else{
+               // document.getElementById('remise'+discount_idart+'').innerHTML = discount_value+'%';
+               $('#remise'+discount_idart+'').text(discount_value+'%');
+               $('.remise'+discount_idart+'').val(discount_value+'%');
+               $('#remiseId').modal('hide');
+          }
+           
+        }else{
+          if(discount_value>100){
+                // document.getElementById('remise'+discount_idart+'').innerHTML = 100+'%';
+                $('#remise'+discount_idart+'').text(100+'%');
+                $('.remise'+discount_idart+'').val(100+'%');
+                $('#remiseId').modal('hide');
+          }else if(discount_value == ''){
+                $('#remise'+discount_idart+'').text(0+'%');
+                $('.remise'+discount_idart+'').val(0+'%');
+                $('#remiseId').modal('hide');
+          }else{
+               // document.getElementById('remise'+discount_idart+'').innerHTML = discount_value+'%';
+               $('#remise'+discount_idart+'').text(discount_value+'%');
+               $('.remise'+discount_idart+'').val(discount_value+'%');
+               $('#remiseId').modal('hide');
+          }
+        }
+    }
+  function toDelete(data){
+    $(data).closest('tr').remove();
+    const idex = articleTable.indexOf($(data).closest('tr').attr("id"));
+    articleTable.splice(idex, 1);
+  }
+  function moins(data){
+    const initial = stringToNumber($(data).closest('tr').find('td div input').val());
+    const price = stringToNumber($(data).closest('tr').find('td.price').text());
+    const qty = initial - 1;
+    if(qty <= 0){
+      $(data).closest('tr').remove();
+      const idex = articleTable.indexOf($(data).closest('tr').attr("id"));
+      articleTable.splice(idex, 1);
+    } else {
+      $(data).closest('tr').find('td div input').val(qty);
+      $(data).closest('tr').find('td.total').text(price * qty);
+    }
+  }
+
+  function plus(data){
+    const initial = stringToNumber($(data).closest('tr').find('td div input').val());
+    const price = stringToNumber($(data).closest('tr').find('td.price').text());
+    const qty = initial + 1;
+  
+    $(data).closest('tr').find('td div input').val(qty);
+    $(data).closest('tr').find('td.total').text(price * qty);
+
+
+  }
+  function search(data){
+    const quantRest = $(data).closest('tr').find("td.quantRest").text();
+    const initial = stringToNumber($(data).closest('tr').find('td div input').val());
+    const price = stringToNumber($(data).closest('tr').find('td.price').text());
+ 
+      $(data).closest('tr').find('td div input').val(initial);
+      $(data).closest('tr').find('td.total').text(price * initial);
+    
+    }
 
     $(document).ready(function(){
+
+      
+      $('.flat_discount').on('click',function(){
+        document.getElementById('discount_type').innerHTML = 'Espèces';
+      });
+      $('.percentage_discount').on('click',function(){
+        document.getElementById('discount_type').innerHTML = 'Pourcentage';
+      });
+
+      $('#temps').on('change',function(){
+             var temps =$('#temps').val();
+             if(temps===''){
+              $('#delai1').hide();$('#delai').show();
+             }else{
+             $('#delai1').show();
+             $('#delai').hide(); }
+      });
+      $('#condPayer').on('change',function(){
+        var condPayer=$('#condPayer').val(); 
+        if(condPayer=='1'){
+          $('#customer').hide();
+        }else{
+           $('#customer').show();
+        }
+            
+      });
 
     var combobox = document.getElementById("combobox");
     var articleOption = document.getElementsByClassName("articleOption");
@@ -255,11 +446,13 @@
 
             const code_proforma = $(this).attr("code_proforma");
             const ref_client = $(this).attr("ref_client");
+            const store_prefix = $('#store_prefix').val();
+            const store_uri = $('#store_uri').val();
 
             $.ajax({
                 url: BASE_URL + '/administrator/registers/generate_commande_post',
                 method:'POST',
-                data:{code_proforma:code_proforma,ref_client:ref_client},
+                data:{code_proforma:code_proforma,ref_client:ref_client,store_prefix:store_prefix,store_uri:store_uri},
                 dataType:'json',
 
                 success:function(data){ 

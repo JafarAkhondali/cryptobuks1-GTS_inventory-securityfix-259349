@@ -75,7 +75,7 @@ jQuery(document).ready(domo);
 
   <?php
 
-   $fiche_id=$this->uri->segment(4);
+   $fiche_id=$this->uri->segment(5);
 
   ?> 
 

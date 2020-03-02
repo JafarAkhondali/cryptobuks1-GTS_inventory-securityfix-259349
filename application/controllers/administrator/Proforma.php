@@ -45,25 +45,32 @@ class Proforma extends Admin
 	public function edit($store, $id)
 	{
 		$this->is_allowed('registers_update');
+        $store = $this->uri->segment(4);
+		$id = $this->uri->segment(5);
+		$store_prefix = 'store_'.$store;
 
-		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$proforma = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_proforma',array('ID_PROFORMA'=>$id));
 		$this->data['type'] = $proforma['TYPE_PROFORMA'];
 		$this->data['titre'] = $proforma['TITRE_PROFORMA'];
 		$this->data['ref_client'] = $proforma['REF_CLIENT_PROFORMA'];
 		$this->data['code_commande'] = $proforma['CODE_PROFORMA'];
-		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
 		$this->data['registers'] = $proforma;
-        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_PROFORMA_PROD FROM pos_store_2_ibi_proforma_produits WHERE REF_PROFORMA_CODE_PROD= "'.$proforma['CODE_PROFORMA'].'")', NULL, FALSE);
+        $this->data['getProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_PROFORMA_PROD FROM pos_'.$store_prefix.'_ibi_proforma_produits WHERE REF_PROFORMA_CODE_PROD= "'.$proforma['CODE_PROFORMA'].'")', NULL, FALSE);
 
 		$this->template->title('Modifier une proforma');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
 	}
-	public function view($id)
+	public function view($store,$id)
 	{
-		$pp = $this->is_allowed('proforma_view');
+		$this->is_allowed('proforma_view');
+		$this->is_allowed('registers_update');
+        $store = $this->uri->segment(4);
+		$id = $this->uri->segment(5);
+		$store_prefix = 'store_'.$store;
 
-		$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
-		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
+		$proforma = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_proforma',array('ID_PROFORMA'=>$id));
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_proforma_produits',array('REF_PROFORMA_CODE_PROD'=>$proforma['CODE_PROFORMA']));
         // print_r($this->data['proforma']);
 		// $this->data['proforma'] = $this->model_proforma->join_avaiable()->filter_avaiable()->find($id);
 
