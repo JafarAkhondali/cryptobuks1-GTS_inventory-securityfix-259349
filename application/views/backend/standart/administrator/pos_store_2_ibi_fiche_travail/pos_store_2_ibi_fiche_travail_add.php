@@ -90,7 +90,31 @@
                                                  
                          
                                                 <div class="form-group ">
+<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
                             <label for="fiche_unite" class="col-sm-2 control-label">Fiche Unite 
+=======
+                            <label for="DISCOUNT_PERCENT_GROUP" class="col-sm-2 control-label">Pourcentange De remise 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="DISCOUNT_PERCENT_GROUP" id="DISCOUNT_PERCENT_GROUP" placeholder="Pourcentange De Remise" value="<?= set_value('DISCOUNT_PERCENT_GROUP'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="DISCOUNT_AMOUNT_GROUP" class="col-sm-2 control-label">Montant De Remise 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="DISCOUNT_AMOUNT_GROUP" id="DISCOUNT_AMOUNT_GROUP" placeholder="Montant De Remise" value="<?= set_value('DISCOUNT_AMOUNT_GROUP'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="DISCOUNT_ENABLE_SCHEDULE_GROUP" class="col-sm-2 control-label">Activer la planification 
+>>>>>>> aletta:application/views/backend/standart/administrator/pos_ibi_clients_groups/pos_ibi_clients_groups_add.php
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
@@ -101,7 +125,11 @@
                         </div>
                                                  
                                                 <div class="form-group ">
+<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
                             <label for="fiche_date" class="col-sm-2 control-label">Fiche Date 
+=======
+                            <label for="DISCOUNT_START_GROUP" class="col-sm-2 control-label">Debut De La planification 
+>>>>>>> aletta:application/views/backend/standart/administrator/pos_ibi_clients_groups/pos_ibi_clients_groups_add.php
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
