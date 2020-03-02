@@ -100,7 +100,7 @@
 
                                                  
                                                 <div class="form-group ">
-                            <label for="DISCOUNT_PERCENT_GROUP" class="col-sm-2 control-label">Pourcentange De Remise 
+                            <label for="DISCOUNT_PERCENT_GROUP" class="col-sm-2 control-label">Pourcentange De remise 
                             </label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control" name="DISCOUNT_PERCENT_GROUP" id="DISCOUNT_PERCENT_GROUP" placeholder="Pourcentange De Remise" value="<?= set_value('DISCOUNT_PERCENT_GROUP'); ?>">
@@ -120,7 +120,7 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DISCOUNT_ENABLE_SCHEDULE_GROUP" class="col-sm-2 control-label">Activer La Planification 
+                            <label for="DISCOUNT_ENABLE_SCHEDULE_GROUP" class="col-sm-2 control-label">Activer la planification 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-6">
@@ -142,7 +142,7 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DISCOUNT_START_GROUP" class="col-sm-2 control-label">Debut De La Planification 
+                            <label for="DISCOUNT_START_GROUP" class="col-sm-2 control-label">Debut De La planification 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
