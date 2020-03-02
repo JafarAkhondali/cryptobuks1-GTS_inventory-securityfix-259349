@@ -46,12 +46,28 @@
             </div>
         </div>
     </div>
-<div id="nu-commandes" hidden>    
-<form method="post" id="insert_form1">
+<div id="nu-commandes" hidden> 
+
+            <?= form_open('', [
+
+              'name'    => 'form_nurse_activity',
+
+              'class'   => 'form-horizontal',
+
+              'id'      => 'insert_form1',
+
+              'enctype' => 'multipart/form-data',
+
+              'method'  => 'POST'
+
+            ]); ?>
+
+
+<!-- <form method="post" id="insert_form1"> -->
 <div class="row">
   <div class="col-md-8">
           <div class="form-group">
-            <input type="hidden" name="userId" value="<?=$userId?>"> 
+            
             <div class="input-group">
                        <span class="input-group-addon">Description de l'article</span>
                               <input type="text" id="titre" name="titre" class="form-control titre">
@@ -69,7 +85,13 @@
 
 
 
-
+ <?php
+                          $getCategorie=$this->db->query("SELECT * FROM pos_ibi_categories WHERE PARENT_REF_ID_CATEGORIE=0");
+                          foreach ( $getCategorie->result() as $categorie) { ?>
+                              <option value="<?=$categorie->ID_CATEGORIE ?>"><?php echo $categorie->NOM_CATEGORIE; ?></option>
+                            
+                        <?php }
+                          ?>
 
 
 
@@ -116,7 +138,7 @@
             <div class="box-header">
               <?php
 
-              $p='pos5_';
+             
 
               $getProduit=$this->db->query("SELECT * FROM pos_store_2_ibi_articles");
               ?>
@@ -128,7 +150,12 @@
 
 
 
-
+ <?php
+                          foreach ( $getProduit->result() as $articles) { ?>
+                              <option class="articleOption" value="<?=$articles->ID_ARTICLE ?> prix=<?=$articles->PRIX_DE_VENTE_ARTICLE ?> "><?php echo $articles->DESIGN_ARTICLE; ?></option>
+                            
+                        <?php }
+                          ?>
 
 
 
@@ -151,7 +178,18 @@
 
 
 
+ <?php
+                          foreach ( $getProduit->result() as $articles) { ?>
 
+
+                            
+                            <li><a class="articleOption" articleId="<?=$articles->ID_ARTICLE ?>" id="<?=$articles->CODEBAR_ARTICLE ?>" quantRest="<?=$articles->QUANTITE_RESTANTE_ARTICLE ?>"  unit="<?=$articles->POIDS_ARTICLE ?>" price="<?=$articles->PRIX_DE_VENTE_ARTICLE ?>"><?php echo $articles->DESIGN_ARTICLE; ?></a>
+
+
+
+                            </li>
+                        <?php }
+                        ?>
 
 
 
@@ -184,8 +222,25 @@
                       </table>
                       <!-- <div>Total price: $<span class="total-cart"></span></div> -->
                     </div>
-                  <div class="box-footer">
-                    <button type="submit"  class="btn btn-primary">Enregistrer et retourner à la liste</button>
+                    <div class="box-footer">
+
+
+
+ 
+
+
+
+                    <button class="btn btn-flat btn-primary btn_save btn_action btn_save_back" id="btn_save" data-stype='back' title="Enregistrer et retourner à la liste">
+                            <i class="fa fa-save" ></i> Enregistrer
+                            </button>
+
+
+
+
+
+
+<!-- 
+                    <button   data-stype='stay' class="btn btn-primary btn_save btn_action">Enregistrer et retourner à la liste</button> -->
                   </div>
             </div>
           </div>
@@ -206,7 +261,7 @@
                                            </select>
                                          </span>
                                                 <select type="text" name="delai" class="form-control delai" id="delai">
-                                                  <option value="">Stock en vente</option>
+                                                  <option value="0">Stock en vente</option>
                                                 </select>
                                                 <input type="number" name="delai" class="form-control delai" id="delai1" style="display: none;">
                                           </div>
@@ -226,7 +281,7 @@
                               </div>
                             </div>
                             <div class="row">
-         
+         <!-- 
                               <div class="col-md-6">
                                 <div class="form-group">
                                           <div class="input-group">
@@ -239,7 +294,7 @@
                                                     <input type="number" name="validOff" class="form-control delai" id="validOff" value="3">
                                               </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                   <div class="col-md-4" hidden>
                                     <div class="form-group">
@@ -269,7 +324,9 @@
                       </div>
                     </div>
                   </div>
-   </form>
+
+                  <?= form_close(); ?>
+  <!--  </form> -->
 <!-- content -->
  </div>
 <!-- content -->
@@ -293,7 +350,13 @@
 
 
 
-
+<?php 
+                                         $queryBDA = $this->db->query("SELECT TITRE_FICHE,DEVIS_CODE_FICHE,ID_FICHE FROM pos_store_2_ibi_fiche_travail");
+                                        foreach ($queryBDA->result() as $key) {
+                                        ?>
+                                  <option value="<?=$key->DEVIS_CODE_FICHE?>"><?=$key->TITRE_FICHE?></option>
+                                    <?php  
+                                       } ?> 
 
 
 
@@ -329,7 +392,12 @@
 
 
 
-
+                              <?php
+                                  $getClient=$this->db->query("SELECT ID_CLIENT,NOM_CLIENT,PRENOM_CLIENT FROM pos_ibi_clients");
+                                  foreach ( $getClient->result() as $clients) { ?>
+                                ?>
+                                <option value="<?=$clients->ID_CLIENT?>"><?php echo $clients->NOM_CLIENT.' '.$clients->PRENOM_CLIENT;?></option> 
+                              <?php } ?>
 
 
 
@@ -381,13 +449,172 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
+
+    $('.btn_save').click(function() {
+
+            var error = '';
+            $('.titre').each(function () {
+                // var titre = $('#titre');
+                if ($(this).val() == '') {
+                    error += "<p>Entrer la description du devis...</p>";
+                    return false;
+                }
+            });
+            $('#categorie').each(function () {
+                // var titre = $('#titre');
+                if ($(this).val() == '') {
+                    error += "<p>Entrer sa categorie...</p>";
+                    return false;
+                }
+            });
+            $('#client').each(function () {
+                // var titre = $('#titre');
+                if ($(this).val() == '') {
+                    error += "<p>Entrer le client...</p>";
+                    return false;
+                }
+             });
+
+
+
+
+      avoid_multi_click_btn('btn_save', 5000);
+
+      $('.message').fadeOut();
+
+
+        var form_nurse_activity = $('#insert_form1');
+
+        var data_post = form_nurse_activity.serializeArray();
+
+        var save_type = $(this).attr('data-stype');
+
+
+
+        data_post.push({
+          name: 'save_type',
+          value: save_type
+        });
+
+
+
+        $('.loading').show();
+
+
+
+        $.ajax({
+
+            url: BASE_URL + '/administrator/pos_store_2_ibi_devis/add_save',
+
+            type: 'POST',
+
+            dataType: 'json',
+
+            data: data_post,
+
+          })
+
+          .done(function(res) {
+
+            if (res.success) {
+
+
+
+              if (save_type == 'back') {
+
+                window.location.href = res.redirect;
+
+                return;
+
+              }
+
+
+
+              $('.message').printMessage({
+                message: res.message
+              });
+
+              $('.message').fadeIn();
+
+              resetForm();
+
+              $('.chosen option').prop('selected', false).trigger('chosen:updated');
+
+
+
+            } else {
+
+              $('.message').printMessage({
+                message: res.message,
+                type: 'warning'
+              });
+
+            }
+
+
+
+          })
+
+          .fail(function() {
+
+            $('.message').printMessage({
+              message: 'Error save data',
+              type: 'warning'
+            });
+
+          })
+
+          .always(function() {
+
+            $('.loading').hide();
+
+            $('html, body').animate({
+              scrollTop: $(document).height()
+            }, 2000);
+
+          });
+
+
+
+
+        return false;
+      
+
+
+    }); /*end btn save*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        $('#commandes').on('click',function(){
             $('#nu-commandes').show();
             $('#nu-gammes').hide();
+
+             return false;
        });
        $('#gammes').on('click',function(){
             $('#nu-commandes').hide();
             $('#nu-gammes').show();
+
+             return false;
        });
     });
 </script>
@@ -680,4 +907,16 @@
 
       /*document ready*/
     });
+
+  function avoid_multi_click_btn(btn_id, period) {
+    $('.' + btn_id).attr('disabled', true);
+
+    var my_interval = setInterval(function() {
+
+      $('.' + btn_id).attr('disabled', false);
+
+      clearInterval(my_interval);
+
+    }, period);
+  }
 </script>

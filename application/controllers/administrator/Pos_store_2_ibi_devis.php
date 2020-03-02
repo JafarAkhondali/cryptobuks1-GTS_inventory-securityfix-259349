@@ -59,6 +59,110 @@ class Pos_store_2_ibi_devis extends Admin
 		$this->render('backend/standart/administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_add', $this->data);
 	}
 
+
+
+
+
+
+	   public function numero_fiche_travail()
+
+  {                 $this->db->select('ID_FICHE');
+                         $this->db->from(' pos_store_2_ibi_fiche_travail');
+                        $this->db->order_by('ID_FICHE','desc');
+                       $this->db->limit('1');
+                         $query = $this->db->get();
+
+             if($query->num_rows()>0)
+                {
+                      foreach($query->result() as $row){
+                           $job_card_id = (int)$row->ID_FICHE;
+                      }
+                      $job_card_id++;
+                }else{
+                   $job_card_id = 1;
+                }
+                $invoice_number = $job_card_id;
+               
+                  $bre = strlen($invoice_number);
+                
+                        if($bre==1){
+                             $value= '0000'.$invoice_number;
+                         }
+                       else if($bre==2){
+                           $value='000'.$invoice_number;
+                       }else if($bre==3){
+                          $value= '00'.$invoice_number;
+                       }
+                       else if($bre==4){
+                          $value= '0'.$invoice_number;
+                       }else{
+                           $value=$invoice_number;
+                       }
+
+
+              return $value;
+
+    }
+       public function numero_commande()
+
+  {                 $this->db->select('ID_DEVIS');
+                         $this->db->from('pos_store_2_ibi_devis');
+                        $this->db->order_by('ID_DEVIS','desc');
+                       $this->db->limit('1');
+                         $query = $this->db->get();
+
+             if($query->num_rows()>0)
+                {
+                      foreach($query->result() as $row){
+                           $job_card_id = (int)$row->ID_DEVIS;
+                      }
+                      $job_card_id++;
+                }else{
+                   $job_card_id = 1;
+                }
+                $invoice_number = $job_card_id;
+               
+                  $bre = strlen($invoice_number);
+                
+                        if($bre==1){
+                             $value= '0000'.$invoice_number;
+                         }
+                       else if($bre==2){
+                           $value='000'.$invoice_number;
+                       }else if($bre==3){
+                          $value= '00'.$invoice_number;
+                       }
+                       else if($bre==4){
+                          $value= '0'.$invoice_number;
+                       }else{
+                           $value=$invoice_number;
+                       }
+
+
+              return $value;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	* Add New Pos Store 2 Ibi Deviss
 	*
@@ -74,61 +178,228 @@ class Pos_store_2_ibi_devis extends Admin
 			exit;
 		}
 
-		$this->form_validation->set_rules('TITRE_DEVIS', 'TITRE DEVIS', 'trim|required');
-		$this->form_validation->set_rules('REF_CLIENT_DEVIS', 'REF CLIENT DEVIS', 'trim|required');
+		$this->form_validation->set_rules('titre', 'Le titre est requis', 'trim|required');
+		$this->form_validation->set_rules('client', 'un client est requis', 'trim|required');
 		
 
 		if ($this->form_validation->run()) {
+
+
+		$position= $this->input->post('optradio');
+$code='cb123456';
 		
+switch ($position) {
+
+    case "is_gamme":
+
+
 			$save_data = [
-				'TITRE_DEVIS' => $this->input->post('TITRE_DEVIS'),
-				'CODE_DEVIS' => $this->input->post('CODE_DEVIS'),
-				'REF_CLIENT_DEVIS' => $this->input->post('REF_CLIENT_DEVIS'),
-				'TYPE_DEVIS' => $this->input->post('TYPE_DEVIS'),
-				'DATE_CREATION_DEVIS' => $this->input->post('DATE_CREATION_DEVIS'),
-				'DATE_MOD_DEVIS' => $this->input->post('DATE_MOD_DEVIS'),
-				'AUTHOR_DEVIS' => $this->input->post('AUTHOR_DEVIS'),
-				'COEFFICIENT_DEVIS' => $this->input->post('COEFFICIENT_DEVIS'),
-				'TOTAL_DEVIS' => $this->input->post('TOTAL_DEVIS'),
-				'TOTAL_FINAL_DEVIS' => $this->input->post('TOTAL_FINAL_DEVIS'),
-				'TYPE_DELAY_DEVIS' => $this->input->post('TYPE_DELAY_DEVIS'),
-				'TEMPS_DELAY_DEVIS' => $this->input->post('TEMPS_DELAY_DEVIS'),
-				'COND_PAID_DEVIS' => $this->input->post('COND_PAID_DEVIS'),
-				'PERCENT_PAID_DEVIS' => $this->input->post('PERCENT_PAID_DEVIS'),
-				'PERCENT_PAID_LIVR_DEVIS' => $this->input->post('PERCENT_PAID_LIVR_DEVIS'),
-				'VALID_OFFRE_DEVIS' => $this->input->post('VALID_OFFRE_DEVIS'),
-				'STATUT_DEVIS' => $this->input->post('STATUT_DEVIS'),
+				'TITRE_FICHE' => $this->input->post('titre'),
+
+				'DEVIS_CODE_FICHE' => $code,
+
+				'NUMERO_FICHE' =>$this -> numero_fiche_travail(),
+
+				'REF_CLIENT_FICHE' => $this->input->post('client'),
+
+				'TYPE_DEVIS_FICHE'=>$position,
+
+				'DATE_CREATION_FICHE' =>date('Y-m-d H:i:s') ,
+
+				'DATE_MOD_FICHE' =>date('Y-m-d H:i:s') ,
+
+				'AUTHOR_FICHE' => get_user_data('id'),
+
+				'REF_CATEGORIE_FICHE' => $this->input->post('categorie'),
+
+				'TOTAL_FICHE' => 0,
+
+				'STATUT_FICHE' => 0,
+			];
+
+			
+			//$save_pos_store_2_ibi_devis = $this->model_pos_store_2_ibi_devis->store($save_data);
+
+     $this->db->insert('pos_store_2_ibi_fiche_travail', $save_data);
+     $id_fiche_travail=$this->db->insert_id();
+
+
+        if ($id_fiche_travail) 
+             {
+                 
+			           for ($count = 0; $count < count($_POST["name"]); $count++) 
+			              {
+						     $save_datas = [
+
+							'REF_PRODUCT_CODEBAR_DEVIS_PROD' => $_POST["article"][$count],
+
+							'REF_DEVIS_CODE_DEVIS_PROD' => $id_fiche_travail,
+
+							'QUANTITE_DEVIS_PROD' => $_POST["search"][$count],
+
+							'QUANTITE_ADD_DEVIS_PROD' =>$_POST["search"][$count],
+
+							'UNIT_DEVIS_PROD ' =>$_POST["unit"][$count],
+
+							'PRIX_DEVIS_PROD ' =>$_POST["price"][$count],
+
+							'PRIX_TOTAL_DEVIS_PROD ' =>0,
+
+							'NAME_DEVIS_PROD ' =>$_POST["name"][$count],
+
+							'STATUT_DEVIS_PROD ' =>0,
+
+									];
+						$this->db->insert('pos_store_2_ibi_devis_produits', $save_datas);
+						//$save_pos_store_2_ibi_commande = $this->db->insert_id();			
+
+			}
+
+							if ($this->input->post('save_type') == 'stay') {
+								$this->data['success'] = true;
+								$this->data['id'] 	   = $save_pos_store_2_ibi_devis;
+								$this->data['message'] = cclang('success_save_data_stay', [
+									anchor('administrator/pos_store_2_ibi_fiche_travail/edit/' . $id_fiche_travail, 'Edit Pos Store 2 Ibi Devis'),
+									anchor('administrator/pos_store_2_ibi_fiche_travail', ' Go back to list')
+								]);
+							} else {
+								set_message(
+									cclang('success_save_data_redirect', [
+									anchor('administrator/pos_store_2_ibi_fiche_travail/edit/' . $id_fiche_travail, 'Edit Pos Store 2 Ibi Devis')
+								]), 'success');
+
+			            		$this->data['success'] = true;
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_fiche_travail');
+							}
+						} else {
+							if ($this->input->post('save_type') == 'stay') {
+								$this->data['success'] = false;
+								$this->data['message'] = cclang('data_not_change');
+							} else {
+			            		$this->data['success'] = false;
+			            		$this->data['message'] = cclang('data_not_change');
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_fiche_travail');
+							}
+						}
+
+
+
+
+			        break;
+			    case "is_commande":
+
+           
+
+
+
+
+
+
+
+			$save_data = [
+				'TITRE_DEVIS' => $this->input->post('titre'),
+				'CODE_DEVIS' => $this->numero_commande(),
+				'REF_CLIENT_DEVIS' => $this->input->post('client'),
+				'TYPE_DEVIS' => $position,
+				'DATE_CREATION_DEVIS' => date('Y-m-d H:i:s'),
+				'DATE_MOD_DEVIS' =>date('Y-m-d H:i:s') ,
+				'AUTHOR_DEVIS' =>get_user_data('id') ,
+				'COEFFICIENT_DEVIS' => 0,
+				'TOTAL_DEVIS' => 0,
+				'TOTAL_FINAL_DEVIS' => 0,
+				'TYPE_DELAY_DEVIS' => $this->input->post('temps'),
+				'TEMPS_DELAY_DEVIS' => $this->input->post('delai'),
+				'COND_PAID_DEVIS' => $this->input->post('condPayer'),
+				'PERCENT_PAID_DEVIS' => $this->input->post('typeCond1'),
+				'PERCENT_PAID_LIVR_DEVIS' => $this->input->post('typeCond2'),
+				'VALID_OFFRE_DEVIS' => $this->input->post('tempsvalid'),
+				'STATUT_DEVIS' => 0,
 			];
 
 			
 			$save_pos_store_2_ibi_devis = $this->model_pos_store_2_ibi_devis->store($save_data);
 
-			if ($save_pos_store_2_ibi_devis) {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_pos_store_2_ibi_devis;
-					$this->data['message'] = cclang('success_save_data_stay', [
-						anchor('administrator/pos_store_2_ibi_devis/edit/' . $save_pos_store_2_ibi_devis, 'Edit Pos Store 2 Ibi Devis'),
-						anchor('administrator/pos_store_2_ibi_devis', ' Go back to list')
-					]);
-				} else {
-					set_message(
-						cclang('success_save_data_redirect', [
-						anchor('administrator/pos_store_2_ibi_devis/edit/' . $save_pos_store_2_ibi_devis, 'Edit Pos Store 2 Ibi Devis')
-					]), 'success');
 
-            		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
-				}
-			} else {
-				if ($this->input->post('save_type') == 'stay') {
-					$this->data['success'] = false;
-					$this->data['message'] = cclang('data_not_change');
-				} else {
-            		$this->data['success'] = false;
-            		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
-				}
+
+        if ($save_pos_store_2_ibi_devis) 
+             {
+
+			           for ($count = 0; $count < count($_POST["name"]); $count++) 
+			              {
+						     $save_datas = [
+
+							'REF_PRODUCT_CODEBAR_DEVIS_PROD' =>   $_POST["article"][$count],
+
+							'REF_DEVIS_CODE_DEVIS_PROD' =>  $save_pos_store_2_ibi_devis,
+
+							'QUANTITE_DEVIS_PROD' => $_POST["search"][$count],
+
+							'QUANTITE_ADD_DEVIS_PROD' =>0,
+
+							'UNIT_DEVIS_PROD ' =>$_POST["unit"][$count],
+
+							'PRIX_DEVIS_PROD ' =>$_POST["price"][$count],
+
+							'PRIX_TOTAL_DEVIS_PROD ' =>0,
+
+							'NAME_DEVIS_PROD ' =>$_POST["name"][$count],
+
+							'STATUT_DEVIS_PROD ' =>0,
+
+									];
+						$this->db->insert('pos_store_2_ibi_devis_produits', $save_datas);
+						//$save_pos_store_2_ibi_commande = $this->db->insert_id();			
+
+			}
+
+							if ($this->input->post('save_type') == 'stay') {
+								$this->data['success'] = true;
+								$this->data['id'] 	   = $save_pos_store_2_ibi_devis;
+								$this->data['message'] = cclang('success_save_data_stay', [
+									anchor('administrator/pos_store_2_ibi_devis/edit/' . $save_pos_store_2_ibi_devis, 'Edit Pos Store 2 Ibi Devis'),
+									anchor('administrator/pos_store_2_ibi_devis', ' Go back to list')
+								]);
+							} else {
+								set_message(
+									cclang('success_save_data_redirect', [
+									anchor('administrator/pos_store_2_ibi_devis/edit/' . $save_pos_store_2_ibi_devis, 'Edit Pos Store 2 Ibi Devis')
+								]), 'success');
+
+			            		$this->data['success'] = true;
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
+							}
+						} else {
+							if ($this->input->post('save_type') == 'stay') {
+								$this->data['success'] = false;
+								$this->data['message'] = cclang('data_not_change');
+							} else {
+			            		$this->data['success'] = false;
+			            		$this->data['message'] = cclang('data_not_change');
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
+							}
+						}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			     break;
 			}
 
 		} else {
