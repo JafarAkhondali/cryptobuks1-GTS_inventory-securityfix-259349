@@ -20,7 +20,7 @@ function domo(){
 
 jQuery(document).ready(domo);
 </script>
-<!-- Content Header (Page header) -->
+<!-- Content Header (Page header)  -->
 <section class="content-header">
    <h1>
       Groups      <small><?= cclang('detail', ['Groups']); ?> </small>
