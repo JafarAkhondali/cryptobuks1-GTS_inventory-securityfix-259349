@@ -13,7 +13,7 @@ class client_file extends Admin
 		$this->load->model('model_registers');
 	}
 
-	public function index($offset = 0)
+	public function index($store,$offset = 0)
 	{
 		$this->is_allowed('client_file_list');
 
@@ -36,15 +36,17 @@ class client_file extends Admin
 		$this->render('backend/standart/administrator/client_file/client_file_list', $this->data);
 	}
 	
-	public function add($id){
+	public function add($store,$id){
 
 		$this->is_allowed('file_client_add');
-
-		$file = $this->model_registers->getOne('pos_store_2_ibi_client_file',array('PROFORMA_ID_CLIENT_FILE'=>$id));
+        
+        $id = $this->uri->segment(5);
+        $store_prefix = 'store_'.$store;
+		$file = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_client_file',array('PROFORMA_ID_CLIENT_FILE'=>$id));
 	  
 		if($file == ''){
 
-			$proforma = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+			$proforma = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_proforma',array('ID_PROFORMA'=>$id));
 		$this->data['client_data'] = $this->model_registers->getOne('pos_ibi_clients',array('ID_CLIENT'=>$proforma['REF_CLIENT_PROFORMA']));
 		$this->data['proforma'] = $proforma;
 
@@ -54,7 +56,7 @@ class client_file extends Admin
 
 		}else{
         
-			redirect(base_url('administrator/client_file/view/'.$file['ID_CLIENT_FILE']));
+			redirect(base_url('administrator/client_file/view/'.$store.'/'.$file['ID_CLIENT_FILE']));
 
 			
 		}
@@ -75,6 +77,8 @@ class client_file extends Admin
 		
 
 		if ($this->form_validation->run()) {
+			$store_prefix=$this->input->post('store_prefix');
+			$store_uri=$this->input->post('store_uri');
 			$bon_commande_client_file = $this->input->post('bon_commande_client_file');
 			$bon_commande_client_file_name = $this->input->post('bon_commande_client_file_name');
 			$file_commissioning = $this->input->post('file_commissioning');
@@ -168,28 +172,28 @@ class client_file extends Admin
 			}
 		
 			
-			$save_client_file = $this->model_client_file->store($save_data);
+			$save_client_file = $this->model_registers->insert('pos_'.$store_prefix.'_ibi_client_file',$save_data);
 
 			if ($save_client_file) {
 
-                $table = 'pos_store_2_ibi_proforma';
+                $table = 'pos_'.$store_prefix.'_ibi_proforma';
 				$update_proforma = $this->model_registers->update($table,array('ID_PROFORMA'=>$this->input->post('proforma_ids')),array('STATUT_PROFORMA' => 1));
 
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_client_file;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						anchor('administrator/client_file/edit/' . $save_client_file, 'Edit Pos Store 2 Ibi Client File'),
+						anchor('administrator/client_file/edit/'.$store_uri.'/' . $save_client_file, 'Edit Pos Store 2 Ibi Client File'),
 						anchor('administrator/client_file', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						anchor('administrator/client_file/edit/' . $save_client_file, 'Edit Pos Store 2 Ibi Client File')
+						anchor('administrator/client_file/edit/'.$store_uri.'/' . $save_client_file, 'Edit Pos Store 2 Ibi Client File')
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/client_file');
+					$this->data['redirect'] = base_url('administrator/client_file/index/'.$store_uri.'');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -198,7 +202,7 @@ class client_file extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/client_file');
+					$this->data['redirect'] = base_url('administrator/client_file/index/'.$store_uri.'');
 				}
 			}
 
@@ -404,10 +408,12 @@ class client_file extends Admin
 	*
 	* @var $id String
 	*/
-	public function view($id)
+	public function view($store,$id)
 	{
 		$this->is_allowed('client_file_view');
 
+		$id = $this->uri->segment(5);
+        
 		$this->data['client_file'] = $this->model_client_file->join_avaiable()->filter_avaiable()->find($id);
 
 		$this->template->title('Détail de la fiche');

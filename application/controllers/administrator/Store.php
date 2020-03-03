@@ -9,14 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 *| Pos Ibi Stores site
 *|
 */
-class Pos_ibi_stores extends Admin	
+class Store extends Admin	
 {
 	
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->load->model('model_pos_ibi_stores');
+		$this->load->model('model_store');
 	}
 
 	/**
@@ -26,37 +26,37 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function index($offset = 0)
 	{
-		$this->is_allowed('pos_ibi_stores_list');
+		$this->is_allowed('store_list');
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');
 
-		$this->data['pos_ibi_storess'] = $this->model_pos_ibi_stores->get($filter, $field, $this->limit_page, $offset);
-		$this->data['pos_ibi_stores_counts'] = $this->model_pos_ibi_stores->count_all($filter, $field);
+		$this->data['stores'] = $this->model_store->get($filter, $field, $this->limit_page, $offset);
+		$this->data['store_counts'] = $this->model_store->count_all($filter, $field);
 
 		$config = [
-			'base_url'     => 'administrator/pos_ibi_stores/index/',
-			'total_rows'   => $this->model_pos_ibi_stores->count_all($filter, $field),
+			'base_url'     => 'administrator/store/index/',
+			'total_rows'   => $this->model_store->count_all($filter, $field),
 			'per_page'     => $this->limit_page,
 			'uri_segment'  => 4,
 		];
 
 		$this->data['pagination'] = $this->pagination($config);
 
-		$this->template->title('Pos Ibi Stores List');
-		$this->render('backend/standart/administrator/pos_ibi_stores/pos_ibi_stores_list', $this->data);
+		$this->template->title('Liste des boutiques');
+		$this->render('backend/standart/administrator/store/store_list', $this->data);
 	}
 	
 	/**
-	* Add new pos_ibi_storess
+	* Add new stores
 	*
 	*/
 	public function add()
 	{
-		$this->is_allowed('pos_ibi_stores_add');
+		$this->is_allowed('store_add');
 
-		$this->template->title('Pos Ibi Stores New');
-		$this->render('backend/standart/administrator/pos_ibi_stores/pos_ibi_stores_add', $this->data);
+		$this->template->title('Créer une nouvelle boutique');
+		$this->render('backend/standart/administrator/store/store_add', $this->data);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function add_save()
 	{
-		if (!$this->is_allowed('pos_ibi_stores_add', false)) {
+		if (!$this->is_allowed('store_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -80,27 +80,27 @@ class Pos_ibi_stores extends Admin
 		
 
 		if ($this->form_validation->run()) {
-			$pos_ibi_stores_IMAGE_uuid = $this->input->post('pos_ibi_stores_IMAGE_uuid');
-			$pos_ibi_stores_IMAGE_name = $this->input->post('pos_ibi_stores_IMAGE_name');
+			$store_IMAGE_uuid = $this->input->post('store_IMAGE_uuid');
+			$store_IMAGE_name = $this->input->post('store_IMAGE_name');
 		
 			$save_data = [
-				'STATUT' => $this->input->post('STATUT'),
-				'NAME' => $this->input->post('NAME'),
-				'DESCRIPTION' => $this->input->post('DESCRIPTION'),
-				'DATE_CREATION' => date('Y-m-d H:i:s'),
-				'AUTHOR' => get_user_data('id'),			];
+				'STATUT_STORE' => $this->input->post('STATUT'),
+				'NAME_STORE' => $this->input->post('NAME'),
+				'DESCRIPTION_STORE' => $this->input->post('DESCRIPTION'),
+				'DATE_CREATION_STORE' => date('Y-m-d H:i:s'),
+				'AUTHOR_STORE' => get_user_data('id'),			];
 
-			if (!is_dir(FCPATH . '/uploads/pos_ibi_stores/')) {
-				mkdir(FCPATH . '/uploads/pos_ibi_stores/');
+			if (!is_dir(FCPATH . '/uploads/store/')) {
+				mkdir(FCPATH . '/uploads/store/');
 			}
 
-			if (!empty($pos_ibi_stores_IMAGE_name)) {
-				$pos_ibi_stores_IMAGE_name_copy = date('YmdHis') . '-' . $pos_ibi_stores_IMAGE_name;
+			if (!empty($store_IMAGE_name)) {
+				$store_IMAGE_name_copy = date('YmdHis') . '-' . $store_IMAGE_name;
 
-				rename(FCPATH . 'uploads/tmp/' . $pos_ibi_stores_IMAGE_uuid . '/' . $pos_ibi_stores_IMAGE_name, 
-						FCPATH . 'uploads/pos_ibi_stores/' . $pos_ibi_stores_IMAGE_name_copy);
+				rename(FCPATH . 'uploads/tmp/' . $store_IMAGE_uuid . '/' . $store_IMAGE_name, 
+						FCPATH . 'uploads/store/' . $store_IMAGE_name_copy);
 
-				if (!is_file(FCPATH . '/uploads/pos_ibi_stores/' . $pos_ibi_stores_IMAGE_name_copy)) {
+				if (!is_file(FCPATH . '/uploads/store/' . $store_IMAGE_name_copy)) {
 					echo json_encode([
 						'success' => false,
 						'message' => 'Error uploading file'
@@ -108,28 +108,28 @@ class Pos_ibi_stores extends Admin
 					exit;
 				}
 
-				$save_data['IMAGE'] = $pos_ibi_stores_IMAGE_name_copy;
+				$save_data['IMAGE_STORE'] = $store_IMAGE_name_copy;
 			}
 		
 			
-			$save_pos_ibi_stores = $this->model_pos_ibi_stores->store($save_data);
+			$save_store = $this->model_store->store($save_data);
 
-			if ($save_pos_ibi_stores) {
+			if ($save_store) {
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
-					$this->data['id'] 	   = $save_pos_ibi_stores;
+					$this->data['id'] 	   = $save_store;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						anchor('administrator/pos_ibi_stores/edit/' . $save_pos_ibi_stores, 'Edit Pos Ibi Stores'),
-						anchor('administrator/pos_ibi_stores', ' Go back to list')
+						anchor('administrator/store/edit/' . $save_store, 'Edit Pos Ibi Stores'),
+						anchor('administrator/store', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						anchor('administrator/pos_ibi_stores/edit/' . $save_pos_ibi_stores, 'Edit Pos Ibi Stores')
+						anchor('administrator/store/edit/' . $save_store, 'Edit Pos Ibi Stores')
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/pos_ibi_stores');
+					$this->data['redirect'] = base_url('administrator/store');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -138,7 +138,7 @@ class Pos_ibi_stores extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/pos_ibi_stores');
+					$this->data['redirect'] = base_url('administrator/store');
 				}
 			}
 
@@ -157,12 +157,12 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function edit($id)
 	{
-		$this->is_allowed('pos_ibi_stores_update');
+		$this->is_allowed('store_update');
 
-		$this->data['pos_ibi_stores'] = $this->model_pos_ibi_stores->find($id);
+		$this->data['store'] = $this->model_store->find($id);
 
-		$this->template->title('Pos Ibi Stores Update');
-		$this->render('backend/standart/administrator/pos_ibi_stores/pos_ibi_stores_update', $this->data);
+		$this->template->title('Modifier la boutique');
+		$this->render('backend/standart/administrator/store/store_update', $this->data);
 	}
 
 	/**
@@ -172,7 +172,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function edit_save($id)
 	{
-		if (!$this->is_allowed('pos_ibi_stores_update', false)) {
+		if (!$this->is_allowed('store_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -185,27 +185,27 @@ class Pos_ibi_stores extends Admin
 		$this->form_validation->set_rules('DESCRIPTION', 'DESCRIPTION', 'trim|max_length[200]');
 		
 		if ($this->form_validation->run()) {
-			$pos_ibi_stores_IMAGE_uuid = $this->input->post('pos_ibi_stores_IMAGE_uuid');
-			$pos_ibi_stores_IMAGE_name = $this->input->post('pos_ibi_stores_IMAGE_name');
+			$store_IMAGE_uuid = $this->input->post('store_IMAGE_uuid');
+			$store_IMAGE_name = $this->input->post('store_IMAGE_name');
 		
 			$save_data = [
-				'STATUT' => $this->input->post('STATUT'),
-				'NAME' => $this->input->post('NAME'),
-				'DESCRIPTION' => $this->input->post('DESCRIPTION'),
-				'DATE_MOD' => date('Y-m-d H:i:s'),
-				'AUTHOR' => get_user_data('id'),			];
+				'STATUT_STORE' => $this->input->post('STATUT'),
+				'NAME_STORE' => $this->input->post('NAME'),
+				'DESCRIPTION_STORE' => $this->input->post('DESCRIPTION'),
+				'DATE_MOD_STORE' => date('Y-m-d H:i:s'),
+				'AUTHOR_STORE' => get_user_data('id'),			];
 
-			if (!is_dir(FCPATH . '/uploads/pos_ibi_stores/')) {
-				mkdir(FCPATH . '/uploads/pos_ibi_stores/');
+			if (!is_dir(FCPATH . '/uploads/store/')) {
+				mkdir(FCPATH . '/uploads/store/');
 			}
 
-			if (!empty($pos_ibi_stores_IMAGE_uuid)) {
-				$pos_ibi_stores_IMAGE_name_copy = date('YmdHis') . '-' . $pos_ibi_stores_IMAGE_name;
+			if (!empty($store_IMAGE_uuid)) {
+				$store_IMAGE_name_copy = date('YmdHis') . '-' . $store_IMAGE_name;
 
-				rename(FCPATH . 'uploads/tmp/' . $pos_ibi_stores_IMAGE_uuid . '/' . $pos_ibi_stores_IMAGE_name, 
-						FCPATH . 'uploads/pos_ibi_stores/' . $pos_ibi_stores_IMAGE_name_copy);
+				rename(FCPATH . 'uploads/tmp/' . $store_IMAGE_uuid . '/' . $store_IMAGE_name, 
+						FCPATH . 'uploads/store/' . $store_IMAGE_name_copy);
 
-				if (!is_file(FCPATH . '/uploads/pos_ibi_stores/' . $pos_ibi_stores_IMAGE_name_copy)) {
+				if (!is_file(FCPATH . '/uploads/store/' . $store_IMAGE_name_copy)) {
 					echo json_encode([
 						'success' => false,
 						'message' => 'Error uploading file'
@@ -213,18 +213,18 @@ class Pos_ibi_stores extends Admin
 					exit;
 				}
 
-				$save_data['IMAGE'] = $pos_ibi_stores_IMAGE_name_copy;
+				$save_data['IMAGE_STORE'] = $store_IMAGE_name_copy;
 			}
 		
 			
-			$save_pos_ibi_stores = $this->model_pos_ibi_stores->change($id, $save_data);
+			$save_store = $this->model_store->change($id, $save_data);
 
-			if ($save_pos_ibi_stores) {
+			if ($save_store) {
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $id;
 					$this->data['message'] = cclang('success_update_data_stay', [
-						anchor('administrator/pos_ibi_stores', ' Go back to list')
+						anchor('administrator/store', ' Go back to list')
 					]);
 				} else {
 					set_message(
@@ -232,7 +232,7 @@ class Pos_ibi_stores extends Admin
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/pos_ibi_stores');
+					$this->data['redirect'] = base_url('administrator/store');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -241,7 +241,7 @@ class Pos_ibi_stores extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/pos_ibi_stores');
+					$this->data['redirect'] = base_url('administrator/store');
 				}
 			}
 		} else {
@@ -259,7 +259,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function delete($id = null)
 	{
-		$this->is_allowed('pos_ibi_stores_delete');
+		$this->is_allowed('store_delete');
 
 		$this->load->helper('file');
 
@@ -275,9 +275,9 @@ class Pos_ibi_stores extends Admin
 		}
 
 		if ($remove) {
-            set_message(cclang('has_been_deleted', 'pos_ibi_stores'), 'success');
+            set_message(cclang('has_been_deleted', 'store'), 'success');
         } else {
-            set_message(cclang('error_delete', 'pos_ibi_stores'), 'error');
+            set_message(cclang('error_delete', 'store'), 'error');
         }
 
 		redirect_back();
@@ -290,12 +290,12 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function view($id)
 	{
-		$this->is_allowed('pos_ibi_stores_view');
+		$this->is_allowed('store_view');
 
-		$this->data['pos_ibi_stores'] = $this->model_pos_ibi_stores->join_avaiable()->filter_avaiable()->find($id);
+		$this->data['store'] = $this->model_store->join_avaiable()->filter_avaiable()->find($id);
 
 		$this->template->title('Pos Ibi Stores Detail');
-		$this->render('backend/standart/administrator/pos_ibi_stores/pos_ibi_stores_view', $this->data);
+		$this->render('backend/standart/administrator/store/store_view', $this->data);
 	}
 	
 	/**
@@ -305,10 +305,10 @@ class Pos_ibi_stores extends Admin
 	*/
 	private function _remove($id)
 	{
-		$pos_ibi_stores = $this->model_pos_ibi_stores->find($id);
+		$store = $this->model_store->find($id);
 
-		if (!empty($pos_ibi_stores->IMAGE)) {
-			$path = FCPATH . '/uploads/pos_ibi_stores/' . $pos_ibi_stores->IMAGE;
+		if (!empty($store->IMAGE)) {
+			$path = FCPATH . '/uploads/store/' . $store->IMAGE;
 
 			if (is_file($path)) {
 				$delete_file = unlink($path);
@@ -316,7 +316,7 @@ class Pos_ibi_stores extends Admin
 		}
 		
 		
-		return $this->model_pos_ibi_stores->remove($id);
+		return $this->model_store->remove($id);
 	}
 	
 	/**
@@ -325,7 +325,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function upload_IMAGE_file()
 	{
-		if (!$this->is_allowed('pos_ibi_stores_add', false)) {
+		if (!$this->is_allowed('store_add', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -337,7 +337,7 @@ class Pos_ibi_stores extends Admin
 
 		echo $this->upload_file([
 			'uuid' 		 	=> $uuid,
-			'table_name' 	=> 'pos_ibi_stores',
+			'table_name' 	=> 'store',
 		]);
 	}
 
@@ -347,7 +347,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function delete_IMAGE_file($uuid)
 	{
-		if (!$this->is_allowed('pos_ibi_stores_delete', false)) {
+		if (!$this->is_allowed('store_delete', false)) {
 			echo json_encode([
 				'success' => false,
 				'error' => cclang('sorry_you_do_not_have_permission_to_access')
@@ -360,9 +360,9 @@ class Pos_ibi_stores extends Admin
             'delete_by'         => $this->input->get('by'), 
             'field_name'        => 'IMAGE', 
             'upload_path_tmp'   => './uploads/tmp/',
-            'table_name'        => 'pos_ibi_stores',
+            'table_name'        => 'store',
             'primary_key'       => 'ID',
-            'upload_path'       => 'uploads/pos_ibi_stores/'
+            'upload_path'       => 'uploads/store/'
         ]);
 	}
 
@@ -372,7 +372,7 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function get_IMAGE_file($id)
 	{
-		if (!$this->is_allowed('pos_ibi_stores_update', false)) {
+		if (!$this->is_allowed('store_update', false)) {
 			echo json_encode([
 				'success' => false,
 				'message' => 'Image not loaded, you do not have permission to access'
@@ -380,16 +380,16 @@ class Pos_ibi_stores extends Admin
 			exit;
 		}
 
-		$pos_ibi_stores = $this->model_pos_ibi_stores->find($id);
+		$store = $this->model_store->find($id);
 
 		echo $this->get_file([
             'uuid'              => $id, 
             'delete_by'         => 'id', 
-            'field_name'        => 'IMAGE', 
-            'table_name'        => 'pos_ibi_stores',
-            'primary_key'       => 'ID',
-            'upload_path'       => 'uploads/pos_ibi_stores/',
-            'delete_endpoint'   => 'administrator/pos_ibi_stores/delete_IMAGE_file'
+            'field_name'        => 'IMAGE_STORE', 
+            'table_name'        => 'store',
+            'primary_key'       => 'ID_STORE',
+            'upload_path'       => 'uploads/store/',
+            'delete_endpoint'   => 'administrator/store/delete_IMAGE_file'
         ]);
 	}
 	
@@ -401,9 +401,9 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function export()
 	{
-		$this->is_allowed('pos_ibi_stores_export');
+		$this->is_allowed('store_export');
 
-		$this->model_pos_ibi_stores->export('pos_ibi_stores', 'pos_ibi_stores');
+		$this->model_store->export('store', 'store');
 	}
 
 	/**
@@ -413,12 +413,12 @@ class Pos_ibi_stores extends Admin
 	*/
 	public function export_pdf()
 	{
-		$this->is_allowed('pos_ibi_stores_export');
+		$this->is_allowed('store_export');
 
-		$this->model_pos_ibi_stores->pdf('pos_ibi_stores', 'pos_ibi_stores');
+		$this->model_store->pdf('store', 'store');
 	}
 }
 
 
-/* End of file pos_ibi_stores.php */
+/* End of file store.php */
 /* Location: ./application/controllers/administrator/Pos Ibi Stores.php */

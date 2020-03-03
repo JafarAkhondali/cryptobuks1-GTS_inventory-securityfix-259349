@@ -107,10 +107,10 @@ jQuery(document).ready(domo);
                               <a href="javascript:void(0);" data-href="<?= site_url('administrator/facturation/delete/' . $facturation->ID_FACTURE); ?>" class="btn btn-danger btn-sm remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                               <?php is_allowed('facturation_view', function() use ($facturation){?>
-                              <a href="<?= site_url('administrator/facturation/print/' . $facturation->ID_FACTURE); ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                              <a href="<?= site_url('administrator/facturation/prints/' . $facturation->ID_FACTURE); ?>" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
                               <?php }) ?>
                               <?php is_allowed('facturation_update', function() use ($facturation){?>
-                              <a href="<?= site_url('administrator/facturation/edit/' . $facturation->ID_FACTURE); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/facturation/edit/' . $facturation->ID_FACTURE); ?>" class="label-default"><i class="fa fa-edit"></i> <?= cclang('update_button'); ?></a>
                               <?php }) ?>
                            </td>
                         </tr>

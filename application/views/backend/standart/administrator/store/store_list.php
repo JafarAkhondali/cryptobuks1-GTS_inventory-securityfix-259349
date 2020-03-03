@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/Pos_ibi_stores/add';
+       window.location.href = BASE_URL + '/administrator/store/add';
        return false;
    });
 
@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Pos Ibi Stores<small><?= cclang('list_all'); ?></small>
+      Liste des boutiques<small></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Pos Ibi Stores</li>
+      <li class="active">Liste des boutiques </li>
    </ol>
 </section>
 <!-- Main content -->
@@ -52,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('pos_ibi_stores_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Ibi Stores']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_ibi_stores/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Ibi Stores']); ?></a>
+                        <?php is_allowed('store_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Créer un store" href="<?=  site_url('administrator/store/add'); ?>"><i class="fa fa-plus" ></i></a>
                         <?php }) ?>
-                        <?php is_allowed('pos_ibi_stores_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Ibi Stores" href="<?= site_url('administrator/pos_ibi_stores/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('store_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="Export XLS" href="<?= site_url('administrator/store/export'); ?>"><i class="fa fa-file-excel-o" ></i></a>
                         <?php }) ?>
-                        <?php is_allowed('pos_ibi_stores_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Ibi Stores" href="<?= site_url('administrator/pos_ibi_stores/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('store_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="Export PDF" href="<?= site_url('administrator/store/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Ibi Stores</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Ibi Stores']); ?>  <i class="label bg-yellow"><?= $pos_ibi_stores_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Boutique</h3>
+                     <h5 class="widget-user-desc">  <i class="label bg-yellow"><?= $store_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_pos_ibi_stores" id="form_pos_ibi_stores" action="<?= base_url('administrator/pos_ibi_stores/index'); ?>">
+                  <form name="form_store" id="form_store" action="<?= base_url('administrator/store/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -80,60 +80,60 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>STATUT</th>
-                           <th>NAME</th>
-                           <th>IMAGE</th>
-                           <th>DESCRIPTION</th>
-                           <th>DATE CREATION</th>
-                           <th>DATE MOD</th>
-                           <th>AUTHOR</th>
+                           <th>Nom de la boutique</th>
+                           <th>Etat de la boutique </th>
+                           <th>Aperçu</th>
+                           <th>Date création</th>
+                           <th>Date de modification</th>
+                           <th>Auteur</th>
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody id="tbody_pos_ibi_stores">
-                     <?php foreach($pos_ibi_storess as $pos_ibi_stores): ?>
+                     <tbody id="tbody_store">
+                     <?php foreach($stores as $store): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_ibi_stores->ID; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $store->ID_STORE; ?>">
                            </td>
                            
-                           <td><?= _ent($pos_ibi_stores->STATUT); ?></td> 
-                           <td><?= _ent($pos_ibi_stores->NAME); ?></td> 
+                           <td><?= _ent($store->NAME_STORE); ?></td> 
+                           <td><?= _ent($store->STATUT_STORE); ?></td> 
                            <td>
-                              <?php if (!empty($pos_ibi_stores->IMAGE)): ?>
-                                <?php if (is_image($pos_ibi_stores->IMAGE)): ?>
-                                <a class="fancybox" rel="group" href="<?= BASE_URL . 'uploads/pos_ibi_stores/' . $pos_ibi_stores->IMAGE; ?>">
-                                  <img src="<?= BASE_URL . 'uploads/pos_ibi_stores/' . $pos_ibi_stores->IMAGE; ?>" class="image-responsive" alt="image pos_ibi_stores" title="IMAGE pos_ibi_stores" width="40px">
+                              <?php if (!empty($store->IMAGE_STORE)): ?>
+                                <?php if (is_image($store->IMAGE_STORE)): ?>
+                                <a class="fancybox" rel="group" href="<?= BASE_URL . 'uploads/store/' . $store->IMAGE_STORE; ?>">
+                                  <img src="<?= BASE_URL . 'uploads/store/' . $store->IMAGE_STORE; ?>" class="image-responsive" alt="image store" title="IMAGE store" width="40px">
                                 </a>
                                 <?php else: ?>
-                                  <a href="<?= BASE_URL . 'administrator/file/download/pos_ibi_stores/' . $pos_ibi_stores->IMAGE; ?>">
-                                   <img src="<?= get_icon_file($pos_ibi_stores->IMAGE); ?>" class="image-responsive image-icon" alt="image pos_ibi_stores" title="IMAGE <?= $pos_ibi_stores->IMAGE; ?>" width="40px"> 
+                                  <a href="<?= BASE_URL . 'administrator/file/download/store/' . $store->IMAGE_STORE; ?>">
+                                   <img src="<?= get_icon_file($store->IMAGE_STORE); ?>" class="image-responsive image-icon" alt="image store" title="IMAGE <?= $store->IMAGE_STORE; ?>" width="40px"> 
                                  </a>
                                 <?php endif; ?>
                               <?php endif; ?>
                            </td>
-                            
-                           <td><?= _ent($pos_ibi_stores->DESCRIPTION); ?></td> 
-                           <td><?= _ent($pos_ibi_stores->DATE_CREATION); ?></td> 
-                           <td><?= _ent($pos_ibi_stores->DATE_MOD); ?></td> 
-                           <td><?= _ent($pos_ibi_stores->AUTHOR); ?></td> 
+                             
+                           <td><?= _ent($store->DATE_CREATION_STORE); ?></td> 
+                           <td><?= _ent($store->DATE_MOD_STORE); ?></td> 
+                           <td><?= _ent($store->AUTHOR_STORE); ?></td> 
                            <td width="200">
-                              <?php is_allowed('pos_ibi_stores_view', function() use ($pos_ibi_stores){?>
-                              <a href="<?= site_url('administrator/pos_ibi_stores/view/' . $pos_ibi_stores->ID); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
-                              <?php }) ?>
-                              <?php is_allowed('pos_ibi_stores_update', function() use ($pos_ibi_stores){?>
-                              <a href="<?= site_url('administrator/pos_ibi_stores/edit/' . $pos_ibi_stores->ID); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
-                              <?php }) ?>
-                              <?php is_allowed('pos_ibi_stores_delete', function() use ($pos_ibi_stores){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_ibi_stores/delete/' . $pos_ibi_stores->ID); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <?php is_allowed('store_delete', function() use ($store){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/store/delete/' . $store->ID_STORE); ?>" title="Supprimer une boutique" class="btn btn-danger remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
+                               <?php is_allowed('store_update', function() use ($store){?>
+                              <a href="<?= site_url('administrator/store/edit/' . $store->ID_STORE); ?>" title="Editer une boutique" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                              <?php }) ?>
+                              <?php is_allowed('store_view', function() use ($store){?>
+                              <a href="<?= site_url('administrator/store/view/' . $store->ID_STORE); ?>" title="Accéder à la boutique" class="btn btn-success"><i class="fa fa-sign-in"></i></a>
+                              <?php }) ?>
+                              
+                              
                            </td>
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($pos_ibi_stores_counts == 0) :?>
+                      <?php if ($store_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Pos Ibi Stores data is not available
+                           Les données de la boutique ne sont pas disponibles
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -160,13 +160,12 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'STATUT' ? 'selected' :''; ?> value="STATUT">STATUT</option>
-                           <option <?= $this->input->get('f') == 'NAME' ? 'selected' :''; ?> value="NAME">NAME</option>
-                           <option <?= $this->input->get('f') == 'IMAGE' ? 'selected' :''; ?> value="IMAGE">IMAGE</option>
-                           <option <?= $this->input->get('f') == 'DESCRIPTION' ? 'selected' :''; ?> value="DESCRIPTION">DESCRIPTION</option>
-                           <option <?= $this->input->get('f') == 'DATE_CREATION' ? 'selected' :''; ?> value="DATE_CREATION">DATE CREATION</option>
-                           <option <?= $this->input->get('f') == 'DATE_MOD' ? 'selected' :''; ?> value="DATE_MOD">DATE MOD</option>
-                           <option <?= $this->input->get('f') == 'AUTHOR' ? 'selected' :''; ?> value="AUTHOR">AUTHOR</option>
+                            <option <?= $this->input->get('f') == 'STATUT_STORE' ? 'selected' :''; ?> value="STATUT_STORE">Etat de la boutique</option>
+                           <option <?= $this->input->get('f') == 'NAME_STORE' ? 'selected' :''; ?> value="NAME_STORE">Nom de la boutique</option>
+                           <option <?= $this->input->get('f') == 'IMAGE_STORE' ? 'selected' :''; ?> value="IMAGE_STORE">Aperçu</option>
+                           <option <?= $this->input->get('f') == 'DATE_CREATION_STORE' ? 'selected' :''; ?> value="DATE_CREATION_STORE">Date création</option>
+                           <option <?= $this->input->get('f') == 'DATE_MOD_STORE' ? 'selected' :''; ?> value="DATE_MOD_STORE">Date de modification</option>
+                           <option <?= $this->input->get('f') == 'AUTHOR_STORE' ? 'selected' :''; ?> value="AUTHOR_STORE">Auteur</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -175,7 +174,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/pos_ibi_stores');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/store');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -227,7 +226,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_pos_ibi_stores').serialize();
+      var serialize_bulk = $('#form_store').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -243,7 +242,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/pos_ibi_stores/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/store/delete?' + serialize_bulk;      
             }
           });
 

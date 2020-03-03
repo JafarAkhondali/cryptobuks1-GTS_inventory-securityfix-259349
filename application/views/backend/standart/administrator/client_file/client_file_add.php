@@ -173,6 +173,8 @@
                 <div class="col-sm-6">
 
                 <div class="form-group ">
+                           <input type="hidden" name="store_prefix" value="store_<?=$this->uri->segment(4)?>">
+                                <input type="hidden" name="store_uri" value="<?=$this->uri->segment(4)?>">
 
                             <label for="client_name" class="col-sm-12 ">
 

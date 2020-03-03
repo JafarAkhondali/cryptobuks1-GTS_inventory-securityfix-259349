@@ -33,11 +33,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pos Ibi Stores        <small>Edit Pos Ibi Stores</small>
+        Modification de la boutique        <small></small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a  href="<?= site_url('administrator/pos_ibi_stores'); ?>">Pos Ibi Stores</a></li>
+        <li class=""><a  href="<?= site_url('administrator/store'); ?>">Liste</a></li>
         <li class="active">Edit</li>
     </ol>
 </section>
@@ -55,26 +55,26 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pos Ibi Stores</h3>
-                            <h5 class="widget-user-desc">Edit Pos Ibi Stores</h5>
+                            <h3 class="widget-user-username">Boutique</h3>
+                            <h5 class="widget-user-desc"></h5>
                             <hr>
                         </div>
-                        <?= form_open(base_url('administrator/pos_ibi_stores/edit_save/'.$this->uri->segment(4)), [
-                            'name'    => 'form_pos_ibi_stores', 
+                        <?= form_open(base_url('administrator/store/edit_save/'.$this->uri->segment(4)), [
+                            'name'    => 'form_store', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pos_ibi_stores', 
+                            'id'      => 'form_store', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="STATUT" class="col-sm-2 control-label">STATUT 
+                            <label for="STATUT" class="col-sm-2 control-label">Etat de la boutique 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select" name="STATUT" id="STATUT" data-placeholder="Select STATUT" >
+                                <select  class="form-control chosen chosen-select" name="STATUT" id="STATUT" data-placeholder="Selectionner l'Etat" >
                                     <option value=""></option>
-                                    <option <?= $pos_ibi_stores->STATUT == "opened" ? 'selected' :''; ?> value="opened">Ouvert</option>
-                                    <option <?= $pos_ibi_stores->STATUT == "close" ? 'selected' :''; ?> value="close">Fermé</option>
+                                    <option <?= $store->STATUT_STORE == "opened" ? 'selected' :''; ?> value="opened">Ouvert</option>
+                                    <option <?= $store->STATUT_STORE == "close" ? 'selected' :''; ?> value="close">Fermé</option>
                                     </select>
                                 <small class="info help-block">
                                 </small>
@@ -82,35 +82,33 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="NAME" class="col-sm-2 control-label">NAME 
+                            <label for="NAME" class="col-sm-2 control-label">Nom de la boutique 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="NAME" id="NAME" placeholder="NAME" value="<?= set_value('NAME', $pos_ibi_stores->NAME); ?>">
-                                <small class="info help-block">
-                                <b>Input NAME</b> Max Length : 50.</small>
+                                <input type="text" class="form-control" name="NAME" id="NAME" placeholder="Nom" value="<?= set_value('NAME', $store->NAME_STORE); ?>">
+                                <small class="info help-block"></small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="IMAGE" class="col-sm-2 control-label">IMAGE 
+                            <label for="IMAGE" class="col-sm-2 control-label">Aperçu 
                             </label>
                             <div class="col-sm-8">
-                                <div id="pos_ibi_stores_IMAGE_galery"></div>
-                                <input class="data_file data_file_uuid" name="pos_ibi_stores_IMAGE_uuid" id="pos_ibi_stores_IMAGE_uuid" type="hidden" value="<?= set_value('pos_ibi_stores_IMAGE_uuid'); ?>">
-                                <input class="data_file" name="pos_ibi_stores_IMAGE_name" id="pos_ibi_stores_IMAGE_name" type="hidden" value="<?= set_value('pos_ibi_stores_IMAGE_name', $pos_ibi_stores->IMAGE); ?>">
+                                <div id="store_IMAGE_galery"></div>
+                                <input class="data_file data_file_uuid" name="store_IMAGE_uuid" id="store_IMAGE_uuid" type="hidden" value="<?= set_value('store_IMAGE_uuid'); ?>">
+                                <input class="data_file" name="store_IMAGE_name" id="store_IMAGE_name" type="hidden" value="<?= set_value('store_IMAGE_name', $store->IMAGE_STORE); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                   
                                                 <div class="form-group ">
-                            <label for="DESCRIPTION" class="col-sm-2 control-label">DESCRIPTION 
+                            <label for="DESCRIPTION" class="col-sm-2 control-label">Description 
                             </label>
                             <div class="col-sm-8">
-                                <textarea id="DESCRIPTION" name="DESCRIPTION" rows="10" cols="80"> <?= set_value('DESCRIPTION', $pos_ibi_stores->DESCRIPTION); ?></textarea>
-                                <small class="info help-block">
-                                <b>Input DESCRIPTION</b> Max Length : 200.</small>
+                                <textarea id="DESCRIPTION" name="DESCRIPTION" rows="10" cols="80"> <?= set_value('DESCRIPTION', $store->DESCRIPTION_STORE); ?></textarea>
+                                <small class="info help-block"></small>
                             </div>
                         </div>
                                                  
@@ -164,7 +162,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/pos_ibi_stores';
+              window.location.href = BASE_URL + 'administrator/store';
             }
           });
     
@@ -175,22 +173,22 @@
         $('.message').fadeOut();
         $('#DESCRIPTION').val(DESCRIPTION.getData());
                     
-        var form_pos_ibi_stores = $('#form_pos_ibi_stores');
-        var data_post = form_pos_ibi_stores.serializeArray();
+        var form_store = $('#form_store');
+        var data_post = form_store.serializeArray();
         var save_type = $(this).attr('data-stype');
         data_post.push({name: 'save_type', value: save_type});
     
         $('.loading').show();
     
         $.ajax({
-          url: form_pos_ibi_stores.attr('action'),
+          url: form_store.attr('action'),
           type: 'POST',
           dataType: 'json',
           data: data_post,
         })
         .done(function(res) {
           if(res.success) {
-            var id = $('#pos_ibi_stores_image_galery').find('li').attr('qq-file-id');
+            var id = $('#store_image_galery').find('li').attr('qq-file-id');
             if (save_type == 'back') {
               window.location.href = res.redirect;
               return;
@@ -219,15 +217,15 @@
                      var params = {};
        params[csrf] = token;
 
-       $('#pos_ibi_stores_IMAGE_galery').fineUploader({
+       $('#store_IMAGE_galery').fineUploader({
           template: 'qq-template-gallery',
           request: {
-              endpoint: BASE_URL + '/administrator/pos_ibi_stores/upload_IMAGE_file',
+              endpoint: BASE_URL + '/administrator/store/upload_IMAGE_file',
               params : params
           },
           deleteFile: {
               enabled: true, // defaults to false
-              endpoint: BASE_URL + '/administrator/pos_ibi_stores/delete_IMAGE_file'
+              endpoint: BASE_URL + '/administrator/store/delete_IMAGE_file'
           },
           thumbnails: {
               placeholders: {
@@ -236,7 +234,7 @@
               }
           },
            session : {
-             endpoint: BASE_URL + 'administrator/pos_ibi_stores/get_IMAGE_file/<?= $pos_ibi_stores->ID; ?>',
+             endpoint: BASE_URL + 'administrator/store/get_IMAGE_file/<?= $store->ID_STORE; ?>',
              refreshOnRequest:true
            },
           multiple : false,
@@ -250,21 +248,21 @@
           callbacks: {
               onComplete : function(id, name, xhr) {
                 if (xhr.success) {
-                   var uuid = $('#pos_ibi_stores_IMAGE_galery').fineUploader('getUuid', id);
-                   $('#pos_ibi_stores_IMAGE_uuid').val(uuid);
-                   $('#pos_ibi_stores_IMAGE_name').val(xhr.uploadName);
+                   var uuid = $('#store_IMAGE_galery').fineUploader('getUuid', id);
+                   $('#store_IMAGE_uuid').val(uuid);
+                   $('#store_IMAGE_name').val(xhr.uploadName);
                 } else {
                    toastr['error'](xhr.error);
                 }
               },
               onSubmit : function(id, name) {
-                  var uuid = $('#pos_ibi_stores_IMAGE_uuid').val();
-                  $.get(BASE_URL + '/administrator/pos_ibi_stores/delete_IMAGE_file/' + uuid);
+                  var uuid = $('#store_IMAGE_uuid').val();
+                  $.get(BASE_URL + '/administrator/store/delete_IMAGE_file/' + uuid);
               },
               onDeleteComplete : function(id, xhr, isError) {
                 if (isError == false) {
-                  $('#pos_ibi_stores_IMAGE_uuid').val('');
-                  $('#pos_ibi_stores_IMAGE_name').val('');
+                  $('#store_IMAGE_uuid').val('');
+                  $('#store_IMAGE_name').val('');
                 }
               }
           }

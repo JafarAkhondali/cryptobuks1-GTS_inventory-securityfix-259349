@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_pos_ibi_stores extends MY_Model {
+class Model_store extends MY_Model {
 
-	private $primary_key 	= 'ID';
+	private $primary_key 	= 'ID_STORE';
 	private $table_name 	= 'pos_ibi_stores';
-	private $field_search 	= ['STATUT', 'NAME', 'IMAGE', 'DESCRIPTION', 'DATE_CREATION', 'DATE_MOD', 'AUTHOR'];
+	private $field_search 	= ['STATUT_STORE', 'NAME_STORE', 'IMAGE_STORE', 'DESCRIPTION_STORE', 'DATE_CREATION_STORE', 'DATE_MOD_STORE', 'AUTHOR_STORE'];
 
 	public function __construct()
 	{
@@ -90,12 +90,12 @@ class Model_pos_ibi_stores extends MY_Model {
     }
 
     public function filter_avaiable() {
-        $this->db->where('AUTHOR', get_user_data('id'));
+        $this->db->where('AUTHOR_STORE', get_user_data('id'));
         
         return $this;
     }
 
 }
 
-/* End of file Model_pos_ibi_stores.php */
-/* Location: ./application/models/Model_pos_ibi_stores.php */
+/* End of file Model_store.php */
+/* Location: ./application/models/Model_store.php */
