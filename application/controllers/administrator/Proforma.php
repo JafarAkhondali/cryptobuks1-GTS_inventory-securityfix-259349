@@ -12,6 +12,10 @@ class Proforma extends Admin
 
 		$this->load->model('model_proforma');
 		$this->load->model('model_registers');
+        
+        $dd =$this->uri->segment(4);
+
+		// print_r($dd); exit();
 	}
 
 	/**
@@ -22,6 +26,15 @@ class Proforma extends Admin
 	public function index($store, $offset = 0)
 	{
 
+        if ($this->index() == false) {
+
+			print_r('expression');
+
+		}else{
+			print_r("false");
+
+		}
+		exit();
 		$this->is_allowed('proforma_list');
 
 		$filter = $this->input->get('q');

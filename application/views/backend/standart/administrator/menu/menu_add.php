@@ -137,6 +137,18 @@ jQuery(document).ready(domo);
                         </div>
                      </div>
 
+                     <div class="form-group ">
+                        <label for="store" class="col-sm-2 control-label"> Store </label>
+                        <div class="col-sm-8">
+                           <select  class="form-control chosen chosen-select" name="store" id="store" data-placeholder="Select store">
+                            <option value=""></option>
+                            <option value="Oui">Oui</option>
+                            <option value="Non">Non</option>
+                           </select>
+                           <small class="info help-block">The store of menu <i>Example : administrator/blog/1</i>.</small>
+                        </div>
+                     </div>
+
 
                     <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label"><?= cclang('menu_type') ?></label>

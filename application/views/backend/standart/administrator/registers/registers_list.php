@@ -131,9 +131,9 @@ jQuery(document).ready(domo);
                               <a href="javascript:void(0);" data-href="<?= site_url('administrator/registers/generate_facture/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" titre="Générer la facture" class="btn btn-warning btn-sm invoice-data"><i class="fa fa-dedent default"></i></a>
                               <?php }) ?>
                               <?php is_allowed('registers_update', function() use ($registers){?>
-                              <a href="<?= site_url('administrator/registers/edit/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-default btn-sm">Modifier</span></a>
+                              <a href="<?= site_url('administrator/registers/edit/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" class="btn btn-default btn-sm"><i class="fa fa-edit default"></i></a>
                               <?php }) ?>
-                              <a href="#" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
+                              <a href="<?= site_url('administrator/registers/paiement/'.$this->uri->segment(4).'/' . $registers->ID_COMMAND); ?>" class="label-default"><span class="btn btn-primary btn-sm">Options</span></a>
                            </td>
                         </tr>
                       <?php endforeach; ?>
@@ -150,6 +150,7 @@ jQuery(document).ready(domo);
                </div>
                <hr>
                <!-- /.widget-user -->
+
                <div class="row">
                   <div class="col-md-8">
                      <div class="col-sm-2 padd-left-0 " >

@@ -143,7 +143,7 @@ class Registers extends Admin
 					'REF_PROFORMA_CODE_PROD' => $code,
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,
@@ -205,7 +205,7 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $code,
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
@@ -403,7 +403,7 @@ class Registers extends Admin
 					'REF_PROFORMA_CODE_PROD' => $proformas['CODE_PROFORMA'],
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,
@@ -418,7 +418,7 @@ class Registers extends Admin
             	$save_data1 = [
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,				
@@ -476,7 +476,7 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $commandes['CODE_COMMAND'],
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
@@ -491,7 +491,7 @@ class Registers extends Admin
             	$save_data1 = [
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,				
@@ -551,7 +551,11 @@ class Registers extends Admin
 
 		echo json_encode($this->data);
 	}
-	public function generate_commande($store){
+	public function generate_commande($index ='',$store){
+		$store = $this->uri->segment(5);
+        redirect('administrator/Registers/generate_command/'.$store);
+	}
+	public function generate_command($store){
 
 		$this->is_allowed('registers_generate');
 
@@ -655,7 +659,7 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $code,
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
@@ -764,7 +768,20 @@ class Registers extends Admin
 
 		    redirect_back();
 
-	} 
+	}
+	public function paiement($store, $id){
+
+		$this->is_allowed('registers_paiement');
+        
+		$store_prefix = 'store_'.$store;
+	
+        $commande = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_commandes',array('ID_COMMAND'=>$id));
+        $this->data['getCommandes'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commande['CODE_COMMAND']));
+        $this->data['commande'] = $commande;
+
+		$this->template->title('Option de la commande');
+		$this->render('backend/standart/administrator/registers/registers_paiement', $this->data);
+	}
 	
 	/**
 	* delete Pos Store Ibi Commandess

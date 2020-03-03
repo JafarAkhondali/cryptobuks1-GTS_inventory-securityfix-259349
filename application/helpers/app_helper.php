@@ -198,8 +198,9 @@ if(!function_exists('display_menu_admin')) {
 		$ci =& get_instance();
 		$ci->load->database();
 		$ci->load->model('model_menu');
-	    $result = $ci->db->query("SELECT a.id, a.label,a.icon_color, a.type, a.link,a.icon, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = 1 AND a.parent=" . $parent." and active = 1  order by `sort` ASC")->result();
-
+	    $result = $ci->db->query("SELECT a.id, a.label,a.icon_color, a.type, a.link,a.store,a.icon, Deriv1.Count FROM `menu` a  LEFT OUTER JOIN (SELECT parent, COUNT(*) AS Count FROM `menu` GROUP BY parent) Deriv1 ON a.id = Deriv1.parent WHERE a.menu_type_id = 1 AND a.parent=" . $parent." and active = 1  order by `sort` ASC")->result();
+	    
+        
 		$ret = '';
 	    if ($result) {
 	    	if (($level > 1) AND ($parent > 0) ) {
@@ -209,7 +210,12 @@ if(!function_exists('display_menu_admin')) {
 	    	}
 		   	foreach ($result as $row) {
 
-		   
+		   		if($row->store == 'Oui')
+		   		{
+		   			$store_uri = '/index/'.$ci->uri->segment(4);
+		   		}else{
+		   			$store_uri = '';
+		   		}
 
 		   		$perms = 'menu_'.strtolower(str_replace(' ', '_', $row->label));
 
@@ -222,7 +228,7 @@ if(!function_exists('display_menu_admin')) {
 		   		} else {
 		   			$active = '';
 		   		}
-		   		$link = filter_var($row->link, FILTER_VALIDATE_URL) ? $row->link : base_url($row->link);
+		   		$link = filter_var($row->link, FILTER_VALIDATE_URL) ? $row->link : base_url($row->link.''.$store_uri);
 		   		if ($row->type == 'label') {
 		   			if ($ci->aauth->is_allowed($perms)) {
 		        		$ret .= '<li class="header treeview">'._ent($row->label).'</li>';
