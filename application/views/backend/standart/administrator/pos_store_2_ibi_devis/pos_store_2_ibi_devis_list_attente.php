@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Pos Store 2 Ibi Devis<small><?= cclang('list_all'); ?></small>
+      Devis<small></small>
    </h1>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Pos Store 2 Ibi Devis</li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li class="active">Devis</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -52,22 +52,29 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('pos_store_2_ibi_devis_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Devis']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_store_2_ibi_devis/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Devis']); ?></a>
-                        <?php }) ?>
-                        <?php is_allowed('pos_store_2_ibi_devis_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store 2 Ibi Devis" href="<?= site_url('administrator/pos_store_2_ibi_devis/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
-                        <?php }) ?>
-                        <?php is_allowed('pos_store_2_ibi_devis_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store 2 Ibi Devis" href="<?= site_url('administrator/pos_store_2_ibi_devis/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
-                        <?php }) ?>
+                      
+                      
+
+
+                  <?php is_allowed('pos_store_2_ibi_devis_add', function(){ ?>
+                  <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="voir les devis approuvées" href="<?=  site_url('administrator/pos_store_2_ibi_devis/index'); ?>"><i class="fa fa-list" ></i>&nbsp;&nbsp;Devis approuvées</a>
+
+                     <?php }) ?>
+
+
+                       <!--  <?php //is_allowed('pos_store_2_ibi_devis_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> Pos Store 2 Ibi Devis" href="<?//= site_url('administrator/pos_store_2_ibi_devis/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?//= cclang('export'); ?> XLS</a>
+                        <?php //}) ?>
+                        <?php// is_allowed('pos_store_2_ibi_devis_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> pdf Pos Store 2 Ibi Devis" href="<?//= site_url('administrator/pos_store_2_ibi_devis/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?//= cclang('export'); ?> PDF</a>
+                        <?php //}) ?> -->
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store 2 Ibi Devis</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Store 2 Ibi Devis']); ?>  <i class="label bg-yellow"><?= $pos_store_2_ibi_devis_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username"> Devis</h3>
+                     <h5 class="widget-user-desc">Liste des commandes en attentes  <i class="label bg-yellow"><?= $pos_store_2_ibi_devis_counts; ?>  Elément<?php if($pos_store_2_ibi_devis_counts > 1)echo 's'; ?></i></h5>
                   </div>
 
                   <form name="form_pos_store_2_ibi_devis" id="form_pos_store_2_ibi_devis" action="<?= base_url('administrator/pos_store_2_ibi_devis/index'); ?>">
@@ -76,72 +83,47 @@ jQuery(document).ready(domo);
                   <div class="table-responsive"> 
                   <table class="table table-bordered table-striped dataTable">
                      <thead>
-                        <tr class="">
-                           <th>
-                            <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
-                           </th>
-                           <th>TITRE DEVIS</th>
-                           <th>CODE DEVIS</th>
-                           <th>REF CLIENT DEVIS</th>
-                           <th>TYPE DEVIS</th>
-                           <th>DATE CREATION DEVIS</th>
-                           <th>DATE MOD DEVIS</th>
-                           <th>AUTHOR DEVIS</th>
-                           <th>COEFFICIENT DEVIS</th>
-                           <th>TOTAL DEVIS</th>
-                           <th>TOTAL FINAL DEVIS</th>
-                           <th>TYPE DELAY DEVIS</th>
-                           <th>TEMPS DELAY DEVIS</th>
-                           <th>COND PAID DEVIS</th>
-                           <th>PERCENT PAID DEVIS</th>
-                           <th>PERCENT PAID LIVR DEVIS</th>
-                           <th>VALID OFFRE DEVIS</th>
-                           <th>STATUT DEVIS</th>
-                           <th>Action</th>
+                        <tr style="background-color: #ccc !important;">
+                           
+                           <th style="text-align: center !important">&#8470; &nbsp;du devis</th>
+                           <th style="text-align: center !important">Description</th>
+                           <th style="text-align: center !important">Client</th>
+                            <th style="text-align: center !important">Par</th>
+                           <th style="text-align: center !important">Date de création</th>
+                          
+                           <th style="text-align: center !important">Action</th>
                         </tr>
                      </thead>
                      <tbody id="tbody_pos_store_2_ibi_devis">
                      <?php foreach($pos_store_2_ibi_deviss as $pos_store_2_ibi_devis): ?>
                         <tr>
-                           <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_devis->ID_DEVIS; ?>">
-                           </td>
-                           
-                           <td><?= _ent($pos_store_2_ibi_devis->TITRE_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->CODE_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->NOM_CLIENT); ?></td>
+                            <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_devis->CODE_DEVIS); ?></td> 
+
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_devis->TITRE_DEVIS); ?></td> 
+                          
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_devis->NOM_CLIENT); ?></td>
+
+                          <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_devis->full_name); ?></td> 
+
+                         <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_devis->DATE_CREATION_DEVIS); ?></td>
                              
-                           <td><?= _ent($pos_store_2_ibi_devis->TYPE_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->DATE_CREATION_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->DATE_MOD_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->AUTHOR_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->COEFFICIENT_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->TOTAL_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->TOTAL_FINAL_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->TYPE_DELAY_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->TEMPS_DELAY_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->COND_PAID_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->PERCENT_PAID_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->PERCENT_PAID_LIVR_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->VALID_OFFRE_DEVIS); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_devis->STATUT_DEVIS); ?></td> 
-                           <td width="200">
+                           <td style="text-align: center !important" width="200">
                               <?php is_allowed('pos_store_2_ibi_devis_view', function() use ($pos_store_2_ibi_devis){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_devis/view/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_devis/view/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-warning btn-xs"><i class="fa fa-eye-slash"></i></a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_devis_update', function() use ($pos_store_2_ibi_devis){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_devis/edit/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_devis/edit/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit "></i> </a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_devis_delete', function() use ($pos_store_2_ibi_devis){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_devis/delete/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_devis/delete/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-danger btn-xs remove-data"><i class="fa fa-close"></i> </a>
                                <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
                       <?php if ($pos_store_2_ibi_devis_counts == 0) :?>
-                         <tr>
+                         <tr style="color:red; text-align: center;">
                            <td colspan="100">
-                           Pos Store 2 Ibi Devis data is not available
+                           Pas du contenu à afficher
                            </td>
                          </tr>
                       <?php endif; ?>

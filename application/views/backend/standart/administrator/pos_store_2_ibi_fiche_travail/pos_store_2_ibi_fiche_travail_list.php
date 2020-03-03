@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Pos Store 2 Ibi Fiche Travail<small><?= cclang('list_all'); ?></small>
+      Fiche de travail<small></small>
    </h1>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Pos Store 2 Ibi Fiche Travail</li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li class="active">Fiche de travail</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -53,21 +53,21 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('pos_store_2_ibi_fiche_travail_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pos Store 2 Ibi Fiche Travail']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pos_store_2_ibi_fiche_travail/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pos Store 2 Ibi Fiche Travail']); ?></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="aller à l'ajout du fiche de travail" href="<?=  site_url('administrator/pos_store_2_ibi_devis/add'); ?>"><i class="fa fa-plus-square-o" ></i> Fiche de travail</a>
                         <?php }) ?>
-                        <?php is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pos Store 2 Ibi Fiche Travail" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
-                        <?php }) ?>
-                        <?php is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Store 2 Ibi Fiche Travail" href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
-                        <?php }) ?>
+<!--                         <?php //is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> Pos Store 2 Ibi Fiche Travail" href="<?//= site_url('administrator/pos_store_2_ibi_fiche_travail/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?//= cclang('export'); ?> XLS</a>
+                        <?php //}) ?>
+                        <?php// is_allowed('pos_store_2_ibi_fiche_travail_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?//= cclang('export'); ?> pdf Pos Store 2 Ibi Fiche Travail" href="<?//= site_url('administrator/pos_store_2_ibi_fiche_travail/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?//= cclang('export'); ?> PDF</a>
+                        <?php //}) ?> -->
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store 2 Ibi Fiche Travail</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Pos Store 2 Ibi Fiche Travail']); ?>  <i class="label bg-yellow"><?= $pos_store_2_ibi_fiche_travail_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Fiche de travail</h3>
+                     <h5 class="widget-user-desc"> Liste des fiches de travail&nbsp;&nbsp;<i class="label bg-yellow"><?= $pos_store_2_ibi_fiche_travail_counts; ?> &nbsp; Elément<?php if($pos_store_2_ibi_fiche_travail_counts > 1)echo 's'; ?></i></h5>
                   </div>
 
                   <form name="form_pos_store_2_ibi_fiche_travail" id="form_pos_store_2_ibi_fiche_travail" action="<?= base_url('administrator/pos_store_2_ibi_fiche_travail/index'); ?>">
@@ -76,60 +76,60 @@ jQuery(document).ready(domo);
                   <div class="table-responsive"> 
                   <table class="table table-bordered table-striped dataTable">
                      <thead>
-                        <tr class="">
-                           <th>
-                            <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
-                           </th>
-                           <th>TITRE FICHE</th>
-                           <th>DEVIS CODE FICHE</th>
-                           <th>NUMERO FICHE</th>
-                           <th>REF CLIENT FICHE</th>
-                           <th>TYPE DEVIS FICHE</th>
-                           <th>DATE CREATION FICHE</th>
-                           <th>DATE MOD FICHE</th>
-                           <th>AUTHOR FICHE</th>
-                           <th>REF CATEGORIE FICHE</th>
-                           <th>TOTAL FICHE</th>
-                           <th>STATUT FICHE</th>
-                           <th>Action</th>
+                        <tr style="background-color: #ccc !important;">
+                           
+                           <th style="text-align: center !important">&#8470; &nbsp;du fiche</th>
+                           <th style="text-align: center !important">Description</th>
+                           
+                           <th style="text-align: center !important">Client</th>
+
+                           <th style="text-align: center !important">Par</th>
+
+                           <th style="text-align: center !important">Date de création</th>
+                           
+                           <th style="text-align: center !important">Action</th>
                         </tr>
                      </thead>
                      <tbody id="tbody_pos_store_2_ibi_fiche_travail">
                      <?php foreach($pos_store_2_ibi_fiche_travails as $pos_store_2_ibi_fiche_travail): ?>
                         <tr>
-                           <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $pos_store_2_ibi_fiche_travail->ID_FICHE; ?>">
-                           </td>
+
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_fiche_travail->DEVIS_CODE_FICHE); ?>
                            
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TITRE_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DEVIS_CODE_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->NUMERO_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->NOM_CLIENT); ?></td>
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_fiche_travail->TITRE_FICHE); ?></td> </td>  
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_fiche_travail->NOM_CLIENT); ?></td>
+
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_fiche_travail->full_name); ?></td>                           
+                           <td style="text-align: center !important"><?= _ent($pos_store_2_ibi_fiche_travail->DATE_CREATION_FICHE); ?></td> 
                              
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TYPE_DEVIS_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DATE_CREATION_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->DATE_MOD_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->AUTHOR_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->REF_CATEGORIE_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->TOTAL_FICHE); ?></td> 
-                           <td><?= _ent($pos_store_2_ibi_fiche_travail->STATUT_FICHE); ?></td> 
-                           <td width="200">
+                           <td style="text-align: center !important" width="200">
+
+                     
+
+                             
+
+
+
+
+
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_view', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/view/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/view/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="btn btn-warning btn-xs"><i class="fa fa-eye-slash"></i> </a>
                               <?php }) ?>
+
+
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_update', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <a href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/edit/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="btn btn-info btn-xs"><i class="fa fa-edit "></i> </a>
                               <?php }) ?>
                               <?php is_allowed('pos_store_2_ibi_fiche_travail_delete', function() use ($pos_store_2_ibi_fiche_travail){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/delete/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail/delete/' . $pos_store_2_ibi_fiche_travail->ID_FICHE); ?>" class="btn btn-danger btn-xs remove-data"><i class="fa fa-close"></i></a>
                                <?php }) ?>
                            </td>
                         </tr>
                       <?php endforeach; ?>
                       <?php if ($pos_store_2_ibi_fiche_travail_counts == 0) :?>
-                         <tr>
+                         <tr style="color:red; text-align: center;">
                            <td colspan="100">
-                           Pos Store 2 Ibi Fiche Travail data is not available
+                             Pas du contenu à afficher
                            </td>
                          </tr>
                       <?php endif; ?>

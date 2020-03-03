@@ -17,7 +17,6 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
 
 		parent::__construct($config);
 	}
-
 	public function count_all($q = null, $field = null)
 	{
 		$iterasi = 1;
@@ -29,7 +28,19 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
+
+
+
+
+         $where .= "  pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+
+
+
+
+
+
+
+
 	            } else {
 	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            }
@@ -43,6 +54,38 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
 
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
+        $this->db->where('STATUT_DEVIS','1');
+		$query = $this->db->get($this->table_name);
+
+		return $query->num_rows();
+	}
+	public function count_all_ibi_devis_liste_attente($q = null, $field = null)
+	{
+		$iterasi = 1;
+        $num = count($this->field_search);
+        $where = NULL;
+        $q = $this->scurity($q);
+		$field = $this->scurity($field);
+
+        if (empty($field)) {
+	        foreach ($this->field_search as $field) {
+	            if ($iterasi == 1) {
+
+ $where .= "  pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+	            } else {
+	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
+	            }
+	            $iterasi++;
+	        }
+
+	        $where = '('.$where.')';
+        } else {
+        	$where .= "(" . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' )";
+        }
+
+		$this->join_avaiable()->filter_avaiable();
+        $this->db->where($where);
+        $this->db->where('STATUT_DEVIS','0');
 		$query = $this->db->get($this->table_name);
 
 		return $query->num_rows();
@@ -59,7 +102,8 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
+                   $where .= "  pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+
 	            } else {
 	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
 	            }
@@ -77,6 +121,7 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
 		
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
+       $this->db->where('STATUT_DEVIS','1');
         $this->db->limit($limit, $offset);
         $this->db->order_by('pos_store_2_ibi_devis.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
@@ -84,8 +129,49 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
 		return $query->result();
 	}
 
+	public function get_ibi_devis_liste_attente($q = null, $field = null, $limit = 0, $offset = 0, $select_field = [])
+	{
+		$iterasi = 1;
+        $num = count($this->field_search);
+        $where = NULL;
+        $q = $this->scurity($q);
+		$field = $this->scurity($field);
+
+        if (empty($field)) {
+	        foreach ($this->field_search as $field) {
+	            if ($iterasi == 1) {
+ $where .= "  pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+
+	            } else {
+	                $where .= "OR " . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' ";
+	            }
+	            $iterasi++;
+	        }
+
+	        $where = '('.$where.')';
+        } else {
+        	$where .= "(" . "pos_store_2_ibi_devis.".$field . " LIKE '%" . $q . "%' )";
+        }
+
+        if (is_array($select_field) AND count($select_field)) {
+        	$this->db->select($select_field);
+        }
+		
+		$this->join_avaiable()->filter_avaiable();
+        $this->db->where($where);
+         $this->db->where('STATUT_DEVIS','0');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('pos_store_2_ibi_devis.'.$this->primary_key, "DESC");
+		$query = $this->db->get($this->table_name);
+
+		return $query->result();
+	}
     public function join_avaiable() {
         $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_devis.REF_CLIENT_DEVIS', 'LEFT');
+
+        $this->db->join('aauth_users', 'aauth_users.id = pos_store_2_ibi_devis.AUTHOR_DEVIS', 'LEFT');
+/*
+         $this->db->join('pos_store_2_ibi_devis_produits', 'pos_store_2_ibi_devis_produits.REF_DEVIS_CODE_DEVIS_PROD = pos_store_2_ibi_devis.ID_DEVIS', 'LEFT');*/
         
         return $this;
     }
@@ -94,7 +180,14 @@ class Model_pos_store_2_ibi_devis extends MY_Model {
         
         return $this;
     }
-
+    
+    public function getRequete($id){
+      $query=$this->db->query("SELECT * FROM pos_store_2_ibi_devis d,pos_store_2_ibi_devis_produits p WHERE d.ID_DEVIS=p.REF_DEVIS_CODE_DEVIS_PROD AND p.REF_DEVIS_CODE_DEVIS_PROD ='".$id."'");
+      if ($query) {
+        # code...
+         return $query->result_array();
+      }
+    }
 }
 
 /* End of file Model_pos_store_2_ibi_devis.php */

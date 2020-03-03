@@ -29,7 +29,14 @@ class Model_pos_store_2_ibi_fiche_travail extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
+
+
+	                //$where .= "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
+
+           
+         $where .= "  pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+
+
 	            } else {
 	                $where .= "OR " . "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
 	            }
@@ -59,7 +66,11 @@ class Model_pos_store_2_ibi_fiche_travail extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
+	                //$where .= "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
+
+
+               $where .= "  pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' OR CONCAT(aauth_users.full_name) LIKE '%".$q."%'  OR CONCAT(pos_ibi_clients.NOM_CLIENT) LIKE '%".$q."%' ";
+
 	            } else {
 	                $where .= "OR " . "pos_store_2_ibi_fiche_travail.".$field . " LIKE '%" . $q . "%' ";
 	            }
@@ -86,12 +97,20 @@ class Model_pos_store_2_ibi_fiche_travail extends MY_Model {
 
     public function join_avaiable() {
         $this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_fiche_travail.REF_CLIENT_FICHE', 'LEFT');
+
+
+
+
+
+$this->db->join('aauth_users', 'aauth_users.id = pos_store_2_ibi_fiche_travail.AUTHOR_FICHE', 'LEFT');
+
+        //$this->db->join('pos_ibi_clients', 'pos_ibi_clients.ID_CLIENT = pos_store_2_ibi_fiche_travail.REF_CLIENT_FICHE', 'LEFT');
         
         return $this;
     }
 
     public function filter_avaiable() {
-        $this->db->where('AUTHOR_FICHE', get_user_data('id'));
+        //$this->db->where('AUTHOR_FICHE', get_user_data('id'));
         
         return $this;
     }

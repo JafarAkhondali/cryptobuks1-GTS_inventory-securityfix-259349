@@ -1,14 +1,15 @@
-UPDATE `menu` SET `link` = '#' WHERE `menu`.`id` = 29;
+
+ALTER TABLE `pos_store_2_ibi_devis` ADD `REF_CATEGORIE_DEVIS` INT NOT NULL AFTER `AUTHOR_DEVIS`;
+
+ID_FICHE_DEVIS_PRO
 
 
-UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_devis/add' WHERE `menu`.`id` = 30;
-
-UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_devis' WHERE `menu`.`id` = 31;
 
 
-UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_fiche_travaill' WHERE `menu`.`id` = 32;
 
 
+
+ALTER TABLE `pos_store_2_ibi_devis_produits` CHANGE `REF_DEVIS_CODE_DEVIS_PROD` `REF_DEVIS_CODE_DEVIS_PROD` INT(250) NULL;
 
 
 

@@ -26,12 +26,12 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pos Store 2 Ibi Devis        <small>Edit Pos Store 2 Ibi Devis</small>
+        Pos Store 2 Ibi Proforma        <small><?= cclang('new', ['Pos Store 2 Ibi Proforma']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_devis'); ?>">Pos Store 2 Ibi Devis</a></li>
-        <li class="active">Edit</li>
+        <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_proforma'); ?>">Pos Store 2 Ibi Proforma</a></li>
+        <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -48,47 +48,46 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pos Store 2 Ibi Devis</h3>
-                            <h5 class="widget-user-desc">Edit Pos Store 2 Ibi Devis</h5>
+                            <h3 class="widget-user-username">Pos Store 2 Ibi Proforma</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Pos Store 2 Ibi Proforma']); ?></h5>
                             <hr>
                         </div>
-                        <?= form_open(base_url('administrator/pos_store_2_ibi_devis/edit_save/'.$this->uri->segment(4)), [
-                            'name'    => 'form_pos_store_2_ibi_devis', 
+                        <?= form_open('', [
+                            'name'    => 'form_pos_store_2_ibi_proforma', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pos_store_2_ibi_devis', 
+                            'id'      => 'form_pos_store_2_ibi_proforma', 
+                            'enctype' => 'multipart/form-data', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="TITRE_DEVIS" class="col-sm-2 control-label">TITRE DEVIS 
-                            <i class="required">*</i>
+                            <label for="TITRE_PROFORMA" class="col-sm-2 control-label">TITRE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TITRE_DEVIS" id="TITRE_DEVIS" placeholder="TITRE DEVIS" value="<?= set_value('TITRE_DEVIS', $pos_store_2_ibi_devis->TITRE_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TITRE_PROFORMA" id="TITRE_PROFORMA" placeholder="TITRE PROFORMA" value="<?= set_value('TITRE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="CODE_DEVIS" class="col-sm-2 control-label">CODE DEVIS 
+                            <label for="CODE_PROFORMA" class="col-sm-2 control-label">CODE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="CODE_DEVIS" id="CODE_DEVIS" placeholder="CODE DEVIS" value="<?= set_value('CODE_DEVIS', $pos_store_2_ibi_devis->CODE_DEVIS); ?>">
+                                <input type="text" class="form-control" name="CODE_PROFORMA" id="CODE_PROFORMA" placeholder="CODE PROFORMA" value="<?= set_value('CODE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="REF_CLIENT_DEVIS" class="col-sm-2 control-label">REF CLIENT DEVIS 
-                            <i class="required">*</i>
+                            <label for="REF_CLIENT_PROFORMA" class="col-sm-2 control-label">REF CLIENT PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="REF_CLIENT_DEVIS" id="REF_CLIENT_DEVIS" data-placeholder="Select REF CLIENT DEVIS" >
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_CLIENT_PROFORMA" id="REF_CLIENT_PROFORMA" data-placeholder="Select REF CLIENT PROFORMA" >
                                     <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>
-                                    <option <?=  $row->ID_CLIENT ==  $pos_store_2_ibi_devis->REF_CLIENT_DEVIS ? 'selected' : ''; ?> value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
+                                    <option value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -98,21 +97,21 @@
 
                                                  
                                                 <div class="form-group ">
-                            <label for="TYPE_DEVIS" class="col-sm-2 control-label">TYPE DEVIS 
+                            <label for="TYPE_PROFORMA" class="col-sm-2 control-label">TYPE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TYPE_DEVIS" id="TYPE_DEVIS" placeholder="TYPE DEVIS" value="<?= set_value('TYPE_DEVIS', $pos_store_2_ibi_devis->TYPE_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TYPE_PROFORMA" id="TYPE_PROFORMA" placeholder="TYPE PROFORMA" value="<?= set_value('TYPE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DATE_CREATION_DEVIS" class="col-sm-2 control-label">DATE CREATION DEVIS 
+                            <label for="DATE_CREATION_PROFORMA" class="col-sm-2 control-label">DATE CREATION PROFORMA 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_CREATION_DEVIS"  placeholder="DATE CREATION DEVIS" id="DATE_CREATION_DEVIS" value="<?= set_value('DATE_CREATION_DEVIS', $pos_store_2_ibi_devis->DATE_CREATION_DEVIS); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_CREATION_PROFORMA"  id="DATE_CREATION_PROFORMA">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -120,11 +119,11 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DATE_MOD_DEVIS" class="col-sm-2 control-label">DATE MOD DEVIS 
+                            <label for="DATE_MOD_PROFORMA" class="col-sm-2 control-label">DATE MOD PROFORMA 
                             </label>
                             <div class="col-sm-6">
                             <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_MOD_DEVIS"  placeholder="DATE MOD DEVIS" id="DATE_MOD_DEVIS" value="<?= set_value('DATE_MOD_DEVIS', $pos_store_2_ibi_devis->DATE_MOD_DEVIS); ?>">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_MOD_PROFORMA"  id="DATE_MOD_PROFORMA">
                             </div>
                             <small class="info help-block">
                             </small>
@@ -132,110 +131,150 @@
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="AUTHOR_DEVIS" class="col-sm-2 control-label">AUTHOR DEVIS 
+                            <label for="PAYMENT_TYPE_PROFORMA" class="col-sm-2 control-label">PAYMENT TYPE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="AUTHOR_DEVIS" id="AUTHOR_DEVIS" placeholder="AUTHOR DEVIS" value="<?= set_value('AUTHOR_DEVIS', $pos_store_2_ibi_devis->AUTHOR_DEVIS); ?>">
+                                <input type="text" class="form-control" name="PAYMENT_TYPE_PROFORMA" id="PAYMENT_TYPE_PROFORMA" placeholder="PAYMENT TYPE PROFORMA" value="<?= set_value('PAYMENT_TYPE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="COEFFICIENT_DEVIS" class="col-sm-2 control-label">COEFFICIENT DEVIS 
+                            <label for="AUTHOR_PROFORMA" class="col-sm-2 control-label">AUTHOR PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="COEFFICIENT_DEVIS" id="COEFFICIENT_DEVIS" placeholder="COEFFICIENT DEVIS" value="<?= set_value('COEFFICIENT_DEVIS', $pos_store_2_ibi_devis->COEFFICIENT_DEVIS); ?>">
+                                <input type="text" class="form-control" name="AUTHOR_PROFORMA" id="AUTHOR_PROFORMA" placeholder="AUTHOR PROFORMA" value="<?= set_value('AUTHOR_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TOTAL_DEVIS" class="col-sm-2 control-label">TOTAL DEVIS 
+                            <label for="SOMME_PERCU_PROFORMA" class="col-sm-2 control-label">SOMME PERCU PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TOTAL_DEVIS" id="TOTAL_DEVIS" placeholder="TOTAL DEVIS" value="<?= set_value('TOTAL_DEVIS', $pos_store_2_ibi_devis->TOTAL_DEVIS); ?>">
+                                <input type="text" class="form-control" name="SOMME_PERCU_PROFORMA" id="SOMME_PERCU_PROFORMA" placeholder="SOMME PERCU PROFORMA" value="<?= set_value('SOMME_PERCU_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TOTAL_FINAL_DEVIS" class="col-sm-2 control-label">TOTAL FINAL DEVIS 
+                            <label for="TOTAL_PROFORMA" class="col-sm-2 control-label">TOTAL PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TOTAL_FINAL_DEVIS" id="TOTAL_FINAL_DEVIS" placeholder="TOTAL FINAL DEVIS" value="<?= set_value('TOTAL_FINAL_DEVIS', $pos_store_2_ibi_devis->TOTAL_FINAL_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TOTAL_PROFORMA" id="TOTAL_PROFORMA" placeholder="TOTAL PROFORMA" value="<?= set_value('TOTAL_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TYPE_DELAY_DEVIS" class="col-sm-2 control-label">TYPE DELAY DEVIS 
+                            <label for="DISCOUNT_TYPE_PROFORMA" class="col-sm-2 control-label">DISCOUNT TYPE PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TYPE_DELAY_DEVIS" id="TYPE_DELAY_DEVIS" placeholder="TYPE DELAY DEVIS" value="<?= set_value('TYPE_DELAY_DEVIS', $pos_store_2_ibi_devis->TYPE_DELAY_DEVIS); ?>">
+                                <input type="text" class="form-control" name="DISCOUNT_TYPE_PROFORMA" id="DISCOUNT_TYPE_PROFORMA" placeholder="DISCOUNT TYPE PROFORMA" value="<?= set_value('DISCOUNT_TYPE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="TEMPS_DELAY_DEVIS" class="col-sm-2 control-label">TEMPS DELAY DEVIS 
+                            <label for="TVA_PROFORMA" class="col-sm-2 control-label">TVA PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TEMPS_DELAY_DEVIS" id="TEMPS_DELAY_DEVIS" placeholder="TEMPS DELAY DEVIS" value="<?= set_value('TEMPS_DELAY_DEVIS', $pos_store_2_ibi_devis->TEMPS_DELAY_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TVA_PROFORMA" id="TVA_PROFORMA" placeholder="TVA PROFORMA" value="<?= set_value('TVA_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="COND_PAID_DEVIS" class="col-sm-2 control-label">COND PAID DEVIS 
+                            <label for="GROUP_DISCOUNT_PROFORMA" class="col-sm-2 control-label">GROUP DISCOUNT PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="COND_PAID_DEVIS" id="COND_PAID_DEVIS" placeholder="COND PAID DEVIS" value="<?= set_value('COND_PAID_DEVIS', $pos_store_2_ibi_devis->COND_PAID_DEVIS); ?>">
+                                <input type="text" class="form-control" name="GROUP_DISCOUNT_PROFORMA" id="GROUP_DISCOUNT_PROFORMA" placeholder="GROUP DISCOUNT PROFORMA" value="<?= set_value('GROUP_DISCOUNT_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="PERCENT_PAID_DEVIS" class="col-sm-2 control-label">PERCENT PAID DEVIS 
+                            <label for="REF_SHIPPING_ADDRESS_PROFORMA" class="col-sm-2 control-label">REF SHIPPING ADDRESS PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="PERCENT_PAID_DEVIS" id="PERCENT_PAID_DEVIS" placeholder="PERCENT PAID DEVIS" value="<?= set_value('PERCENT_PAID_DEVIS', $pos_store_2_ibi_devis->PERCENT_PAID_DEVIS); ?>">
+                                <input type="number" class="form-control" name="REF_SHIPPING_ADDRESS_PROFORMA" id="REF_SHIPPING_ADDRESS_PROFORMA" placeholder="REF SHIPPING ADDRESS PROFORMA" value="<?= set_value('REF_SHIPPING_ADDRESS_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="PERCENT_PAID_LIVR_DEVIS" class="col-sm-2 control-label">PERCENT PAID LIVR DEVIS 
+                            <label for="SHIPPING_AMOUNT_PROFORMA" class="col-sm-2 control-label">SHIPPING AMOUNT PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="PERCENT_PAID_LIVR_DEVIS" id="PERCENT_PAID_LIVR_DEVIS" placeholder="PERCENT PAID LIVR DEVIS" value="<?= set_value('PERCENT_PAID_LIVR_DEVIS', $pos_store_2_ibi_devis->PERCENT_PAID_LIVR_DEVIS); ?>">
+                                <input type="text" class="form-control" name="SHIPPING_AMOUNT_PROFORMA" id="SHIPPING_AMOUNT_PROFORMA" placeholder="SHIPPING AMOUNT PROFORMA" value="<?= set_value('SHIPPING_AMOUNT_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="VALID_OFFRE_DEVIS" class="col-sm-2 control-label">VALID OFFRE DEVIS 
+                            <label for="TYPE_DELAY_PROFORMA" class="col-sm-2 control-label">TYPE DELAY PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="VALID_OFFRE_DEVIS" id="VALID_OFFRE_DEVIS" placeholder="VALID OFFRE DEVIS" value="<?= set_value('VALID_OFFRE_DEVIS', $pos_store_2_ibi_devis->VALID_OFFRE_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TYPE_DELAY_PROFORMA" id="TYPE_DELAY_PROFORMA" placeholder="TYPE DELAY PROFORMA" value="<?= set_value('TYPE_DELAY_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="STATUT_DEVIS" class="col-sm-2 control-label">STATUT DEVIS 
+                            <label for="TEMPS_DELAY_PROFORMA" class="col-sm-2 control-label">TEMPS DELAY PROFORMA 
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="STATUT_DEVIS" id="STATUT_DEVIS" placeholder="STATUT DEVIS" value="<?= set_value('STATUT_DEVIS', $pos_store_2_ibi_devis->STATUT_DEVIS); ?>">
+                                <input type="text" class="form-control" name="TEMPS_DELAY_PROFORMA" id="TEMPS_DELAY_PROFORMA" placeholder="TEMPS DELAY PROFORMA" value="<?= set_value('TEMPS_DELAY_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="COND_PAID_PROFORMA" class="col-sm-2 control-label">COND PAID PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="COND_PAID_PROFORMA" id="COND_PAID_PROFORMA" placeholder="COND PAID PROFORMA" value="<?= set_value('COND_PAID_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="PERCENT_PAID_PROFORMA" class="col-sm-2 control-label">PERCENT PAID PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="PERCENT_PAID_PROFORMA" id="PERCENT_PAID_PROFORMA" placeholder="PERCENT PAID PROFORMA" value="<?= set_value('PERCENT_PAID_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="PERCENT_PAID_LIVR_PROFORMA" class="col-sm-2 control-label">PERCENT PAID LIVR PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="PERCENT_PAID_LIVR_PROFORMA" id="PERCENT_PAID_LIVR_PROFORMA" placeholder="PERCENT PAID LIVR PROFORMA" value="<?= set_value('PERCENT_PAID_LIVR_PROFORMA'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="VALID_OFFRE_PROFORMA" class="col-sm-2 control-label">VALID OFFRE PROFORMA 
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="VALID_OFFRE_PROFORMA" id="VALID_OFFRE_PROFORMA" placeholder="VALID OFFRE PROFORMA" value="<?= set_value('VALID_OFFRE_PROFORMA'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -243,7 +282,7 @@
                                                 
                         <div class="message"></div>
                         <div class="row-fluid col-md-7">
-                            <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
+                           <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
                             <i class="fa fa-save" ></i> <?= cclang('save_button'); ?>
                             </button>
                             <a class="btn btn-flat btn-info btn_save btn_action btn_save_back" id="btn_save" data-stype='back' title="<?= cclang('save_and_go_the_list_button'); ?> (Ctrl+d)">
@@ -270,12 +309,11 @@
 <!-- Page script -->
 <script>
     $(document).ready(function(){
-      
-             
+                   
       $('#btn_cancel').click(function(){
         swal({
-            title: "Are you sure?",
-            text: "the data that you have created will be in the exhaust!",
+            title: "<?= cclang('are_you_sure'); ?>",
+            text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -286,7 +324,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_devis';
+              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_proforma';
             }
           });
     
@@ -296,22 +334,23 @@
       $('.btn_save').click(function(){
         $('.message').fadeOut();
             
-        var form_pos_store_2_ibi_devis = $('#form_pos_store_2_ibi_devis');
-        var data_post = form_pos_store_2_ibi_devis.serializeArray();
+        var form_pos_store_2_ibi_proforma = $('#form_pos_store_2_ibi_proforma');
+        var data_post = form_pos_store_2_ibi_proforma.serializeArray();
         var save_type = $(this).attr('data-stype');
+
         data_post.push({name: 'save_type', value: save_type});
     
         $('.loading').show();
     
         $.ajax({
-          url: form_pos_store_2_ibi_devis.attr('action'),
+          url: BASE_URL + '/administrator/pos_store_2_ibi_proforma/add_save',
           type: 'POST',
           dataType: 'json',
           data: data_post,
         })
         .done(function(res) {
           if(res.success) {
-            var id = $('#pos_store_2_ibi_devis_image_galery').find('li').attr('qq-file-id');
+            
             if (save_type == 'back') {
               window.location.href = res.redirect;
               return;
@@ -319,8 +358,9 @@
     
             $('.message').printMessage({message : res.message});
             $('.message').fadeIn();
-            $('.data_file_uuid').val('');
-    
+            resetForm();
+            $('.chosen option').prop('selected', false).trigger('chosen:updated');
+                
           } else {
             $('.message').printMessage({message : res.message, type : 'warning'});
           }
@@ -338,8 +378,9 @@
       }); /*end btn save*/
       
        
+ 
        
-           
+    
     
     }); /*end doc ready*/
 </script>

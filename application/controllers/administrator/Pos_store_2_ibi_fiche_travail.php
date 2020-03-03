@@ -300,6 +300,16 @@ class Pos_store_2_ibi_fiche_travail extends Admin
 
 		$this->model_pos_store_2_ibi_fiche_travail->pdf('pos_store_2_ibi_fiche_travail', 'pos_store_2_ibi_fiche_travail');
 	}
+
+
+
+
+
+
+
+
+
+	
 }
 
 
