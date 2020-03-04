@@ -190,13 +190,13 @@
       const numberRegex = /\d+/g;
     
 
-      let location = BASE_URL + '/administrator/fournisseurs/importManagement';
+      // let location = BASE_URL + '/administrator/fournisseurs/importManagement';
       
-        location = BASE_URL + '/administrator/fournisseurs/importManagement';
+        location = BASE_URL + 'administrator/fournisseurs/importManagement';
       
       console.log(dataToPost);
       $.ajax({
-        url: BASE_URL + '/administrator/fournisseurs/importManagement',
+        url: BASE_URL + 'administrator/fournisseurs/importManagement',
         method: "POST",
         data: dataToPost,
         dataType: "json",

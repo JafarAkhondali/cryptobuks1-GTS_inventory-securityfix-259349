@@ -319,11 +319,11 @@ class Fournisseurs extends Admin
 		  
 		   
 		    $tab = [
-		        "nom"=>$nom,
-		        "bp"=> $bp,
-		        "tel"=> $tel,
-		        "email"=> $email,
-		        "description"=> $description,        
+		        "NOM"=>$nom,
+		        "BP"=> $bp,
+		        "TEL"=> $tel,
+		        "EMAIL"=> $email,
+		        "DESCRIPTION"=> $description,        
 		    ];
 		   
 		    

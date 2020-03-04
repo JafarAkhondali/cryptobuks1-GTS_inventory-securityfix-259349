@@ -248,6 +248,49 @@ class Clients extends Admin
 	*
 	* @var $id String
 	*/
+
+
+	public function importManagement()
+	    {
+		
+		// $this->model_fournisseurs->import('pos_ibi_fournisseurs', 'fournisseurs');
+
+		    $nom = json_decode($_POST["NOM_CLIENT"]);
+		    $prenom = json_decode($_POST["PRENOM_CLIENT"]);
+		    $tel = json_decode($_POST["TEL_CLIENT"]);
+		    $email = json_decode($_POST["EMAIL_CLIENT"]);
+		  	$description = json_decode($_POST["DESCRIPTION_CLIENT"]);
+		  
+		   
+		    $tab = [
+		        "NOM_CLIENT"=>$nom,
+		        "PRENOM_CLIENT"=> $bp,
+		        "TEL_CLIENT"=> $tel,
+		        "EMAIL_CLIENT"=> $email,
+		        "DESCRIPTION_CLIENT"=> $description,        
+		    ];
+		   
+		    
+		   
+		    $save_clients= $this->model_clients->store($tab);
+		   
+		    if($save_clients){
+		    		$this->data['success'] = true;
+							$this->data['redirect'] = base_url('administrator/clients');
+		    }
+		    
+		  else {
+					$this->data['success'] = false;
+					$this->data['message'] = validation_errors();
+				}
+
+				echo json_encode($this->data);
+		}
+
+    
+
+
+
 	public function delete($id = null)
 	{
 		$this->is_allowed('clients_delete');
