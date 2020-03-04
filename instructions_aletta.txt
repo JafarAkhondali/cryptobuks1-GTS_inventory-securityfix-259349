@@ -1,7 +1,7 @@
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_clients.php
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_clients_groups.php
-C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\Pos_ibi_fournisseurs.php
-C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\pos_ibi_categories
-C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\pos_ibi_taxes
-C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\pos_store_2_ibi_articles
-C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\pos_store_2_ibi_rayons
+C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\clients
+C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\clients_groups
+C:\xampp\htdocs\GTS_inventory\application\controllers\administrator\fournisseurs
+C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\categories
+C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\taxes
+C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\articles
+C:\xampp\htdocs\GTS_inventory\application\views\backend\standart\administrator\rayons

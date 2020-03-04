@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-<<<<<<< HEAD:application/models/Model_store.php
+<<<<<<< HEAD:application/models/Model_pos_ibi_taxes.php
 <<<<<<< HEAD:application/models/Model_pos_ibi_taxes.php
 class Model_pos_ibi_taxes extends MY_Model {
 =======
-class Model_clients_groups extends MY_Model {
->>>>>>> aletta:application/models/Model_clients_groups.php
+class Model_taxes extends MY_Model {
+>>>>>>> aletta:application/models/Model_taxes.php
 
 	private $primary_key 	= 'ID_TAXE';
 	private $table_name 	= 'pos_ibi_taxes';
@@ -113,7 +113,7 @@ class Model_store extends MY_Model {
 
 }
 
-<<<<<<< HEAD:application/models/Model_store.php
+<<<<<<< HEAD:application/models/Model_pos_ibi_taxes.php
 <<<<<<< HEAD:application/models/Model_pos_ibi_taxes.php
 /* End of file Model_pos_ibi_taxes.php */
 /* Location: ./application/models/Model_pos_ibi_taxes.php */
@@ -122,6 +122,6 @@ class Model_store extends MY_Model {
 /* Location: ./application/models/Model_store.php */
 >>>>>>> jude:application/models/Model_store.php
 =======
-/* End of file model_clients_groups.php */
-/* Location: ./application/models/model_clients_groups.php */
->>>>>>> aletta:application/models/Model_clients_groups.php
+/* End of file model_taxes.php */
+/* Location: ./application/models/model_taxes.php */
+>>>>>>> aletta:application/models/Model_taxes.php

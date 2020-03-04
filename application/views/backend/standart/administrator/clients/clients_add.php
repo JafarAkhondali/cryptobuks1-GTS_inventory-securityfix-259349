@@ -26,15 +26,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pos Store 2 Ibi Fiche Travail        <small><?= cclang('new', ['Pos Store 2 Ibi Fiche Travail']); ?> </small>
+        Clients        <small><?= cclang('new', ['Clients']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
-        <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_fiche_travail'); ?>">Pos Store 2 Ibi Fiche Travail</a></li>
-=======
-        <li class=""><a  href="<?= site_url('administrator/clients_groups'); ?>">Groups</a></li>
->>>>>>> aletta:application/views/backend/standart/administrator/clients_groups/clients_groups_add.php
+        <li class=""><a  href="<?= site_url('administrator/clients'); ?>">Clients</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -52,58 +48,142 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pos Store 2 Ibi Fiche Travail</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Pos Store 2 Ibi Fiche Travail']); ?></h5>
+                            <h3 class="widget-user-username">Clients</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Clients']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name'    => 'form_pos_store_2_ibi_fiche_travail', 
+                            'name'    => 'form_pos_ibi_clients', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pos_store_2_ibi_fiche_travail', 
+                            'id'      => 'form_pos_ibi_clients', 
                             'enctype' => 'multipart/form-data', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="TITRE_FICHE" class="col-sm-2 control-label">TITRE FICHE 
+                            <label for="NOM_CLIENT" class="col-sm-2 control-label">Nom 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TITRE_FICHE" id="TITRE_FICHE" placeholder="TITRE FICHE" value="<?= set_value('TITRE_FICHE'); ?>">
+                                <input type="text" class="form-control" name="NOM_CLIENT" id="NOM_CLIENT" placeholder="Nom" value="<?= set_value('NOM_CLIENT'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
                                                  
                                                 <div class="form-group ">
-                            <label for="DEVIS_CODE_FICHE" class="col-sm-2 control-label">DEVIS CODE FICHE 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="DEVIS_CODE_FICHE" id="DEVIS_CODE_FICHE" placeholder="DEVIS CODE FICHE" value="<?= set_value('DEVIS_CODE_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="NUMERO_FICHE" class="col-sm-2 control-label">NUMERO FICHE 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="NUMERO_FICHE" id="NUMERO_FICHE" placeholder="NUMERO FICHE" value="<?= set_value('NUMERO_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="REF_CLIENT_FICHE" class="col-sm-2 control-label">REF CLIENT FICHE 
+                            <label for="PRENOM_CLIENT" class="col-sm-2 control-label">Prenom 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="REF_CLIENT_FICHE" id="REF_CLIENT_FICHE" data-placeholder="Select REF CLIENT FICHE" >
+                                <input type="text" class="form-control" name="PRENOM_CLIENT" id="PRENOM_CLIENT" placeholder="Prenom" value="<?= set_value('PRENOM_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="TEL_CLIENT" class="col-sm-2 control-label">Telephone 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="TEL_CLIENT" id="TEL_CLIENT" placeholder="Telephone" value="<?= set_value('TEL_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="EMAIL_CLIENT" class="col-sm-2 control-label">Email 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" name="EMAIL_CLIENT" id="EMAIL_CLIENT" placeholder="Email" value="<?= set_value('EMAIL_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="DESCRIPTION_CLIENT" class="col-sm-2 control-label">Description 
+                            </label>
+                            <div class="col-sm-8">
+                                <textarea id="DESCRIPTION_CLIENT" name="DESCRIPTION_CLIENT" rows="5" class="textarea"><?= set_value('DESCRIPTION_CLIENT'); ?></textarea>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="DATE_NAISSANCE_CLIENT" class="col-sm-2 control-label">Date De Naissance 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-6">
+                            <div class="input-group date col-sm-8">
+                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_NAISSANCE_CLIENT"  id="DATE_NAISSANCE_CLIENT">
+                            </div>
+                            <small class="info help-block">
+                            </small>
+                            </div>
+                        </div>
+                                  
+
+                                           <div class="form-group ">
+                            <label for="ADRESSE_CLIENT" class="col-sm-2 control-label">Adresse 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="ADRESSE_CLIENT" id="ADRESSE_CLIENT" placeholder="Adresse" value="<?= set_value('ADRESSE_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+
+
+
+                                                <div class="form-group ">
+                            <label for="CITY_CLIENT" class="col-sm-2 control-label">Ville 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="CITY_CLIENT" id="CITY_CLIENT" placeholder="Ville" value="<?= set_value('CITY_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="COUNTRY_CLIENT" class="col-sm-2 control-label">Pays 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="COUNTRY_CLIENT" id="COUNTRY_CLIENT" placeholder="Pays" value="<?= set_value('COUNTRY_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                                                <div class="form-group ">
+                            <label for="COMPANY_NAME_CLIENT" class="col-sm-2 control-label">NIF Du Client 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="COMPANY_NAME_CLIENT" id="COMPANY_NAME_CLIENT" placeholder="NIF Du Client" value="<?= set_value('COMPANY_NAME_CLIENT'); ?>">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                                                 
+                         
+                         
+                                                <div class="form-group ">
+                            <label for="REF_GROUP_CLIENT" class="col-sm-2 control-label">Assigner A Un Groupe 
+                            </label>
+                            <div class="col-sm-8">
+                                <select  class="form-control chosen chosen-select-deselect" name="REF_GROUP_CLIENT" id="REF_GROUP_CLIENT" data-placeholder="Select REF GROUP CLIENT" >
                                     <option value=""></option>
-                                    <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>
-                                    <option value="<?= $row->ID_CLIENT ?>"><?= $row->NOM_CLIENT; ?></option>
+                                    <?php foreach (db_get_all_data('pos_ibi_clients_groups') as $row): ?>
+                                    <option value="<?= $row->ID_GROUP ?>"><?= $row->NAME_GROUP; ?></option>
                                     <?php endforeach; ?>  
                                 </select>
                                 <small class="info help-block">
@@ -112,108 +192,7 @@
                         </div>
 
                                                  
-                                                <div class="form-group ">
-<<<<<<< HEAD
-<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
-                            <label for="fiche_unite" class="col-sm-2 control-label">Fiche Unite 
-=======
-                            <label for="DISCOUNT_PERCENT_GROUP" class="col-sm-2 control-label">Pourcentange De remise 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="DISCOUNT_PERCENT_GROUP" id="DISCOUNT_PERCENT_GROUP" placeholder="Pourcentange De Remise" value="<?= set_value('DISCOUNT_PERCENT_GROUP'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="DISCOUNT_AMOUNT_GROUP" class="col-sm-2 control-label">Montant De Remise 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="DISCOUNT_AMOUNT_GROUP" id="DISCOUNT_AMOUNT_GROUP" placeholder="Montant De Remise" value="<?= set_value('DISCOUNT_AMOUNT_GROUP'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="DISCOUNT_ENABLE_SCHEDULE_GROUP" class="col-sm-2 control-label">Activer la planification 
->>>>>>> aletta:application/views/backend/standart/administrator/pos_ibi_clients_groups/pos_ibi_clients_groups_add.php
-                            <i class="required">*</i>
-=======
-                            <label for="TYPE_DEVIS_FICHE" class="col-sm-2 control-label">TYPE DEVIS FICHE 
->>>>>>> yves_dev
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TYPE_DEVIS_FICHE" id="TYPE_DEVIS_FICHE" placeholder="TYPE DEVIS FICHE" value="<?= set_value('TYPE_DEVIS_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-<<<<<<< HEAD
-<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
-                            <label for="fiche_date" class="col-sm-2 control-label">Fiche Date 
-=======
-                            <label for="DISCOUNT_START_GROUP" class="col-sm-2 control-label">Debut De La planification 
->>>>>>> aletta:application/views/backend/standart/administrator/pos_ibi_clients_groups/pos_ibi_clients_groups_add.php
-=======
-                            <label for="DATE_CREATION_FICHE" class="col-sm-2 control-label">DATE CREATION FICHE 
->>>>>>> yves_dev
-                            </label>
-                            <div class="col-sm-6">
-                            <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_CREATION_FICHE"  id="DATE_CREATION_FICHE">
-                            </div>
-                            <small class="info help-block">
-                            </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="DATE_MOD_FICHE" class="col-sm-2 control-label">DATE MOD FICHE 
-                            </label>
-                            <div class="col-sm-6">
-                            <div class="input-group date col-sm-8">
-                              <input type="text" class="form-control pull-right datetimepicker" name="DATE_MOD_FICHE"  id="DATE_MOD_FICHE">
-                            </div>
-                            <small class="info help-block">
-                            </small>
-                            </div>
-                        </div>
-                                                 
-                         
-                                                <div class="form-group ">
-                            <label for="REF_CATEGORIE_FICHE" class="col-sm-2 control-label">REF CATEGORIE FICHE 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="REF_CATEGORIE_FICHE" id="REF_CATEGORIE_FICHE" placeholder="REF CATEGORIE FICHE" value="<?= set_value('REF_CATEGORIE_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="TOTAL_FICHE" class="col-sm-2 control-label">TOTAL FICHE 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="TOTAL_FICHE" id="TOTAL_FICHE" placeholder="TOTAL FICHE" value="<?= set_value('TOTAL_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                 
-                                                <div class="form-group ">
-                            <label for="STATUT_FICHE" class="col-sm-2 control-label">STATUT FICHE 
-                            </label>
-                            <div class="col-sm-8">
-                                <input type="number" class="form-control" name="STATUT_FICHE" id="STATUT_FICHE" placeholder="STATUT FICHE" value="<?= set_value('STATUT_FICHE'); ?>">
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-                                                
+                        
                         <div class="message"></div>
                         <div class="row-fluid col-md-7">
                            <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
@@ -240,10 +219,11 @@
     </div>
 </section>
 <!-- /.content -->
+<script src="<?= BASE_ASSET; ?>ckeditor/ckeditor.js"></script>
 <!-- Page script -->
 <script>
     $(document).ready(function(){
-                   
+                         
       $('#btn_cancel').click(function(){
         swal({
             title: "<?= cclang('are_you_sure'); ?>",
@@ -258,11 +238,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
-              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_fiche_travail';
-=======
-              window.location.href = BASE_URL + 'administrator/clients_groups';
->>>>>>> aletta:application/views/backend/standart/administrator/clients_groups/clients_groups_add.php
+              window.location.href = BASE_URL + 'administrator/clients';
             }
           });
     
@@ -271,9 +247,9 @@
     
       $('.btn_save').click(function(){
         $('.message').fadeOut();
-            
-        var form_pos_store_2_ibi_fiche_travail = $('#form_pos_store_2_ibi_fiche_travail');
-        var data_post = form_pos_store_2_ibi_fiche_travail.serializeArray();
+                    
+        var form_pos_ibi_clients = $('#form_pos_ibi_clients');
+        var data_post = form_pos_ibi_clients.serializeArray();
         var save_type = $(this).attr('data-stype');
 
         data_post.push({name: 'save_type', value: save_type});
@@ -281,11 +257,7 @@
         $('.loading').show();
     
         $.ajax({
-<<<<<<< HEAD:application/views/backend/standart/administrator/pos_store_2_ibi_fiche_travail/pos_store_2_ibi_fiche_travail_add.php
-          url: BASE_URL + '/administrator/pos_store_2_ibi_fiche_travail/add_save',
-=======
-          url: BASE_URL + '/administrator/clients_groups/add_save',
->>>>>>> aletta:application/views/backend/standart/administrator/clients_groups/clients_groups_add.php
+          url: BASE_URL + '/administrator/clients/add_save',
           type: 'POST',
           dataType: 'json',
           data: data_post,
@@ -302,7 +274,7 @@
             $('.message').fadeIn();
             resetForm();
             $('.chosen option').prop('selected', false).trigger('chosen:updated');
-                
+                            
           } else {
             $('.message').printMessage({message : res.message, type : 'warning'});
           }
