@@ -298,12 +298,58 @@ class Fournisseurs extends Admin
 		$this->is_allowed('fournisseurs_export');
 
 		$this->model_fournisseurs->pdf('pos_ibi_fournisseurs', 'fournisseurs');
+
 	}
+
 	public function import(){
 		$this->is_allowed('fournisseurs_import');
 		$this->render('backend/standart/administrator/fournisseurs/fournisseurs_import');
-		// $this->model_fournisseurs->import('pos_ibi_fournisseurs', 'fournisseurs');
+
 	}
+	public function importManagement()
+	    {
+		
+		// $this->model_fournisseurs->import('pos_ibi_fournisseurs', 'fournisseurs');
+
+		    $nom = json_decode($_POST["NOM"]);
+		    $bp = json_decode($_POST["BP"]);
+		    $tel = json_decode($_POST["TEL"]);
+		    $email = json_decode($_POST["EMAIL"]);
+		  	$description = json_decode($_POST["DESCRIPTION"]);
+		  
+		   
+		    $tab = [
+		        "nom"=>$nom,
+		        "bp"=> $bp,
+		        "tel"=> $tel,
+		        "email"=> $email,
+		        "description"=> $description,        
+		    ];
+		   
+		    
+		   
+		    $save_fournisseurs = $this->model_fournisseurs->store($tab);
+		   
+		    if($save_fournisseurs){
+		    		$this->data['success'] = true;
+							$this->data['redirect'] = base_url('administrator/fournisseurs');
+		    }
+		    
+		  else {
+					$this->data['success'] = false;
+					$this->data['message'] = validation_errors();
+				}
+
+				echo json_encode($this->data);
+		}
+
+    
+        
+    
+       
+
+
+	
 
 }
 

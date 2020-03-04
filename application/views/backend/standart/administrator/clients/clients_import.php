@@ -38,11 +38,11 @@
     <div id="tableDiv" hidden class="table-responsive" style="width:100%; background-color: whiteSmoke;">
       <table class="table table-bordered table-striped dataTable" id="exceltable1">
         <thead>
-          <th>NOM</th>
-          <th>BP</th>
-          <th>TEL</th>
-          <th>EMAIL</th>
-          <th>DESCRIPTION</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Telephone</th>
+          <th>Email</th>
+          <th>Assigner a une groupe</th>
           
         </thead>
         <tbody></tbody>
@@ -179,11 +179,11 @@
       });
 
       const dataToPost = {
-        NOM: JSON.stringify(table[0]),
-        BP: JSON.stringify(table[1]),
-        TEL: JSON.stringify(table[2]),
-        EMAIL: JSON.stringify(table[3]),
-        DESCRIPTION: JSON.stringify(table[4]),
+        Nom: JSON.stringify(table[0]),
+        Prenom: JSON.stringify(table[1]),
+        Telephone: JSON.stringify(table[2]),
+        Email: JSON.stringify(table[3]),
+        Assigner_a_un_groupe : JSON.stringify(table[4]),
         
       };
 

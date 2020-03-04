@@ -60,6 +60,11 @@ class Clients extends Admin
 		$this->render('backend/standart/administrator/clients/clients_add', $this->data);
 	}
 
+	public function import(){
+		$this->is_allowed('clients_import');
+		$this->render('backend/standart/administrator/clients/clients_import');
+	}
+
 	/**
 	* Add New Pos Ibi Clientss
 	*

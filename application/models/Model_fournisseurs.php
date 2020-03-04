@@ -95,6 +95,20 @@ class Model_fournisseurs extends MY_Model {
         
         return $this;
     }
+
+     public function getrows(array $row)
+    {
+        return new Customer([
+            'nom' => $row["0"],
+            'bp' => $row["1"],
+            'tel' => $row["2"],
+            'email' => $row["3"],
+            'description' => $row["4"],
+            
+        ]);
+    }
+
+
     public function get_user_info($table_name,$id,$contrainte){
     	$get_info=$this->db->query("select * from ".$table_name." where ".$contrainte."=".$id."");
     	if($get_info->num_rows()>0){

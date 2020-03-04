@@ -61,6 +61,9 @@ jQuery(document).ready(domo);
                         <?php is_allowed('pos_ibi_clients_export', function(){?>
                         <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Pos Ibi Clients" href="<?= site_url('administrator/clients/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i></a>
                         <?php }) ?>
+                        <?php is_allowed('pos_ibi_clients_import', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('import'); ?> pdf Pos Ibi Clients" href="<?= site_url('administrator/clients/import'); ?>"><i class="glyphicon glyphicon-import" ></i></a>
+                        <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
