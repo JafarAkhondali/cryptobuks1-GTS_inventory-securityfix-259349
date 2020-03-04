@@ -21,24 +21,15 @@ class Stores extends Admin
 	public function index($store)
 	{ 
 		
-		if (!$this->aauth->is_allowed('dashboard')) {
-			redirect('/','refresh');
-		}
+		// if (!$this->aauth->is_allowed('dashboard')) {
+		// 	redirect('/','refresh');
+		// }
 
-		$data = [];
-		$this->render('backend/standart/dashboard', $data);
-	}
-
-	public function chart($store)
-	{
-		if (!$this->aauth->is_allowed('dashboard')) {
-			redirect('/','refresh');
-		}
-
-		$data = [];
-		$this->render('backend/standart/chart', $data);
+		// $data = [];
+		// $this->render('backend/standart/dashboard', $data);
+		redirect(base_url('administrator/dashboard/index/'.$store));
 	}
 }
 
-/* End of file Dashboard.php */
-/* Location: ./application/controllers/administrator/Dashboard.php */
+/* End of file Stores.php */
+/* Location: ./application/controllers/administrator/Stores.php */

@@ -21,7 +21,7 @@
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('proforma_list', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Liste" href="<?=  site_url('administrator/registers/list'); ?>"><i class="fa fa-list" ></i></a>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="Liste" href="<?=  site_url('administrator/proforma/index/'.$this->uri->segment(4).''); ?>"><i class="fa fa-list" ></i></a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
@@ -29,7 +29,7 @@
                      </div>
                      <!-- /.widget-user-image -->
                      <h3 class="widget-user-username">Proforma</h3>
-                     <h5 class="widget-user-desc">Liste de données du proforma<i class="label bg-yellow">2  <?= cclang('items'); ?></i></h5>
+                     <h5 class="widget-user-desc"><i class="label bg-yellow">2  <?= cclang('items'); ?></i></h5>
                   </div>
 
 <?= 

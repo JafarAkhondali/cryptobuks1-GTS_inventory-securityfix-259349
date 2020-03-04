@@ -91,7 +91,8 @@ class Menu extends Admin
 				'type' 			=> $this->input->post('type'),
 				'icon_color' 	=> $this->input->post('icon_color'),
 				'sort' 			=> $this->model_menu->count_all(),
-				'active' 	    => 1
+				'active' 	    => 1,
+				'store'			=> $this->input->post('store')
 			];
 
 			$permission_menu_name = 'menu_'.strtolower(str_replace(' ', '_', $this->input->post('label')));
@@ -173,7 +174,7 @@ class Menu extends Admin
 			'color_icon'	=> $this->model_menu->get_color_icon(),
 			'group_menu' 	=> $this->model_menu->get_group_menu($id)
 		];
-
+      
 		$this->template->title('Menu Update');
 		$this->render('backend/standart/administrator/menu/menu_update', $this->data);
 	}
@@ -205,6 +206,7 @@ class Menu extends Admin
 				'menu_type_id' 	=> $this->input->post('menu_type_id'),
 				'type' 			=> $this->input->post('type'),
 				'icon_color' 	=> $this->input->post('icon_color'),
+				'store'         => $this->input->post('store'),
 			];
 
 			$menu = $this->model_menu->find($id);

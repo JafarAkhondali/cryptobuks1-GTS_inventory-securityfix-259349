@@ -87,7 +87,8 @@
                             </label>
 
                             <div class="col-sm-9">
-
+                                <input type="hidden" name="store_prefix" id="store_prefix" value="store_<?=$this->uri->segment(4)?>">
+                                <input type="hidden" name="store_uri" id="store_uri" value="<?=$this->uri->segment(4)?>">
                                 <select  class="form-control chosen chosen-select-deselect" name="ref_client" id="ref_client" data-placeholder="Selectionner le Client" >
                                   <option value=""></option>
                                     <?php foreach (db_get_all_data('pos_ibi_clients') as $row): ?>
@@ -116,7 +117,7 @@
                                     $checkedtype = "is_proforma_client";
                                   }
                                     ?>
-                                     <label class="radio-inline"><input type="radio" value="is_commande_client" id="checkentente" <?=$checked?> name="optradio">En attente</label>
+                                     <label class="radio-inline"><input type="radio" value="is_commande_client" id="checkentente" <?=$checked?> name="optradio">En attente d'une commande</label>
                                      <label class="radio-inline"><input type="radio" value="is_proforma_client" id="proformaclient" <?=$checkeds?> name="optradio">Proforma</label>
                                      <input type="hidden" class="checkedRadio" value="<?=$checkedtype?>">
             
@@ -839,13 +840,15 @@
 
           const ref_code_produit = $('.ref_code_produit').val();
           const code_command = $('.code_command').val();
-          const id = '<?=$this->uri->segment(4)?>';
+          const id = '<?=$this->uri->segment(5)?>';
           const checkedRadio = $('.checkedRadio').val();
+          const store_prefix = $('#store_prefix').val();
+          const store_uri = $('#store_uri').val();
    
           $.ajax({
                     url: '<?=base_url()?>/administrator/registers/delete_produit_cart',
                     method: "POST",
-                    data: {ref_code_produit:ref_code_produit,code_command,code_command,id:id,checkedRadio:checkedRadio},
+                    data: {ref_code_produit:ref_code_produit,code_command,code_command,id:id,checkedRadio:checkedRadio,store_prefix:store_prefix,store_uri:store_uri},
                     dataType: "JSON",
                     success: function (data) {
                     if (data.message == 'success') {

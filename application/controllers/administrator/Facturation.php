@@ -247,7 +247,7 @@ class Facturation extends Admin
 	*
 	* @var $id String
 	*/
-	public function print($id)
+	public function prints($id)
 	{
 		$this->is_allowed('facturation_print');
 

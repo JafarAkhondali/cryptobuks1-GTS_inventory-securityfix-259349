@@ -17,7 +17,7 @@ class Dashboard extends Admin
 		parent::__construct();
 	}
 
-	public function index()
+	public function index($store)
 	{
 		if (!$this->aauth->is_allowed('dashboard')) {
 			redirect('/','refresh');

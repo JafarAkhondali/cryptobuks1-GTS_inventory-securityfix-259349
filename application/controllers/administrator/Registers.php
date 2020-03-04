@@ -24,7 +24,7 @@ class Registers extends Admin
 	*
 	* @var $offset String
 	*/
-	public function index($offset = 0)
+	public function index($store,$offset = 0)
 	{
 		$this->is_allowed('registers_list');
 
@@ -51,10 +51,13 @@ class Registers extends Admin
 	* Add new registerss
 	*
 	*/
-	public function add()
+	public function add($store)
 	{
+		$store_prefix = 'store_'.$this->uri->segment(4);
+        $table_name     = 'pos_'.$store_prefix.'_ibi_proforma';
+
 		$this->is_allowed('registers_add');
-        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles');
+        $this->data['getProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_articles');
 		$this->template->title('Effectuer une commande');
 		$this->render('backend/standart/administrator/registers/registers_add', $this->data);
 	}
@@ -86,6 +89,8 @@ class Registers extends Admin
 		
 		if ($this->form_validation->run()) {
 
+			$store_prefix=$this->input->post('store_prefix');
+			$store_uri=$this->input->post('store_uri');
             $ref_client=$this->input->post('ref_client');
             $article=$this->input->post('article');
             $quantite=$this->input->post('search');
@@ -138,7 +143,7 @@ class Registers extends Admin
 					'REF_PROFORMA_CODE_PROD' => $code,
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,
@@ -146,10 +151,11 @@ class Registers extends Admin
 								
 				];
             $total +=$prixtotalht;
-		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_proforma_produits',$save_data1);
+            $tables = 'pos_'.$store_prefix.'_ibi_proforma_produits';
+		    $save_proforma_produits = $this->model_registers->insert($tables,$save_data1);
 
 		    }
-		    $table = "pos_store_2_ibi_proforma";
+		    $table = "pos_".$store_prefix."_ibi_proforma";
             $tva=$total * 0.18;
 		    $save_data = [
 				'TITRE_PROFORMA' => $titre,
@@ -199,7 +205,7 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $code,
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
@@ -207,10 +213,11 @@ class Registers extends Admin
 								
 				];
             $total +=$prixtotalht;
-		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data1);
+            $tables = 'pos_'.$store_prefix.'_ibi_commandes_produits';
+		    $save_proforma_produits = $this->model_registers->insert($tables,$save_data1);
 
 		    }
-		    $table = "pos_store_2_ibi_commandes";
+		    $table = "pos_".$store_prefix."_ibi_commandes";
             $tva=$total * 0.18;
 		    $save_data = [
 				'TITRE_COMMAND' => $titre,
@@ -233,17 +240,17 @@ class Registers extends Admin
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes'),
-						anchor('administrator/registers', ' Go back to list')
+						anchor('administrator/registers/edit/'.$store_uri.'/' . $save, 'Edit Pos Store Ibi Commandes'),
+						anchor('administrator/registers/index/'.$store_uri.'', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes')
+						anchor('administrator/registers/edit/'.$store_uri.'/' . $save, 'Edit Pos Store Ibi Commandes')
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/registers/index/'.$store_uri.'');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -252,7 +259,7 @@ class Registers extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/registers/index/'.$store_uri.'');
 				}
 			}
 
@@ -269,44 +276,49 @@ class Registers extends Admin
 	*
 	* @var $id String
 	*/
-	public function edit($id)
+	public function edit($store,$id)
 	{
 		$this->is_allowed('registers_update');
+        $store = $this->uri->segment(4);
+		$id = $this->uri->segment(5);
+		$store_prefix = 'store_'.$store;
 
-		$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+		$commandes = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_commandes',array('ID_COMMAND'=>$id));
 		$this->data['type'] = $commandes['TYPE_COMMAND'];
 		$this->data['titre'] = $commandes['TITRE_COMMAND'];
 		$this->data['ref_client'] = $commandes['REF_CLIENT_COMMAND'];
 		$this->data['code_commande'] = $commandes['CODE_COMMAND'];
-		$this->data['getposProduit'] = $this->model_registers->getList('pos_store_2_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
+		$this->data['getposProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
 		$this->data['registers'] = $commandes;
-        $this->data['getProduit'] = $this->model_registers->getList('pos_store_2_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_COMMAND_PROD FROM pos_store_2_ibi_commandes_produits WHERE REF_COMMAND_CODE_PROD= "'.$commandes['CODE_COMMAND'].'")', NULL, FALSE);
+        $this->data['getProduit'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_articles','CODEBAR_ARTICLE NOT IN (SELECT REF_PRODUCT_CODEBAR_COMMAND_PROD FROM pos_'.$store_prefix.'_ibi_commandes_produits WHERE REF_COMMAND_CODE_PROD= "'.$commandes['CODE_COMMAND'].'")', NULL, FALSE);
 
 		$this->template->title('Modifier une commande');
 		$this->render('backend/standart/administrator/registers/registers_update', $this->data);
 	}
 	public function delete_produit_cart(){
 		$id = $this->input->post('id');
+		$store_prefix = $this->input->post('store_prefix');
+		$store_uri = $this->input->post('store_uri');
 	
 		if($this->input->post('checkedRadio') == 'is_proforma_client'){
 		$link = "proforma";
 		$criteres['REF_PRODUCT_CODEBAR_PROFORMA_PROD'] = $this->input->post('ref_code_produit');
 		$criteres['REF_PROFORMA_CODE_PROD'] = $this->input->post('code_command');
-		$table = "pos_store_2_ibi_proforma_produits";
+		$table = "pos_".$store_prefix."_ibi_proforma_produits";
 
 		}else{
 
         $link = "registers";
 		$criteres['REF_PRODUCT_CODEBAR_COMMAND_PROD'] = $this->input->post('ref_code_produit');
 		$criteres['REF_COMMAND_CODE_PROD'] = $this->input->post('code_command');
-		$table = "pos_store_2_ibi_commandes_produits";
+		$table = "pos_".$store_prefix."_ibi_commandes_produits";
 	   }
 	  
 		$delete_cart = $this->model_registers->delete($table,$criteres);
 		
 		if ($delete_cart) {
 			$this->data['message'] = 'success';
-			$this->data['redirect'] = base_url('administrator/'.$link.'/edit/'.$id.'');
+			$this->data['redirect'] = base_url('administrator/'.$link.'/edit/'.$store_uri.'/'.$id.'');
 		}
 		echo json_encode($this->data);
 
@@ -334,6 +346,8 @@ class Registers extends Admin
 		
 		if ($this->form_validation->run()) {
 
+			$store_prefix=$this->input->post('store_prefix');
+			$store_uri=$this->input->post('store_uri');
 			$ref_client=$this->input->post('ref_client');
             $article=$this->input->post('article');
             $quantite=$this->input->post('search');
@@ -358,8 +372,8 @@ class Registers extends Admin
 			if($this->input->post('optradio') == 'is_proforma_client'){
                 
                 $titre=$this->input->post('titreproforma');
-                $link='proforma';
-			$proformas = $this->model_registers->getOne('pos_store_2_ibi_proforma',array('ID_PROFORMA'=>$id));
+                $link='proforma/index/'.$store_uri.'';
+			$proformas = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_proforma',array('ID_PROFORMA'=>$id));
 
 			$total=0;
 
@@ -381,7 +395,7 @@ class Registers extends Admin
                 	$discount_amount=$remiseht;
                     $discount_percent='0';
                 }
-            $produit_count = $this->model_registers->record_countsome('pos_store_2_ibi_proforma_produits',array('REF_PRODUCT_CODEBAR_PROFORMA_PROD'=>$article[$i],'REF_PROFORMA_CODE_PROD'=>$proformas['CODE_PROFORMA']));
+            $produit_count = $this->model_registers->record_countsome('pos_'.$store_prefix.'_ibi_proforma_produits',array('REF_PRODUCT_CODEBAR_PROFORMA_PROD'=>$article[$i],'REF_PROFORMA_CODE_PROD'=>$proformas['CODE_PROFORMA']));
             if($produit_count < 1){
 
             	$save_data = [
@@ -389,14 +403,14 @@ class Registers extends Admin
 					'REF_PROFORMA_CODE_PROD' => $proformas['CODE_PROFORMA'],
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,
 					'NAME_PROFORMA_PROD' =>$name[$i],
 								
 				];
-		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_proforma_produits',$save_data);
+		    $save_proforma_produits = $this->model_registers->insert('pos_'.$store_prefix.'_ibi_proforma_produits',$save_data);
                 
             }else{
             	$criteres['REF_PRODUCT_CODEBAR_PROFORMA_PROD'] = $article[$i];
@@ -404,17 +418,17 @@ class Registers extends Admin
             	$save_data1 = [
 					'QUANTITE_PROFORMA_PROD' => $quantite[$i],
 					'PRIX_PROFORMA_PROD' =>$price[$i],
-					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_PROFORMA_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_PROFORMA_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_PROFORMA_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_PROFORMA_PROD' =>$discount_percent,				
 				];
-		    $update_proforma_produits = $this->model_registers->update('pos_store_2_ibi_proforma_produits',$criteres,$save_data1);
+		    $update_proforma_produits = $this->model_registers->update('pos_'.$store_prefix.'_ibi_proforma_produits',$criteres,$save_data1);
             }
             $total +=$prixtotalht; 
            }
 
-           $table = "pos_store_2_ibi_proforma";
+           $table = "pos_".$store_prefix."_ibi_proforma";
            $critereCommande['CODE_PROFORMA'] = $proformas['CODE_PROFORMA'];
            $tva=$total * 0.18;
 		   $update_data = [
@@ -431,8 +445,8 @@ class Registers extends Admin
             }else{
 
             $titre=$this->input->post('titrecommande');
-            $link='registers';
-			$commandes = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+            $link='registers/index/'.$store_uri.'';
+			$commandes = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_commandes',array('ID_COMMAND'=>$id));
 
 			$total=0;
 
@@ -454,7 +468,7 @@ class Registers extends Admin
                 	$discount_amount=$remiseht;
                     $discount_percent='0';
                 }
-            $produit_count = $this->model_registers->record_countsome('pos_store_2_ibi_commandes_produits',array('REF_PRODUCT_CODEBAR_COMMAND_PROD'=>$article[$i],'REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
+            $produit_count = $this->model_registers->record_countsome('pos_'.$store_prefix.'_ibi_commandes_produits',array('REF_PRODUCT_CODEBAR_COMMAND_PROD'=>$article[$i],'REF_COMMAND_CODE_PROD'=>$commandes['CODE_COMMAND']));
             if($produit_count < 1){
 
             	$save_data = [
@@ -462,14 +476,14 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $commandes['CODE_COMMAND'],
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
 					'NAME_COMMAND_PROD' =>$name[$i],
 								
 				];
-		    $save_commandes_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data);
+		    $save_commandes_produits = $this->model_registers->insert('pos_'.$store_prefix.'_ibi_commandes_produits',$save_data);
                 
             }else{
             	$criteres['REF_PRODUCT_CODEBAR_COMMAND_PROD'] = $article[$i];
@@ -477,17 +491,17 @@ class Registers extends Admin
             	$save_data1 = [
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,				
 				];
-		    $update_commandes_produits = $this->model_registers->update('pos_store_2_ibi_commandes_produits',$criteres,$save_data1);
+		    $update_commandes_produits = $this->model_registers->update('pos_'.$store_prefix.'_ibi_commandes_produits',$criteres,$save_data1);
             }
             $total +=$prixtotalht; 
            }
 
-           $table = "pos_store_2_ibi_commandes";
+           $table = "pos_".$store_prefix."_ibi_commandes";
            $critereCommande['CODE_COMMAND'] = $commandes['CODE_COMMAND'];
            $tva=$total * 0.18;
 		   $update_data = [
@@ -537,21 +551,29 @@ class Registers extends Admin
 
 		echo json_encode($this->data);
 	}
-	public function generate_commande(){
+	public function generate_commande($index ='',$store){
+		$store = $this->uri->segment(5);
+        redirect('administrator/Registers/generate_command/'.$store);
+	}
+	public function generate_command($store){
 
 		$this->is_allowed('registers_generate');
+
+		$store_prefix = 'store_'.$store;
 	
-        $this->data['getProforma'] = $this->model_registers->getList('pos_store_2_ibi_proforma','STATUT_PROFORMA !=2');
+        $this->data['getProforma'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_proforma','STATUT_PROFORMA !=2');
         
 		$this->template->title('Générer une commande');
 		$this->render('backend/standart/administrator/registers/registers_generate', $this->data);
 	}
 	public function generate_commande_post(){
 
+		$store_prefix=$this->input->post('store_prefix');
+		$store_uri=$this->input->post('store_uri');
 		$code_proforma = $this->input->post('code_proforma');
 		$ref_client = $this->input->post('ref_client');
 
-		$getproformaProduit = $this->model_registers->getList('pos_store_2_ibi_proforma_produits', array('REF_PROFORMA_CODE_PROD'=>$code_proforma));
+		$getproformaProduit = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_proforma_produits', array('REF_PROFORMA_CODE_PROD'=>$code_proforma));
 
 		$table['tableau'] = '<input type="hidden" name="code_proforma" value="'.$code_proforma.'"><input type="hidden" name="ref_client" value="'.$ref_client.'">';
 
@@ -567,7 +589,7 @@ class Registers extends Admin
                               $remiseht = '';
                             }
 
-                    $table['tableau'] .= '<table><tr><td hidden><input type="hidden" name="article[]" value="'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'"><div id="article">'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'</div></td>
+                    $table['tableau'] .= '<table><tr id="'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'"><td hidden><input type="hidden" name="article[]" value="'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'"><div id="article">'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'</div></td>
                     <td><input type="hidden" name="name[]" value="'.$value['NAME_PROFORMA_PROD'].'"><div id="name">'.$value['NAME_PROFORMA_PROD'].'</div></td>
                     <td style="line-height: 35px;" class="price"><input type="hidden" name="price[]" value="'.$value['PRIX_PROFORMA_PROD'].'"/>'.$value['PRIX_PROFORMA_PROD'].'</td>
                     <td>
@@ -581,9 +603,10 @@ class Registers extends Admin
                         </span>
                         </div>
                     </td>
-                    <td style="line-height: 35px;"><input type="hidden" name="remise[]" value="'.$remiseht.'" size="8">'.$remiseht.'</td>
+                    <td style="line-height: 35px;"><span class="btn btn-default btn-sm" onclick="toRemise(this)" id="remise'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'">'.$remiseht.'</span><input type="hidden" class="remise'.$value['REF_PRODUCT_CODEBAR_PROFORMA_PROD'].'" name="remise[]" value="'.$remiseht.'" size="8"></td>
+
                     <td style="line-height: 35px;" class="total">'.$value['PRIX_TOTAL_PROFORMA_PROD'].'</td>
-                     <td style="line-height: 25px;"><input type="hidden" class="unit" name="unit[]" value="" size="8" required>Kg</td>
+                     <td style="line-height: 25px;"><a class="btn btn-sm btn-danger" onclick="toDelete(this)"><i class="fa fa-remove"></i></td>
                     </tr></table>';
                    
               }
@@ -598,6 +621,8 @@ class Registers extends Admin
 				]);
 			exit;
 		}
+			$store_prefix=$this->input->post('store_prefix');
+		    $store_uri=$this->input->post('store_uri');
 			$code_proforma=$this->input->post('code_proforma');
 		    $ref_client=$this->input->post('ref_client');
             $article=$this->input->post('article');
@@ -634,7 +659,7 @@ class Registers extends Admin
 					'REF_COMMAND_CODE_PROD' => $code,
 					'QUANTITE_COMMAND_PROD' => $quantite[$i],
 					'PRIX_COMMAND_PROD' =>$price[$i],
-					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotalht,
+					'PRIX_TOTAL_COMMAND_PROD' =>$prixtotal,
 					'DISCOUNT_TYPE_COMMAND_PROD' =>$discount_type,
 					'DISCOUNT_AMOUNT_COMMAND_PROD' =>$discount_amount,
 					'DISCOUNT_PERCENT_COMMAND_PROD' =>$discount_percent,
@@ -642,10 +667,10 @@ class Registers extends Admin
 								
 				];
             $total +=$prixtotalht;
-		    $save_proforma_produits = $this->model_registers->insert('pos_store_2_ibi_commandes_produits',$save_data1);
+		    $save_proforma_produits = $this->model_registers->insert('pos_'.$store_prefix.'_ibi_commandes_produits',$save_data1);
 
 		    }
-		    $table = "pos_store_2_ibi_commandes";
+		    $table = "pos_".$store_prefix."_ibi_commandes";
             $tva=$total * 0.18;
 		    $save_data = [
 				'TITRE_COMMAND' => 'Non Défini',
@@ -663,24 +688,24 @@ class Registers extends Admin
 
 			if ($save) {
 
-				$table = 'pos_store_2_ibi_proforma';
+				$table = 'pos_'.$store_prefix.'_ibi_proforma';
 				$update_proforma = $this->model_registers->update($table,array(' 	CODE_PROFORMA'=>$this->input->post('code_proforma')),array('STATUT_PROFORMA' => 2));
 
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save;
 					$this->data['message'] = cclang('success_save_data_stay', [
-						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes'),
+						anchor('administrator/registers/edit/'.$store_uri.'/' . $save, 'Edit Pos Store Ibi Commandes'),
 						anchor('administrator/registers', ' Go back to list')
 					]);
 				} else {
 					set_message(
 						cclang('success_save_data_redirect', [
-						anchor('administrator/registers/edit/' . $save, 'Edit Pos Store Ibi Commandes')
+						anchor('administrator/registers/edit/'.$store_uri.'/' . $save, 'Edit Pos Store Ibi Commandes')
 					]), 'success');
 
             		$this->data['success'] = true;
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/registers/index/'.$store_uri.'');
 				}
 			} else {
 				if ($this->input->post('save_type') == 'stay') {
@@ -689,14 +714,14 @@ class Registers extends Admin
 				} else {
             		$this->data['success'] = false;
             		$this->data['message'] = cclang('data_not_change');
-					$this->data['redirect'] = base_url('administrator/registers');
+					$this->data['redirect'] = base_url('administrator/registers/index/'.$store_uri.'');
 				}
 			}
 
 		echo json_encode($this->data);
 
 	}
-	public function generate_facture($id){
+	public function generate_facture($store,$id){
 
 		if (!$this->is_allowed('registers_list', false)) {
 			echo json_encode([
@@ -706,7 +731,11 @@ class Registers extends Admin
 			exit;
 		}
 
-		$commande = $this->model_registers->getOne('pos_store_2_ibi_commandes',array('ID_COMMAND'=>$id));
+		$id = $this->uri->segment(5);
+		$store = $this->uri->segment(4);
+		$store_prefix = 'store_'.$store;
+
+		$commande = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_commandes',array('ID_COMMAND'=>$id));
 
 		if($commande['STATUT_COMMAND'] == 'is_invoice'){
 
@@ -725,7 +754,7 @@ class Registers extends Admin
 
 			$save = $this->model_registers->insert('pos_ibi_facture',$save_data);
 
-			$table = 'pos_store_2_ibi_commandes';
+			$table = 'pos_'.$store_prefix.'_ibi_commandes';
 		    $update = $this->model_registers->update($table,array('CODE_COMMAND'=>$commande['CODE_COMMAND']),array('STATUT_COMMAND' => 'is_invoice'));
 
 			if ($save and $update) {
@@ -739,7 +768,20 @@ class Registers extends Admin
 
 		    redirect_back();
 
-	} 
+	}
+	public function paiement($store, $id){
+
+		$this->is_allowed('registers_paiement');
+        
+		$store_prefix = 'store_'.$store;
+	
+        $commande = $this->model_registers->getOne('pos_'.$store_prefix.'_ibi_commandes',array('ID_COMMAND'=>$id));
+        $this->data['getCommandes'] = $this->model_registers->getList('pos_'.$store_prefix.'_ibi_commandes_produits',array('REF_COMMAND_CODE_PROD'=>$commande['CODE_COMMAND']));
+        $this->data['commande'] = $commande;
+
+		$this->template->title('Option de la commande');
+		$this->render('backend/standart/administrator/registers/registers_paiement', $this->data);
+	}
 	
 	/**
 	* delete Pos Store Ibi Commandess
