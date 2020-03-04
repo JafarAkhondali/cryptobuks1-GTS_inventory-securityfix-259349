@@ -56,7 +56,7 @@ jQuery(document).ready(domo);
 
       <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
 
-      <li class=""><a  href="<?= site_url('administrator/project_proforma'); ?>">Vйrification du Proforma</a></li>
+      <li class=""><a  href="<?= site_url('administrator/project_proforma'); ?>">Vérification du Proforma</a></li>
 
       <li class="active"><?//= cclang('detail'); ?></li>
 
@@ -206,8 +206,9 @@ $query = $this->db->get();
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                             <input type="hidden" class="form-control" name="client" value="<?= $client ?>">
-
+                             <input type="hidden" class="form-control" name="client" value="<?php echo $client; ?>">
+                       
+                        <input type="hidden" class="form-control" name="id_devis" value="<?php echo $this->uri->segment(4); ?>">
 
                                 <input type="text" class="form-control" name="titre_proforma" id="TITRE_FICHE" placeholder="Entrer un titre pour proforma" value="">
                                 <small class="info help-block">
@@ -420,9 +421,9 @@ $query = $this->db->get();
 
         swal({
 
-            title: "<?= cclang('are_you_sure'); ?>",
+            title: "Annuler !",
 
-            text: "<?= cclang('data_to_be_deleted_can_not_be_restored'); ?>",
+            text: "Le proforma ne sera pas créé!",
 
             type: "warning",
 
@@ -430,9 +431,9 @@ $query = $this->db->get();
 
             confirmButtonColor: "#DD6B55",
 
-            confirmButtonText: "Yes!",
+            confirmButtonText: "Oui!",
 
-            cancelButtonText: "No!",
+            cancelButtonText: "Non!",
 
             closeOnConfirm: true,
 
@@ -444,7 +445,7 @@ $query = $this->db->get();
 
             if (isConfirm) {
 
-              window.location.href = BASE_URL + 'administrator/project_proforma/add_new_proforma';
+              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_devis';
 
             }
 
@@ -537,7 +538,7 @@ $query = $this->db->get();
 
         $.ajax({
 
-          url: BASE_URL + '/administrator/project_proforma/add_save',
+          url: BASE_URL + '/administrator/pos_store_2_ibi_proforma/add_save',
 
           type: 'POST',
 

@@ -94,7 +94,7 @@ class Pos_store_2_ibi_proforma extends Admin
                        }else{
                            $value=$invoice_number;
                        }
-             $value.=date('m').'/'.date('Y');
+             $value.='/'.date('m').'/'.date('Y');
 
               return $value;
 
@@ -105,6 +105,7 @@ class Pos_store_2_ibi_proforma extends Admin
 	*
 	* @return JSON
 	*/
+
 	public function add_save()
 	{
 		if (!$this->is_allowed('pos_store_2_ibi_proforma_add', false)) {
@@ -115,51 +116,80 @@ class Pos_store_2_ibi_proforma extends Admin
 			exit;
 		}
 
+$type_pro='ibi_proforma_dv';
 		
 
-		if ($this->form_validation->run()) {
+$id_devis=$this->input->post('id_devis');
+
+$this->db->select('*');
+$this->db->from('pos_store_2_ibi_devis');
+$this->db->where('ID_DEVIS',$id_devis);
+
+$query = $this->db->get();
+
+   foreach ($query->result() as $row)  //Iterate through results
+   {
+
+$type_delay=$row->TYPE_DELAY_DEVIS;
+$type_temps=$row->TEMPS_DELAY_DEVIS;
+$cond_pay=$row->COND_PAID_DEVIS;
+$parcent_paid=$row->PERCENT_PAID_DEVIS;
+$parcent_livr_pay=$row->PERCENT_PAID_LIVR_DEVIS;
+$garantie=$row->VALID_OFFRE_DEVIS;
+$garantie_value=$row->VALID_OFFRE_DEVIS_VALUE;
+   }
+
+$vide='';
+
+$form=1;
+
+
+
+		if ($form==1) {
 		
 			$save_data = [
 				'TITRE_PROFORMA' => $this->input->post('titre_proforma'),
 				'CODE_PROFORMA' =>$this->numero_proforma() ,
-				'REF_CLIENT_PROFORMA' => $this->input->post('REF_CLIENT_PROFORMA'),
-				'TYPE_PROFORMA' => $this->input->post('TYPE_PROFORMA'),
-				'DATE_CREATION_PROFORMA' => $this->input->post('DATE_CREATION_PROFORMA'),
-				'DATE_MOD_PROFORMA' => $this->input->post('DATE_MOD_PROFORMA'),
-				'PAYMENT_TYPE_PROFORMA' => $this->input->post('PAYMENT_TYPE_PROFORMA'),
-				'AUTHOR_PROFORMA' => $this->input->post('AUTHOR_PROFORMA'),
-				'SOMME_PERCU_PROFORMA' => $this->input->post('SOMME_PERCU_PROFORMA'),
-				'TOTAL_PROFORMA' => $this->input->post('TOTAL_PROFORMA'),
-				'DISCOUNT_TYPE_PROFORMA' => $this->input->post('DISCOUNT_TYPE_PROFORMA'),
-				'TVA_PROFORMA' => $this->input->post('TVA_PROFORMA'),
-				'GROUP_DISCOUNT_PROFORMA' => $this->input->post('GROUP_DISCOUNT_PROFORMA'),
-				'REF_SHIPPING_ADDRESS_PROFORMA' => $this->input->post('REF_SHIPPING_ADDRESS_PROFORMA'),
-				'SHIPPING_AMOUNT_PROFORMA' => $this->input->post('SHIPPING_AMOUNT_PROFORMA'),
-				'TYPE_DELAY_PROFORMA' => $this->input->post('TYPE_DELAY_PROFORMA'),
-				'TEMPS_DELAY_PROFORMA' => $this->input->post('TEMPS_DELAY_PROFORMA'),
-				'COND_PAID_PROFORMA' => $this->input->post('COND_PAID_PROFORMA'),
-				'PERCENT_PAID_PROFORMA' => $this->input->post('PERCENT_PAID_PROFORMA'),
-				'PERCENT_PAID_LIVR_PROFORMA' => $this->input->post('PERCENT_PAID_LIVR_PROFORMA'),
-				'VALID_OFFRE_PROFORMA' => $this->input->post('VALID_OFFRE_PROFORMA'),
+				'REF_CLIENT_PROFORMA' => $this->input->post('client'),
+				'TYPE_PROFORMA' =>$type_pro,
+				'DATE_CREATION_PROFORMA' =>date('Y-m-d H:i:s'),
+				'DATE_MOD_PROFORMA' =>date('Y-m-d H:i:s'),
+				'PAYMENT_TYPE_PROFORMA' =>$vide,
+				'AUTHOR_PROFORMA' => get_user_data('id'),
+				'SOMME_PERCU_PROFORMA' => 0,
+				'TOTAL_PROFORMA' => 0,
+				'DISCOUNT_TYPE_PROFORMA' => 0,
+				'TVA_PROFORMA' => 0,
+				'GROUP_DISCOUNT_PROFORMA' => 0,
+				'REF_SHIPPING_ADDRESS_PROFORMA' =>0 ,
+				'SHIPPING_AMOUNT_PROFORMA' => 0,
+				'TYPE_DELAY_PROFORMA' =>$type_delay ,
+				'TEMPS_DELAY_PROFORMA' =>$type_temps ,
+				'COND_PAID_PROFORMA' =>$cond_pay ,
+				'PERCENT_PAID_PROFORMA' =>$parcent_paid,
+				'PERCENT_PAID_LIVR_PROFORMA' => $parcent_livr_pay,
+				'VALID_OFFRE_PROFORMA' =>$garantie,
+				'VALID_OFFRE_VALUE' =>$garantie_value,
 			];
 
 
-			for ($count = 0; $count < count($_POST["name"]); $count++) 
+
+
+			
+			$save_pos_store_2_ibi_proforma = $this->model_pos_store_2_ibi_proforma->store($save_data);
+
+			for ($count = 0; $count < count($_POST["design"]); $count++) 
             {
 
 
 			$save_datas = [
 
-				'REF_PRODUCT_CODEBAR_PROFORMA_PROD' => $save_pos_store_2_ibi_commande,
-				'REF_PROFORMA_ID' => $_POST["name"][$count],
-				'QUANTITE_PROFORMA_PROD' => $_POST["price"][$count],
-				'PRIX_PROFORMA_PROD' =>$_POST["search"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
-				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],];
+				'REF_PRODUCT_CODEBAR_PROFORMA_PROD' => $_POST["reference"][$count],
+				'REF_PROFORMA_CODE_PROD' => $vide,
+				'QUANTITE_PROFORMA_PROD' =>$_POST["quantite"][$count],
+				'PRIX_PROFORMA_PROD ' =>$_POST["unit_price"][$count],
+				'NAME_PROFORMA_PROD ' =>$_POST["design"][$count],
+				'REF_PROFORMA_ID' => $save_pos_store_2_ibi_proforma,];
 
 
 			$this->db->insert('pos_store_2_ibi_proforma_produits', $save_datas);
@@ -168,8 +198,8 @@ class Pos_store_2_ibi_proforma extends Admin
            }
 
 
-			
-			$save_pos_store_2_ibi_proforma = $this->model_pos_store_2_ibi_proforma->store($save_data);
+
+
 
 			if ($save_pos_store_2_ibi_proforma) {
 				if ($this->input->post('save_type') == 'stay') {
