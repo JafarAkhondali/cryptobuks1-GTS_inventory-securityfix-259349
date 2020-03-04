@@ -76,10 +76,14 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 <<<<<<< HEAD
+<<<<<<< HEAD
 	'hostname' => '192.168.1.16',
 =======
 	'hostname' => '192.168.1.18',
 >>>>>>> jude
+=======
+	'hostname' => '192.168.1.11',
+>>>>>>> yves_dev
 	'username' => 'ibiafric_gts2',
 	'password' => 'ibiafric_gts2',
 	'database' => 'ibiafric_gts2',

@@ -23,12 +23,12 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Pos Store 2 Ibi Devis      <small><?= cclang('detail', ['Pos Store 2 Ibi Devis']); ?> </small>
+      Détail du devis      <small> </small>
    </h1>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_devis'); ?>">Pos Store 2 Ibi Devis</a></li>
-      <li class="active"><?= cclang('detail'); ?></li>
+      <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li class=""><a  href="<?= site_url('administrator/pos_store_2_ibi_devis'); ?>">Devis</a></li>
+      <li class="active">Détail</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -48,166 +48,111 @@ jQuery(document).ready(domo);
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/view.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Pos Store 2 Ibi Devis</h3>
-                     <h5 class="widget-user-desc">Detail Pos Store 2 Ibi Devis</h5>
+                     <h3 class="widget-user-username">Devis</h3>
+                     <h5 class="widget-user-desc">Détail devis</h5>
                      <hr>
                   </div>
 
                  
                   <div class="form-horizontal" name="form_pos_store_2_ibi_devis" id="form_pos_store_2_ibi_devis" >
-                   
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">ID DEVIS </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->ID_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TITRE DEVIS </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TITRE_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">CODE DEVIS </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->CODE_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">REF CLIENT DEVIS </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->NOM_CLIENT); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TYPE DEVIS </label>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TYPE_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">DATE CREATION DEVIS </label>
+                  <div class="table-responsive"> 
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->DATE_CREATION_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">DATE MOD DEVIS </label>
+                  <table class="table table-bordered table-striped dataTable">
+                     <thead>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->DATE_MOD_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">AUTHOR DEVIS </label>
+                        <tr style="background-color: #ccc !important;">
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->AUTHOR_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">COEFFICIENT DEVIS </label>
+                           <th class="cell" style="text-align: center; background-color: #ccc;border:1px solid black !important;">&#8470;</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->COEFFICIENT_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TOTAL DEVIS </label>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">Description</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TOTAL_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TOTAL FINAL DEVIS </label>
+                          
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TOTAL_FINAL_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TYPE DELAY DEVIS </label>
+                          <th class="cell" style="text-align: center;border:1px solid black !important;">Quantité</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TYPE_DELAY_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">TEMPS DELAY DEVIS </label>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">PU</th>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->TEMPS_DELAY_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">COND PAID DEVIS </label>
+                           <th class="cell" style="text-align: center;border:1px solid black !important;">PT</th>
+                         </tr>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->COND_PAID_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">PERCENT PAID DEVIS </label>
+                     </thead>
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->PERCENT_PAID_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">PERCENT PAID LIVR DEVIS </label>
+                     
+                     <tbody> 
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->PERCENT_PAID_LIVR_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">VALID OFFRE DEVIS </label>
+<?php
+$prix_total_all=0;
+$i=0;
+ foreach ($pos_store_2_ibi_devis as $data) { 
+  $i++;
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->VALID_OFFRE_DEVIS); ?>
-                        </div>
-                    </div>
-                                         
-                    <div class="form-group ">
-                        <label for="content" class="col-sm-2 control-label">STATUT DEVIS </label>
+$prix_total=$data['QUANTITE_DEVIS_PROD']*$data['PRIX_DEVIS_PROD'];
 
-                        <div class="col-sm-8">
-                           <?= _ent($pos_store_2_ibi_devis->STATUT_DEVIS); ?>
-                        </div>
-                    </div>
-                                        
-                    <br>
-                    <br>
+$prix_total_all += $data['QUANTITE_DEVIS_PROD']*$data['PRIX_DEVIS_PROD'];
 
-                    <div class="view-nav">
-                        <?php is_allowed('pos_store_2_ibi_devis_update', function() use ($pos_store_2_ibi_devis){?>
-                        <a class="btn btn-flat btn-info btn_edit btn_action" id="btn_edit" data-stype='back' title="edit pos_store_2_ibi_devis (Ctrl+e)" href="<?= site_url('administrator/pos_store_2_ibi_devis/edit/'.$pos_store_2_ibi_devis->ID_DEVIS); ?>"><i class="fa fa-edit" ></i> <?= cclang('update', ['Pos Store 2 Ibi Devis']); ?> </a>
+ $status=$data['STATUT_DEVIS'];
+
+  ?>
+
+
+                     <tr >
+
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo $i; ?></td>
+
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo $data['NAME_DEVIS_PROD']; ?></td>
+
+                          <td style="text-align: center;border:1px solid black !important;"><?php echo $data['QUANTITE_DEVIS_PROD']; ?> &nbsp; <?php echo $data['UNIT_DEVIS_PROD']; ?></td>
+
+                        <td style="text-align: center;border:1px solid black !important;"><?php echo  number_format( $data['PRIX_DEVIS_PROD'],0," "," "); ?></td>
+                       
+                        <td style="text-align: center;border:1px solid black !important;"> <?php echo number_format($prix_total,0," "," "); ?></td>
+  
+
+                     </tr>
+<?php } ?>
+
+                    <tr>
+                      <td colspan="3">
+                      </td>
+                      <td style="text-align: center;border-right: 1px solid black !important;"><b>TOTAL</b></td>
+                      <td style="text-align: center;border:1px solid black !important;border-left: 1px solid black !important;"><?php echo number_format($prix_total_all,0," "," "); ?></td>
+                      
+                    </tr>
+
+                   </tbody>
+
+                  </table>
+                  </div>
+
+
+
+                   <div class="view-nav">
+
+                    <?php if($status==0){ ?>
+                        <?php is_allowed('pos_store_2_ibi_commande_update', function() use ($pos_store_2_ibi_devis){?>
+
+
+
+                          <a class="btn btn-flat btn-primary btn_action" id="btn_cancel" title="<?= cclang('cancel_button'); ?> (Ctrl+x)">
+                            <i class="fa fa-check" ></i><input type="hidden" id="devis_id" value="<?php echo $this->uri->segment(4); ?>" name="id_devis">&nbsp; Approuver
+                            </a>
+
+
+
+
+
+                         <!-- 
+                        <a  class="btn btn-flat btn-primary btn_edit btn_action" id="btn_edit" data-stype='back' title="Approuver la commande" href="<?//= site_url('administrator/pos_store_2_ibi_devis/approuver_commande/'.$this->uri->segment(4)); ?>"><i class="fa fa-ok" ></i> Approuver </a> -->
                         <?php }) ?>
-                        <a class="btn btn-flat btn-default btn_action" id="btn_back" title="back (Ctrl+x)" href="<?= site_url('administrator/pos_store_2_ibi_devis/'); ?>"><i class="fa fa-undo" ></i> <?= cclang('go_list_button', ['Pos Store 2 Ibi Devis']); ?></a>
+
+
+                      <?php } ?>
+                        <a class="btn btn-flat btn-default btn_action" id="btn_back" title="Retourner à la page précédente" href="<?= site_url('administrator/pos_store_2_ibi_devis'); ?>"><i class="fa fa-undo" ></i> &nbsp;Retourner</a>
                      </div>
                     
                   </div>
@@ -221,3 +166,32 @@ jQuery(document).ready(domo);
    </div>
 </section>
 <!-- /.content -->
+
+<script>
+  $(document).ready(function(){
+   
+       $('#btn_cancel').click(function(){
+        var id_devis=$('#devis_id').val();
+        //alert(id_devis);
+        swal({
+            title: "Êtes-vous sûr de vouloir Approuver",
+            text: "Le devis deviendra un fiche de travail",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes!",
+            cancelButtonText: "No!",
+            closeOnConfirm: true,
+            closeOnCancel: true
+          },
+          function(isConfirm){
+            if (isConfirm) {
+              window.location.href = BASE_URL + 'administrator/pos_store_2_ibi_devis/approuver_commande/'+id_devis;
+            }
+          });
+    
+        return false;
+      }); /*end btn cancel*/
+
+     }); /*end doc ready*/
+</script>

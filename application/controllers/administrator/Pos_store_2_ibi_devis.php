@@ -47,6 +47,42 @@ class Pos_store_2_ibi_devis extends Admin
 		$this->render('backend/standart/administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_list', $this->data);
 	}
 	
+
+
+
+	public function ibi_devis_liste_attente($offset = 0)
+	{
+		$this->is_allowed('pos_store_2_ibi_devis_list');
+
+		$filter = $this->input->get('q');
+		$field 	= $this->input->get('f');
+
+		$this->data['pos_store_2_ibi_deviss'] = $this->model_pos_store_2_ibi_devis->get_ibi_devis_liste_attente($filter, $field, $this->limit_page, $offset);
+		$this->data['pos_store_2_ibi_devis_counts'] = $this->model_pos_store_2_ibi_devis->count_all_ibi_devis_liste_attente($filter, $field);
+
+		$config = [
+			'base_url'     => 'administrator/pos_store_2_ibi_devis/index/',
+			'total_rows'   => $this->model_pos_store_2_ibi_devis->count_all_ibi_devis_liste_attente($filter, $field),
+			'per_page'     => $this->limit_page,
+			'uri_segment'  => 4,
+		];
+
+		$this->data['pagination'] = $this->pagination($config);
+
+		$this->template->title('Pos Store 2 Ibi Devis List');
+		$this->render('backend/standart/administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_list_attente', $this->data);
+	}
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	* Add new pos_store_2_ibi_deviss
 	*
@@ -226,14 +262,14 @@ switch ($position) {
 
         if ($id_fiche_travail) 
              {
-                 
+                 $id_devis='';
 			           for ($count = 0; $count < count($_POST["name"]); $count++) 
 			              {
 						     $save_datas = [
 
 							'REF_PRODUCT_CODEBAR_DEVIS_PROD' => $_POST["article"][$count],
 
-							'REF_DEVIS_CODE_DEVIS_PROD' => $id_fiche_travail,
+							'REF_DEVIS_CODE_DEVIS_PROD' => $id_devis,
 
 							'QUANTITE_DEVIS_PROD' => $_POST["search"][$count],
 
@@ -243,7 +279,7 @@ switch ($position) {
 
 							'PRIX_DEVIS_PROD ' =>$_POST["price"][$count],
 
-							'PRIX_TOTAL_DEVIS_PROD ' =>0,
+							'ID_FICHE_DEVIS_PRO ' =>$id_fiche_travail,
 
 							'NAME_DEVIS_PROD ' =>$_POST["name"][$count],
 
@@ -304,6 +340,7 @@ switch ($position) {
 				'DATE_CREATION_DEVIS' => date('Y-m-d H:i:s'),
 				'DATE_MOD_DEVIS' =>date('Y-m-d H:i:s') ,
 				'AUTHOR_DEVIS' =>get_user_data('id') ,
+				'REF_CATEGORIE_DEVIS'=>$this->input->post('categorie'),
 				'COEFFICIENT_DEVIS' => 0,
 				'TOTAL_DEVIS' => 0,
 				'TOTAL_FINAL_DEVIS' => 0,
@@ -313,7 +350,8 @@ switch ($position) {
 				'PERCENT_PAID_DEVIS' => $this->input->post('typeCond1'),
 				'PERCENT_PAID_LIVR_DEVIS' => $this->input->post('typeCond2'),
 				'VALID_OFFRE_DEVIS' => $this->input->post('tempsvalid'),
-				'STATUT_DEVIS' => 0,
+				'VALID_OFFRE_DEVIS_VALUE' => $this->input->post('validOff'),
+                'STATUT_DEVIS' => 0,
 			];
 
 			
@@ -323,7 +361,7 @@ switch ($position) {
 
         if ($save_pos_store_2_ibi_devis) 
              {
-
+$id_fiche='';
 			           for ($count = 0; $count < count($_POST["name"]); $count++) 
 			              {
 						     $save_datas = [
@@ -340,7 +378,7 @@ switch ($position) {
 
 							'PRIX_DEVIS_PROD ' =>$_POST["price"][$count],
 
-							'PRIX_TOTAL_DEVIS_PROD ' =>0,
+							'ID_FICHE_DEVIS_PRO ' =>$id_fiche,
 
 							'NAME_DEVIS_PROD ' =>$_POST["name"][$count],
 
@@ -357,7 +395,7 @@ switch ($position) {
 								$this->data['id'] 	   = $save_pos_store_2_ibi_devis;
 								$this->data['message'] = cclang('success_save_data_stay', [
 									anchor('administrator/pos_store_2_ibi_devis/edit/' . $save_pos_store_2_ibi_devis, 'Edit Pos Store 2 Ibi Devis'),
-									anchor('administrator/pos_store_2_ibi_devis', ' Go back to list')
+									anchor('administrator/pos_store_2_ibi_devis/ibi_devis_liste_attente', ' Go back to list')
 								]);
 							} else {
 								set_message(
@@ -366,7 +404,7 @@ switch ($position) {
 								]), 'success');
 
 			            		$this->data['success'] = true;
-								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis/ibi_devis_liste_attente');
 							}
 						} else {
 							if ($this->input->post('save_type') == 'stay') {
@@ -375,7 +413,7 @@ switch ($position) {
 							} else {
 			            		$this->data['success'] = false;
 			            		$this->data['message'] = cclang('data_not_change');
-								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis');
+								$this->data['redirect'] = base_url('administrator/pos_store_2_ibi_devis/ibi_devis_liste_attente');
 							}
 						}
 
@@ -539,9 +577,14 @@ switch ($position) {
 	*/
 	public function view($id)
 	{
+
+/*
+      $champs='REF_DEVIS_CODE_DEVIS_PROD';
+      $detail='pos_store_2_ibi_devis_produits';*/
+
 		$this->is_allowed('pos_store_2_ibi_devis_view');
 
-		$this->data['pos_store_2_ibi_devis'] = $this->model_pos_store_2_ibi_devis->join_avaiable()->filter_avaiable()->find($id);
+		$this->data['pos_store_2_ibi_devis'] = $this->model_pos_store_2_ibi_devis->getRequete($id);
 
 		$this->template->title('Pos Store 2 Ibi Devis Detail');
 		$this->render('backend/standart/administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_view', $this->data);
@@ -585,6 +628,137 @@ switch ($position) {
 
 		$this->model_pos_store_2_ibi_devis->pdf('pos_store_2_ibi_devis', 'pos_store_2_ibi_devis');
 	}
+
+	public function approuver_commande($id)
+	{
+
+		$code='cb123456';
+          $commande='pos_store_2_ibi_devis';
+          $detail='pos_store_2_ibi_devis_produits';
+          $champ='ID_DEVIS';
+          $champ_detail='ID_DEVIS_PROD';
+          $champ_detail_devis='REF_DEVIS_CODE_DEVIS_PROD';
+          $ref_devis='';
+          
+         // $criteres['commande_id']=$id;
+          $donnee = ['STATUT_DEVIS'=>1];
+             
+      
+          $this->db->where($champ,$id);
+          $this->db->update($commande,$donnee);
+
+
+          $this->db->select('TITRE_DEVIS,REF_CATEGORIE_DEVIS,REF_CLIENT_DEVIS,TYPE_DEVIS');
+					   $this->db->from($commande);
+						$this->db->where($champ,$id);
+						$old_value=$this->db->get();
+						foreach($old_value->result() as $valeur)
+						{
+                            
+
+			$save_data = [
+				'TITRE_FICHE' => $valeur->TITRE_DEVIS,
+
+				'DEVIS_CODE_FICHE' => $code,
+
+				'NUMERO_FICHE' =>$this -> numero_fiche_travail(),
+
+				'REF_CLIENT_FICHE' => $valeur->REF_CLIENT_DEVIS,
+
+				'TYPE_DEVIS_FICHE'=>$valeur->TYPE_DEVIS,
+
+				'DATE_CREATION_FICHE' =>date('Y-m-d H:i:s') ,
+
+				'DATE_MOD_FICHE' =>date('Y-m-d H:i:s') ,
+
+				'AUTHOR_FICHE' => get_user_data('id'),
+
+				'REF_CATEGORIE_FICHE' =>$valeur->REF_CATEGORIE_DEVIS,
+
+				'TOTAL_FICHE' => 0,
+
+				'STATUT_FICHE' => 0,
+			];
+
+
+			      $this->db->insert('pos_store_2_ibi_fiche_travail', $save_data);
+                  $id_fiche_travail = $this->db->insert_id();
+
+
+                   
+						}
+
+			
+
+
+        
+		
+                       $this->db->select('*');
+					
+					   $this->db->from($detail);
+						$this->db->where($champ_detail_devis,$id);
+						$old_value=$this->db->get();
+						foreach($old_value->result() as $data)
+						{
+
+
+						     $save_datas = [
+
+							'REF_PRODUCT_CODEBAR_DEVIS_PROD' => $data->REF_PRODUCT_CODEBAR_DEVIS_PROD,
+
+							'REF_DEVIS_CODE_DEVIS_PROD' => $ref_devis,
+
+							'QUANTITE_DEVIS_PROD' => $data->QUANTITE_DEVIS_PROD,
+
+							'QUANTITE_ADD_DEVIS_PROD' =>$data->QUANTITE_ADD_DEVIS_PROD,
+
+							'UNIT_DEVIS_PROD ' =>$data->UNIT_DEVIS_PROD,
+
+							'PRIX_DEVIS_PROD ' =>$data->PRIX_DEVIS_PROD,
+
+							'ID_FICHE_DEVIS_PRO ' =>$id_fiche_travail,
+
+							'NAME_DEVIS_PROD ' =>$data->NAME_DEVIS_PROD,
+
+							'STATUT_DEVIS_PROD ' =>0,
+
+									];
+
+               $approuver_commande= $this->db->insert('pos_store_2_ibi_devis_produits', $save_datas);
+
+
+		}
+
+			if ($approuver_commande) {
+
+		            set_message('Approbation réussi.', 'success');
+
+				} else {
+
+		            set_message('Echec .', 'error');
+
+				}
+
+
+
+				redirect('administrator/pos_store_2_ibi_fiche_travail');
+
+
+
+
+	}
+
+	function pos_store_2_ibi_devis_printable()
+ {
+   // $id=$this->uri->segment(4);
+   
+
+	//$data['donne']=$this->model_project_situation_caisse->getRequete($id);
+	
+
+		$this->render('backend/standart/administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_printable');
+}
+
 }
 
 

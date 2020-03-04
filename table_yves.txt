@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 CREATE TABLE `pos_store_2_ibi_commande` (
   `commande_id` int(11) NOT NULL,
   `commande_numero` varchar(255) NOT NULL,
@@ -33,17 +34,25 @@ ALTER TABLE `pos_store_2_ibi_commande`
   MODIFY `commande_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 =======
 UPDATE `menu` SET `link` = '#' WHERE `menu`.`id` = 29;
+=======
+>>>>>>> 688968342f20297edf99278a40288d52e953f34c
 
+ALTER TABLE `pos_store_2_ibi_devis` ADD `REF_CATEGORIE_DEVIS` INT NOT NULL AFTER `AUTHOR_DEVIS`;
 
-UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_devis/add' WHERE `menu`.`id` = 30;
+ID_FICHE_DEVIS_PRO
 
+<<<<<<< HEAD
 UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_devis' WHERE `menu`.`id` = 31;
 >>>>>>> 6fdfd3d6aecbe171d246981ce46c1a0f043536f6
+=======
+>>>>>>> 688968342f20297edf99278a40288d52e953f34c
 
 
-UPDATE `menu` SET `link` = 'administrator/pos_store_2_ibi_fiche_travaill' WHERE `menu`.`id` = 32;
 
 
+
+
+ALTER TABLE `pos_store_2_ibi_devis_produits` CHANGE `REF_DEVIS_CODE_DEVIS_PROD` `REF_DEVIS_CODE_DEVIS_PROD` INT(250) NULL;
 
 
 
