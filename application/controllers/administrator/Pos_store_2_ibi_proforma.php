@@ -414,6 +414,17 @@ $form=1;
 
 		$this->model_pos_store_2_ibi_proforma->pdf('pos_store_2_ibi_proforma', 'pos_store_2_ibi_proforma');
 	}
+
+		function pos_store_2_ibi_proforma_printable()
+ {
+   // $id=$this->uri->segment(4);
+   
+
+	//$data['donne']=$this->model_project_situation_caisse->getRequete($id);
+	
+
+		$this->load->view('backend/standart/administrator/pos_store_2_ibi_proforma/pos_store_2_ibi_proforma_printable');
+}
 }
 
 

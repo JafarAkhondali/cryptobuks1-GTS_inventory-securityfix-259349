@@ -106,15 +106,10 @@ jQuery(document).ready(domo);
                              
                            <td style="text-align: center !important" width="200">
 
-
-                        <?php is_allowed('pos_store_2_ibi_devis_view', function() use ($pos_store_2_ibi_devis){?>
-                              <a href="<?= site_url('administrator/pos_store_2_ibi_devis/pos_store_2_ibi_devis_printable/' . $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-primary btn-xs"><i class="fa fa-print"></i> </a>
-                              <?php }) ?>
-
                          
 
                          <?php is_allowed('pos_store_2_ibi_devis_view', function() use ($pos_store_2_ibi_devis){?>
-                              <a title="Créer un proforma" href="<?= site_url('administrator/pos_store_2_ibi_proforma/add/'. $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> </a>
+                              <a title="Créer un proforma" href="<?= site_url('administrator/pos_store_2_ibi_proforma/add'. $pos_store_2_ibi_devis->ID_DEVIS); ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> </a>
                               <?php }) ?>
 
 

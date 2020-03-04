@@ -329,16 +329,40 @@ table {
 }
     </style>
 
+
     <body>
 <div id="container">
 <div class="page-header">
     <section id="memo">
         <div class="company-info">
           <section id="invoice-title-number">
+                              <?php
+
+$this->db->select('*');
+$this->db->from('pos_ibi_clients as c');
+$this->db->join('pos_store_2_ibi_proforma as d', 'c.ID_CLIENT = d.REF_CLIENT_PROFORMA');
+$this->db->where('ID_PROFORMA',$this->uri->segment(4));
+
+$query = $this->db->get();
+if ($query->num_rows() > 0)  //Ensure that there is at least one result 
+{
+   foreach ($query->result() as $row)  //Iterate through results
+   {
+      $nom = $row->NOM_CLIENT;
+      $prenom = $row->PRENOM_CLIENT;
+      $address = $row->ADRESSE_CLIENT;
+      $email = $row->EMAIL_CLIENT;
+      $telephone = $row->TEL_CLIENT;
+      $nif = $row->STATE_CLIENT;
+      //$created_by = $order[ 'order' ][0][ 'AUTHOR' ];
+      $code_pro = $row->CODE_PROFORMA;
+   }
+}
+?> 
             <span id="title">Facture Proforma</span>
             <br/>
             <br/>
-            <span id="number"><b>N° : 123456 du 22/02/2020</b></span>
+            <span id="number"><b>N° : <?php echo $code_pro ;?> du 22/02/2020</b></span>
                     <br/>
                     <br/>
             </section>
@@ -359,29 +383,7 @@ table {
          <div class="logo"><img style="" src=""></div>
      
                 <div id="customer">
-                  <?php
 
-$this->db->select('*');
-$this->db->from('pos_ibi_clients as c');
-$this->db->join('pos_store_2_ibi_devis as d', 'c.ID_CLIENT = d.REF_CLIENT_DEVIS');
-$this->db->where('ID_DEVIS',$this->uri->segment(4));
-
-$query = $this->db->get();
-if ($query->num_rows() > 0)  //Ensure that there is at least one result 
-{
-   foreach ($query->result() as $row)  //Iterate through results
-   {
-      $nom = $row->NOM_CLIENT;
-      $prenom = $row->PRENOM_CLIENT;
-      $address = $row->ADRESSE_CLIENT;
-      $email = $row->EMAIL_CLIENT;
-      $telephone = $row->TEL_CLIENT;
-      $nif = $row->STATE_CLIENT;
-      //$created_by = $order[ 'order' ][0][ 'AUTHOR' ];
-     
-   }
-}
-?> 
         <span>Client : </span>
         <div style="margin: 0px 2px 0px 0px;">
           <span class="bold">● <?php echo $nom.' '.$prenom;?></span>
@@ -410,17 +412,17 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
 
                 $this->db->select('*');
-            $this->db->from('pos_store_2_ibi_devis');
-            $this->db->where('ID_DEVIS',$this->uri->segment(4));
+            $this->db->from('pos_store_2_ibi_proforma');
+            $this->db->where('ID_PROFORMA',$this->uri->segment(4));
             $query = $this->db->get();
             if ($query->num_rows() > 0)  //Ensure that there is at least one result 
             {
                 foreach ($query->result() as $row)  //Iterate through results
                  {
-                  $user=$row->AUTHOR_DEVIS;
+                  $user=$row->AUTHOR_PROFORMA;
                   
                    
-        switch ($row->TYPE_DELAY_DEVIS) 
+        switch ($row->TYPE_DELAY_PROFORMA) 
              {
               case 0:
                    $aui='De stock sauf vente intermédiaire';
@@ -429,26 +431,26 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
               case 1:
                    
-                 if($row->TEMPS_DELAY_DEVIS > 1){
-                    $aui=$row->delai_value.' jours';
+                 if($row->TEMPS_DELAY_PROFORMA > 1){
+                    $aui=$row->TEMPS_DELAY_PROFORMA.' jours';
                   }else{
-                     $aui=$row->delai_value.' jour';
+                     $aui=$row->TEMPS_DELAY_PROFORMA.' jour';
                   }
               break;
 
               case 2:
 
-                if($row->TEMPS_DELAY_DEVIS > 1){
-                    $aui=$row->delai_value.' semaines';
+                if($row->TYPE_DELAY_PROFORMA > 1){
+                    $aui=$row->TEMPS_DELAY_PROFORMA.' semaines';
                   }else{
-                     $aui=$row->delai_value.' semaine';
+                     $aui=$row->TEMPS_DELAY_PROFORMA.' semaine';
                   }
                    
               break;
               }
 
 
-          switch ($row->COND_PAID_DEVIS) 
+          switch ($row->COND_PAID_PROFORMA) 
              {
               case 1:
                  $quoi='à la commande';
@@ -456,27 +458,27 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
 
               case 2:
-                  $quoi=$row->PERCENT_PAID_DEVIS.'% à la commande et '.$row->PERCENT_PAID_LIVR_DEVIS.'% à la livraison';
+                  $quoi=$row->PERCENT_PAID_PROFORMA.'% à la commande et '.$row->PERCENT_PAID_LIVR_PROFORMA.'% à la livraison';
               break;
               }
 
-            switch ($row->VALID_OFFRE_DEVIS) 
+            switch ($row->VALID_OFFRE_PROFORMA) 
              {
               case 1:
-                if($row->VALID_OFFRE_DEVIS_VALUE > 1){
-                    $deadline=$row->validite_value.' jours';
+                if($row->VALID_OFFRE_VALUE > 1){
+                    $deadline=$row->VALID_OFFRE_VALUE.' jours';
                   }else{
-                     $deadline=$row->validite_value.' jour';
+                     $deadline=$row->VALID_OFFRE_VALUE.' jour';
                   }
               break;
 
 
               case 2:
                
-               if($row->VALID_OFFRE_DEVIS_VALUE > 1){
-                    $deadline=$row->validite_value.' semaines';
+               if($row->VALID_OFFRE_VALUE > 1){
+                    $deadline=$row->VALID_OFFRE_VALUE.' semaines';
                   }else{
-                     $deadline=$row->validite_value.' semaine';
+                     $deadline=$row->VALID_OFFRE_VALUE.' semaine';
                   }
 
               break;
@@ -521,7 +523,7 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
                     <span>Condition :</span> <span><?=$quoi?>.</span>
                   </div>
                   <div>
-                    <span>Validite :</span> <span><?=$validOff?>.</span>
+                    <span>Validite :</span> <span><?=$deadline?>.</span>
                   </div>
                   <div>
                     <span>Nos prix sont sujets à modification en cas<br/> de variation du taux de change ou des frais d'approches.</span>
@@ -532,8 +534,8 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
 $this->db->select('*');
 $this->db->from('aauth_users as a');
-$this->db->join('pos_store_2_ibi_devis as d', 'a.id = d.AUTHOR_DEVIS');
-$this->db->where('ID_DEVIS',$this->uri->segment(4));
+$this->db->join('pos_store_2_ibi_proforma as d', 'a.id = d.AUTHOR_PROFORMA');
+$this->db->where('ID_PROFORMA',$this->uri->segment(4));
 
             $query = $this->db->get();
             if ($query->num_rows() > 0)  //Ensure that there is at least one result 
@@ -582,33 +584,30 @@ $this->db->where('ID_DEVIS',$this->uri->segment(4));
                         <th>N°</th>
                         <th>Nature de l'article ou service</th>
                         <th>Quantité</th>
-                        <th>PU</th>
-                        <th>Remise (-)</th>
-                        <th>Total</th>
-                        <th>Disponibilité</th>
+                        <th>Prix</th>
+                        
                       </tr>
                   </thead>
                           <?php
 
 
 
-            $this->db->select('PRIX_DEVIS_PROD,QUANTITE_DEVIS_PROD');
-            $this->db->from('pos_store_2_ibi_devis_produits');
-           $this->db->where('REF_DEVIS_CODE_DEVIS_PROD',$this->uri->segment(4));
-
-            $query = $this->db->get();
+            $this->db->select('PRIX_PROFORMA_PROD,QUANTITE_PROFORMA_PROD');
+            $this->db->from('pos_store_2_ibi_proforma_produits');
+           $this->db->where('REF_PROFORMA_ID',$this->uri->segment(4));
+            $produit = $this->db->get();
             $total_hors_tva=0;
 
-            if ($query->num_rows() > 0)  //Ensure that there is at least one result 
-            {
-               foreach ($query as $produits) 
+            //if ($query->num_rows() > 0)  //Ensure that there is at least one result 
+            //{
+               foreach ($produit->result() as $produit_proforma) 
                {
 
-$total_hors_tva += $produits->PRIX_DEVIS_PROD * $produits->QUANTITE_DEVIS_PROD;
+$total_hors_tva += $produit_proforma->PRIX_PROFORMA_PROD * $produit_proforma->QUANTITE_PROFORMA_PROD;
 
 
                }
-             }
+            // }
 
 $total_tva = ($total_hors_tva * 18) / 100;
 
@@ -620,15 +619,15 @@ $total_tvac = $total_tva + $total_hors_tva;
 
 
 
-            $this->db->select('TITRE_DEVIS');
-            $this->db->from('pos_store_2_ibi_devis');
-           $this->db->where('ID_DEVIS',$this->uri->segment(4));
+            $this->db->select('TITRE_PROFORMA');
+            $this->db->from('pos_store_2_ibi_proforma');
+           $this->db->where('ID_PROFORMA',$this->uri->segment(4));
 
             $query = $this->db->get();
             $i=0;
             if ($query->num_rows() > 0)  //Ensure that there is at least one result 
             {
-                                        foreach ($query as $produit) {
+                                        foreach ($query->result() as $produit) {
 
                                             $i++;
                                           
@@ -647,8 +646,8 @@ $total_tvac = $total_tva + $total_hors_tva;
                         ?> 
                           <tr data-iterate="item">
                             <td><?php echo $i?></td>
-                            <td><?php echo  $produit->TITRE_DEVIS;?></td>
-                            <td></td>
+                            <td><?php echo  $produit->TITRE_PROFORMA;?></td>
+                            <td><?php echo  $total_hors_tva;?></td>
                             <td></td>
                             <td></td>
                             <td></td>
