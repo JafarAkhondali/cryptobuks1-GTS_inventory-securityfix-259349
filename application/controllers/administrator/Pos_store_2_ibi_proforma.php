@@ -59,6 +59,47 @@ class Pos_store_2_ibi_proforma extends Admin
 		$this->render('backend/standart/administrator/pos_store_2_ibi_proforma/pos_store_2_ibi_proforma_add', $this->data);
 	}
 
+
+	 public function numero_proforma()
+
+       {                 $this->db->select('ID_PROFORMA');
+                         $this->db->from('pos_store_2_ibi_proforma');
+                        $this->db->order_by('ID_PROFORMA','desc');
+                       $this->db->limit('1');
+                         $query = $this->db->get();
+
+             if($query->num_rows()>0)
+                {
+                      foreach($query->result() as $row){
+                           $job_card_id = (int)$row->ID_PROFORMA;
+                      }
+                      $job_card_id++;
+                }else{
+                   $job_card_id = 1;
+                }
+                $invoice_number = $job_card_id;
+               
+                  $bre = strlen($invoice_number);
+                
+                        if($bre==1){
+                             $value= '0000'.$invoice_number;
+                         }
+                       else if($bre==2){
+                           $value='000'.$invoice_number;
+                       }else if($bre==3){
+                          $value= '00'.$invoice_number;
+                       }
+                       else if($bre==4){
+                          $value= '0'.$invoice_number;
+                       }else{
+                           $value=$invoice_number;
+                       }
+             $value.=date('m').'/'.date('Y');
+
+              return $value;
+
+    }
+
 	/**
 	* Add New Pos Store 2 Ibi Proformas
 	*
@@ -79,8 +120,8 @@ class Pos_store_2_ibi_proforma extends Admin
 		if ($this->form_validation->run()) {
 		
 			$save_data = [
-				'TITRE_PROFORMA' => $this->input->post('TITRE_PROFORMA'),
-				'CODE_PROFORMA' => $this->input->post('CODE_PROFORMA'),
+				'TITRE_PROFORMA' => $this->input->post('titre_proforma'),
+				'CODE_PROFORMA' =>$this->numero_proforma() ,
 				'REF_CLIENT_PROFORMA' => $this->input->post('REF_CLIENT_PROFORMA'),
 				'TYPE_PROFORMA' => $this->input->post('TYPE_PROFORMA'),
 				'DATE_CREATION_PROFORMA' => $this->input->post('DATE_CREATION_PROFORMA'),
@@ -101,6 +142,31 @@ class Pos_store_2_ibi_proforma extends Admin
 				'PERCENT_PAID_LIVR_PROFORMA' => $this->input->post('PERCENT_PAID_LIVR_PROFORMA'),
 				'VALID_OFFRE_PROFORMA' => $this->input->post('VALID_OFFRE_PROFORMA'),
 			];
+
+
+			for ($count = 0; $count < count($_POST["name"]); $count++) 
+            {
+
+
+			$save_datas = [
+
+				'REF_PRODUCT_CODEBAR_PROFORMA_PROD' => $save_pos_store_2_ibi_commande,
+				'REF_PROFORMA_ID' => $_POST["name"][$count],
+				'QUANTITE_PROFORMA_PROD' => $_POST["price"][$count],
+				'PRIX_PROFORMA_PROD' =>$_POST["search"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],
+				'PRIX_TOTAL_PROFORMA_PROD ' =>$_POST["unit"][$count],];
+
+
+			$this->db->insert('pos_store_2_ibi_proforma_produits', $save_datas);
+			//$save_pos_store_2_ibi_commande = $this->db->insert_id();			
+
+           }
+
 
 			
 			$save_pos_store_2_ibi_proforma = $this->model_pos_store_2_ibi_proforma->store($save_data);

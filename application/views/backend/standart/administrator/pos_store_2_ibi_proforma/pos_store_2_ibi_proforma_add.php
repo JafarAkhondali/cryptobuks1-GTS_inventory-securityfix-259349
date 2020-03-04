@@ -69,15 +69,11 @@ jQuery(document).ready(domo);
 <section class="content">
 
   <?php
-
+/*
    $project=$this->uri->segment(4);
 
-   $client=$this->uri->segment(5);
-
-    /* $projet = $project_proforma->project_proforma_devis_id;
-     $client = $project_proforma->project_proforma_client_id;*/
-
-     //echo $project."/".$client; ?> 
+   $client=$this->uri->segment(5);*/
+ ?> 
 
    <div class="row" >
 
@@ -94,30 +90,6 @@ jQuery(document).ready(domo);
                <!-- Widget: user widget style 1 -->
 
                <div class="box box-widget widget-user-2">
-
-                  <!-- Add the bg color to the header using any of the bg-* classes -->
-
-                 <!--  <div class="widget-user-header ">
-
-                    
-
-                     <div class="widget-user-image">
-
-                        <img class="img-circle" src="<?//= BASE_ASSET; ?>/img/view.png" alt="User Avatar">
-
-                     </div>
-
-                   
-
-                     <h3 class="widget-user-username">Project Proforma</h3>
-
-                     <h5 class="widget-user-desc">Detail Project Proforma</h5>
-
-                     <hr>
-
-                  </div> -->
-
-
 
                  
 
@@ -139,9 +111,7 @@ jQuery(document).ready(domo);
 
                 <div class="content">
 
-                
-
-                 <div class="row">
+                     <div class="row">
 
 
                                       <?php
@@ -152,8 +122,7 @@ $this->db->join('pos_store_2_ibi_devis as d', 'c.ID_CLIENT = d.REF_CLIENT_DEVIS'
 $this->db->where('ID_DEVIS',$this->uri->segment(4));
 
 $query = $this->db->get();
-if ($query->num_rows() > 0)  //Ensure that there is at least one result 
-{
+
    foreach ($query->result() as $row)  //Iterate through results
    {
       $nom = $row->NOM_CLIENT;
@@ -162,10 +131,11 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
       $email = $row->EMAIL_CLIENT;
       $telephone = $row->TEL_CLIENT;
       $nif = $row->STATE_CLIENT;
+      $client=$row->STATE_CLIENT;
       //$created_by = $order[ 'order' ][0][ 'AUTHOR' ];
      
    }
-}
+
 ?> 
 
                    <div class="col-md-6">
@@ -180,7 +150,7 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
         </div>
         
         <div>
-          <span style="margin: 0px 2px 0px 0px;">● Tel : <?php echo $telephone?></span>
+          <span style="margin: 0px 2px 0px 0px;">● Tel : <?php echo $telephone?></span><br>
           <span style="margin: 0px 2px 0px 0px;">● Email : <?php echo $email?></span>
         </div>
         <div>
@@ -218,7 +188,7 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
                           
                           <th class="marge_">DESIGNATION</th>
                           <th class="marge_">REFERENCE</th>
-                          <th class="marge_ text-center">QTE STOCK</th>
+                          
                           <th class="marge_ text-center">P.V</th>
                           <th colspan="" class="marge_ text-center">QTE DEVIS</th><th class="marge_ text-center">P.U</th><th class="marge_ text-center">P.T</th>
                         </tr>
@@ -230,17 +200,29 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
                      ?>
 
                        <tbody>
-                        <!--  <input type="text" class="form-control" name="reference" id="reference" placeholder="Ajouter n°  de reference" value=""><br/> -->
+<br><br>
+                       <div class="form-group ">
+                            <label for="TITRE_FICHE" class="col-sm-2 control-label">Titre proforma 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                             <input type="hidden" class="form-control" name="client" value="<?= $client ?>">
 
-                         <input type="text" class="form-control" name="devi_id" id="devi_id" placeholder="" value="<?= _ent($project); ?>" style="display:none;">
 
-                        <input type="text" class="form-control" name="client_id" id="client_id" placeholder="" value="<?= _ent($client); ?>" style="display:none;">
+                                <input type="text" class="form-control" name="titre_proforma" id="TITRE_FICHE" placeholder="Entrer un titre pour proforma" value="">
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
 
-                        <input type="text" class="form-control" name="proforma_reference" id="proforma_reference" placeholder="Ajouter n°  de reference" value="" required><i class="required">*</i><br/>
 
-                         <input type="text" class="form-control" name="project_proforma_title" id="project_proforma_title" placeholder="Ajouter le titre du proforma" value="" style="display:;"><i class="required">*</i>
 
-                          <input type="hidden" class="form-control" name="proforma_code" id="proforma_code" placeholder="Ajouter le titre du proforma" value="<?= _ent( $proforma_number); ?>" style="display:;">
+
+
+
+
+                         <!-- <input type="text" class="form-control" name="project_proforma_title" id="project_proforma_title" placeholder="Ajouter le titre du proforma" value="" style="display:;"><i class="required">*</i> -->
+
 
                         <?php
 
@@ -265,354 +247,92 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
                           $grand_total = 0;
 
+
+$this->db->select('REF_PRODUCT_CODEBAR_DEVIS_PROD,QUANTITE_DEVIS_PROD,UNIT_DEVIS_PROD,PRIX_DEVIS_PROD,NAME_DEVIS_PROD');
+$this->db->from('pos_store_2_ibi_devis_produits');
+$this->db->where('REF_DEVIS_CODE_DEVIS_PROD',$this->uri->segment(4));
+
+$query = $this->db->get();
+
+   foreach ($query->result() as $request)  //Iterate through results
+   {
+
+
+
+
+
+/*
+
                           $requete=$this->db->query('SELECT * FROM project p,project_clients c,project_produits pr, project_articles a WHERE p.project_id=pr.project_reference AND c.project_clients_id=p.project_client_discussion_id AND a.project_article_id=pr.project_article_id AND pr.project_produits_category=0 AND  p.project_id="'.$project.'" AND c.project_clients_id="'.$client.'"');
 
-                        if ($requete->num_rows() > 0) {
-
-                          $verification=1;
 
 
-                           foreach ($requete->result() as  $request) {
+                           foreach ($requete->result() as  $request) {*/
 
-                            $total_price1=($request->project_produits_quantity*$request->project_articles_prix_vente_pondere);
+                        $total_price1=($request->QUANTITE_DEVIS_PROD * $request->PRIX_DEVIS_PROD);
 
                             $total_prices +=$total_price1;
 
-                            $ID=$request->project_article_id;
-
-
-
-
-                            $diom =$this->db->query('SELECT project_articles_quantite_stock,project_article_id FROM  project_articles WHERE project_article_id="'.$ID.'"');
-                            if ($diom->num_rows()>0) {
-
-                              foreach ($diom->result() as  $requete) {
-
-                                $article=$requete->project_article_id;
-
-
-                                $verifie=$this->db->query('SELECT SUM(d.project_requisition_magasin_detail_quantity) as requisition FROM project_requisition_magasin m, project_requisition_magasin_detail d,project_articles a WHERE m. project_requisition_magasin_id=d.project_id_requisition_magasin AND a.project_article_id=d.project_requisition_produits_id AND m.project_requisition_magasin_status="2" AND d.project_requisition_produits_id="'.$article.'"');
-
-                                if ($verifie->num_rows() > 0) {
-
-
-                           foreach ($verifie->result() as  $verifier) {
-
-                            
-
-                            $requisitions=$verifier->requisition;
-
-                          }
-
-                            $quantite_stock=$requete->project_articles_quantite_stock;
-
-                            $stock_theorique =($quantite_stock-$requisitions);
-
-
-                            $qty_project_produits=$request->project_produits_quantity;
-                              
-                            }
-
-                             
-
-                           /* echo $qty_pos5_ibi_articles.'='.$qty_project_produits.'/';*/
-
-                            
                           
+
 
                          ?>
                          <tr>
                            <td class="td_width">
 
                            
-
+                            <!-- 
                             <input type="hidden" class="form-control" name="garantie" id="garantie" placeholder="Garantie" value="">
                             <input type="hidden" class="form-control" name="validite" id="validite" placeholder="Validite" value="">
-                            <input type="hidden" class="form-control" name="paiement" id="paiement" placeholder="Conditions depaiement" value="">
+                            <input type="hidden" class="form-control" name="paiement" id="paiement" placeholder="Conditions depaiement" value=""> -->
 
-                             <input type="hidden" class="form-control" name="verification" placeholder="" value="<?php echo $verification; ?>">
 
-                            <input type="hidden" class="form-control" name="design[]" id="design" placeholder="Design" value="<?php echo $request->project_article_id; ?>"><?php echo $request->project_article_name; ?></td>
-                           <td colspan="" class="marge"><input type="hidden" class="form-control" name="reference[]" id="reference" placeholder="Reference" value="<?php echo $request->project_article_reference; ?>"><?php echo $request->project_article_reference; ?></td>
+                            <input type="hidden" class="form-control" name="design[]" id="design" placeholder="Design" value="<?php echo $request->NAME_DEVIS_PROD; ?>"><?php echo $request->NAME_DEVIS_PROD; ?></td>
+                           <td colspan="" class="marge"><input type="hidden" class="form-control" name="reference[]" id="reference" placeholder="Reference" value="<?php echo $request->REF_PRODUCT_CODEBAR_DEVIS_PROD; ?>"><?php echo $request->REF_PRODUCT_CODEBAR_DEVIS_PROD; ?></td>
 
-                           <td class="text-center"><?php echo $stock_theorique; ?></td>
+                           <td class="text-center"><?php echo number_format($request->PRIX_DEVIS_PROD,0," "," "); ?></td>
 
-                           <td class="text-center"><?php echo number_format($request->project_articles_prix_vente_pondere,0," "," "); ?></td>
+                          
 
-                           <?php 
+                            <td class="marge text-center quantite_"><input type="hidden" class="form-control" name="quantite[]" id="quantite" placeholder="Quantite" value="<?php echo $request->QUANTITE_DEVIS_PROD; ?>"><?php echo $request->QUANTITE_DEVIS_PROD; ?>
+                          &nbsp;&nbsp;<span class="fa fa-check-square" aria-hidden="true" title="" style="color:#26edd2;"></td>
+                          <?php  //} ?>
 
-                           if ($qty_project_produits > $stock_theorique) {
 
-                           ?>
-                           <td class="marge text-center quantite_"><input type="hidden" class="form-control" name="quantite[]" id="quantite" placeholder="Quantite" value="<?php echo $request->project_produits_quantity; ?>"><?php echo $request->project_produits_quantity; ?>&nbsp;&nbsp;<span class="fa fa-exclamation-triangle" aria-hidden="true" title="<?php echo 'Qte en stock: '.$stock_theorique; ?>" style="color:#ed7926;">
-                            </td>
-                           <?php  }
-                           else{ ?>
 
-                            <td class="marge text-center quantite_"><input type="hidden" class="form-control" name="quantite[]" id="quantite" placeholder="Quantite" value="<?php echo $request->project_produits_quantity; ?>"><?php echo $request->project_produits_quantity; ?>
-                          &nbsp;&nbsp;<span class="fa fa-check-square" aria-hidden="true" title="<?php echo 'Qte en stock: '.$stock_theorique; ?>" style="color:#26edd2;"></td>
-                          <?php  } ?>
 
-                            <td class="marge text-center"><input type="number" class="form-control unit_price" name="unit_price[]" id="unit_price" idprix="<?php echo $request->project_article_id;?>" prixRest="<?php echo $request->project_articles_prix_vente_pondere; ?>" placeholder="Prix de vente" min="<?php echo $request->project_articles_prix_vente_pondere; ?>" value="<?php echo $request->project_articles_prix_vente_pondere; ?>"></td>
 
-                           <td class="marge text-center tot_price"><input type="text" class="form-control" name="total_price[]" readonly id="total_price" placeholder="Prix de vente total" value="<?php echo ($total_price1); ?>"></td>
+                            <td class="marge text-center"><input type="number" class="form-control unit_price" name="unit_price[]" id="unit_price" idprix="<?php echo $request->NAME_DEVIS_PROD;?>" prixRest="<?php echo $request->PRIX_DEVIS_PROD; ?>" placeholder="Prix de vente" min="<?php echo $request->PRIX_DEVIS_PROD; ?>" value="<?php echo $request->PRIX_DEVIS_PROD; ?>"></td>
+
+                           <td class="marge text-center tot_price"><input type="text" class="form-control" name="total_price[]" readonly id="total_price" value="<?php echo ($total_price1); ?>"></td>
                          
                            
 
+                          </tr>
                           
-                         </tr>
 
                         <?php 
-                          } 
-                        }
-
-                       }
-
+                         
                      } 
-
-                 else {
-
-                 } 
-
-                 $requetes=$this->db->query('SELECT SUM(project_produits_quantity) as qty_tot,SUM(project_articles_prix_vente_pondere)as unit_price_tot,a.project_article_name FROM project p,project_clients c,project_produits pr, project_articles a WHERE p.project_id=pr.project_reference AND c.project_clients_id=pr.project_client_reference AND a.project_article_id=pr.project_article_id AND pr.project_produits_category=1 AND  p.project_id="'.$project.'" AND c.project_clients_id="'.$client.'"');
-
-                        if ($requetes->num_rows() > 0) {
-
-                         $unit_price='';
-                           foreach ($requetes->result() as  $reques) {
-
-                            $quantity=$reques->qty_tot;
-
-                            $total_price=($reques->qty_tot*$reques->unit_price_tot);
-
-                           
-                            if ($quantity>0) {
-
-                               $unit_price=$total_price/$quantity;
-                           
-                        ?>
-
-                  <tr>
-                    <td colspan="2"><input type="text" class="form-control" name="design1" id="design1" placeholder="Completer les cablages, Accessoires,..." value="Cablage, Accessoires, Test & Main d'oeuvre"></td>
-                    <td colspan="2"><input type="text" class="form-control" name="reference1" id="reference1" placeholder="Completer les references" value="SMART CARE"></td>
-                    <td><input type="text" class="form-control quantite1_" name="quantite1" id="quantite1" placeholder="Quantite" value="<?php echo $quantity; ?>"></td>
-                    <td><input type="text" class="form-control unit_price1_" name="unit_price1" id="unit_price1" placeholder="Prix unitaire" value="<?php echo $unit_price; ?>"></td>
-                    <td><input type="text" class="form-control total_price1_" name="total_price1" id="total_price1" readonly placeholder="Prix total" value="<?php echo $total_price; ?>"></td>
-
-                  </tr>
-                        <?php 
-
-                    $tot_HTVA=$total_prices+ $total_price;
-
-                    $TVA=($tot_HTVA*18)/100;
-
-                    $grand_total=$tot_HTVA+$TVA;
-              
-                }
-
-                            else{ ?>
-
-                    <tr>
-                    <td colspan="2"><input type="text" class="form-control" name="design1" id="design1" placeholder="Completer les cablages, Accessoires,..." value="Cablage, Accessoires, Test & Main d'oeuvre"></td>
-                    <td colspan="2"><input type="text" class="form-control" name="reference1" id="reference1" placeholder="Completer les references" value="SMART CARE"></td>
-                    <td><input type="text" class="form-control quantite1_" name="quantite1" id="quantite1" placeholder="Quantite" value="<?php echo $quantity; ?>"></td>
-                    <td><input type="text" class="form-control unit_price1_" name="unit_price1" id="unit_price1" placeholder="Prix unitaire" value="<?php echo $unit_price; ?>"></td>
-                    <td><input type="text" class="form-control total_price1_" name="total_price1" id="total_price1" readonly placeholder="Prix total" value="<?php echo $total_price; ?>"></td>
-
-                  </tr>
-
-            <?php 
-
-                  $tot_HTVA=$total_prices+ $total_price;
-
-                    $TVA=($tot_HTVA*18)/100;
-
-                    $grand_total=$tot_HTVA+$TVA;
-              }
-              }
-            
-            }
-
-            else{ ?>
-              
-                     <tr>
-                    <td colspan="2"><input type="text" class="form-control" name="design1" id="design1" placeholder="Completer les cablages, Accessoires,..." value="Cablage, Accessoires, Test & Main d'oeuvre"></td>
-                    <td colspan="2"><input type="text" class="form-control" name="reference1" id="reference1" placeholder="Completer les references" value="SMART CARE"></td>
-                    <td><input type="text" class="form-control quantite1_" name="quantite1" id="quantite1" placeholder="Quantite" value="0"></td>
-                    <td><input type="text" class="form-control unit_price1_" name="unit_price1" id="unit_price1" placeholder="Prix unitaire" value="0"></td>
-                    <td><input type="text" class="form-control total_price1_" name="total_price1" id="total_price1" readonly placeholder="Prix total" value="0"></td>
-
-                  </tr>
-            <?php 
-
-                    $tot_HTVA=$total_prices+ $total_price;
-
-                    $TVA=($tot_HTVA*18)/100;
-
-                    $grand_total=$tot_HTVA+$TVA;
-
-          }
-                      ?>
-                      <tr><th colspan="4" class="text-center">MAIN D'OEUVRES</th><th colspan="2" class="">TERMES/CONDITIONS</th><th colspan="2" class="">TOTAL</th></tr>
-
-                      <tr>
-                        <td colspan="7" style="border: 0px solid;">
-                          
-                        <div class="row">
-                        <div class="col-md-12">
-                          <div class="col-xs-6 col-md-6 pull-left table-bordered" id="tab" style="border: 0px solid;">
-
-                            <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                            <th>Nombre</th>
-                            <th>Categorie</th>
-                            <th>Nbre jrs</th>
-                            <th>P.U</th>
-                            <th>P.T</th>
-
-
-                          </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $requetes=$this->db->query('SELECT m.project_main_oeuvre_technicien_titre,m.project_main_oeuvre_prix_unit,pr.project_produits_quantity,pr.project_main_oeuvre_nbre_jours FROM project p,project_clients c,project_produits pr, project_main_oeuvre m WHERE p.project_id=pr.project_reference AND c.project_clients_id=p.project_client_discussion_id AND m.project_main_oeuvre_id=pr.project_article_id AND pr.project_produits_category="2" AND p.project_id="'.$project.'" AND c.project_clients_id="'.$client.'"');
-
-                          $tot_gen =0;
-
-                        if ($requetes->num_rows() > 0) { 
-
-                          foreach ($requetes->result() as $mo) { 
-
-                            $qte = $mo->project_produits_quantity ;
-
-                            $nb_jrs = $mo->project_main_oeuvre_nbre_jours;
-
-                            $unit_prix = $mo->project_main_oeuvre_prix_unit;
-
-                            $prix_total= ($qte*$nb_jrs*$unit_prix);
-
-                            $tot_gen += $prix_total;
-
-                            ?>
-
-                            <tr>
-                              <td><?php echo $qte ; ?></td>
-                              <td><?php echo $mo->project_main_oeuvre_technicien_titre; ?></td>
-                              <td><?php echo $nb_jrs; ?></td>
-                              <td><?php echo number_format($unit_prix,0," "," "); ?></td>
-                              <td><?php echo number_format($prix_total,0," "," "); ?></td>
-                            </tr>
-
-                            
-
-                        <?php  } ?>
-                        <tr><td colspan="3">TOT GEN.</td><td colspan="2" class="text-right"><?php echo '<strong>'. number_format($tot_gen,0," "," ") .' FBU'.'<strong>';  ?></td></tr>
-
-                       <?php }
-                        else{
-                            
-                          } ?>
-                            
-                          </tbody>
-                          
-
-                        </table>
-                            
-                          </div>
-                          <div class="col-xs-6 col-md-6 table-bordered" id="tab" style="border: 0px solid;">
-
-                            <?php
-
-                              $requetes=$this->db->query('SELECT project_material_supply_days,project_test_days,project_installation_days FROM project WHERE  project_id="'.$project.'" AND project_client_discussion_id="'.$client.'"');
-
-                           foreach ($requetes->result() as  $request) {
-
-
-                            $livraison= $request->project_material_supply_days;
-
-                            $temps_test=$request->project_test_days;
-
-                            $temps_installation=$request->project_installation_days;
-                          }
-
-                            ?>
-
-                            <table class="table table-bordered">
-
-                             <tr>
-
-
-                           <td colspan="">Garantie(mois)</td>
-                            <td><input type="number" class="form-control" name="garantie" id="garantie" placeholder="Garantie" value="<?php echo '24'; ?>"></td>
-
-                            <td width="150">Total HTVA</td>
-                            <td width="150"><?php echo '<span class="tot_HTVA">'. round($tot_HTVA).'</span> FBU'; ?></td>
-                            
-                          </tr>
-                          <tr>
-                        <td colspan="">Validité de la proforma(jours)</td>
-                            <td><input type="number" class="form-control" name="validite" id="validite" placeholder="Validite" value="<?php
-                             echo '25'; ?>">
-                            </td>
-                         <td width="150">TVA (18%)</td>
-                         <td class="" width="150"><?php echo '<span class="tva">'.(round($TVA)).'</span> FBU' ; ?></td>
-
-                         <!-- <td class="" width="150"><?php //echo '<span class="tva">'.number_format(round($TVA),0," "," ").'</span> FBU' ; ?></td> -->
-
-                      </tr>
-                      <tr>
-                        <td colspan="">Conditions de paiement(%)</td>
-                            <td><input type="text" class="form-control" name="paiement" id="paiement" placeholder="Conditions depaiement" value="<?php
-                             echo '100'; ?>">
-                            </td>
-                        
-                         <td class="td_dio" width="150">GRAND TOTAL</td>
-                         <td class="td_dio" width="150">
-                          <input type="hidden" class="form-control tot_gen_value" name="grand_total" id="grand_total" placeholder="Paiement" value="<?php echo $grand_total;?>"><?php echo ' <span class="grandTotal">'.number_format($grand_total,0," "," ").'</span> FBU' ; ?>
-                        </td>
-
-                      </tr>
-
-                      <tr>
-                        <td colspan="">Delais de livraison</td>
-                            <td colspan=""><input type="hidden" class="form-control" name="livraison" id="livraison" placeholder="Conditions depaiement" value="<?php echo $livraison; ?>"><?php echo ''.$livraison.' '.'jours'; ?>
-                          </td>
-
-                      </tr>
-
-                      <tr>
-
-                        <td colspan="">Periode d'installation</td>
-                            <td colspan=""><input type="hidden" class="form-control" name="installation" id="installation" placeholder="Periode d'installation" value="<?php echo $temps_installation; ?>"><?php echo ''.$temps_installation.' '.'jours ouvrables'; ?>
-                          </td>
-                        
-                      </tr>
-
-                      <tr>
-
-                        <td colspan="">Temps de test</td>
-                            <td colspan=""><input type="hidden" class="form-control" name="test" id="test" placeholder="Temps de test" value="<?php echo $temps_test; ?>"><?php echo ''.$temps_test.' '.'jours'; ?>
-                          </td>
-                        
-                      </tr>
-                            
-                          </div>
-                        </table>
-                        </div>
-                          
-                      </div>
-                        </td>
-                        
-                      </tr>
-
-                      <?php 
-
-                            
-                        
+  
                  ?>
+                        <tr>
+                            <td style="text-align: right;" colspan="5"><b>Total HTVA</b></td>
+                            <td style="text-align: center;"><b><?php echo '<span class="tot_HTVA">'. round($tot_HTVA).'</span> FBU'; ?></b></td>
+                            
+                          </tr>
 
+                      <tr>
+                         <td style="text-align: right;" colspan="5"><b>TVA (18%)</b></td>
+                         <td style="text-align: center;"><b><?php echo '<span class="tva">'.(round($TVA)).'</span> FBU' ; ?></b></td>
 
+                      </tr>
+
+                      <tr>
+                         <td style="text-align: right;" colspan="5"><b>TVAC</b></td>
+                         <td style="text-align: center;"><b><?php echo '<span class="tva">'.(round($TVA)).'</span> FBU' ; ?></b></td>
+
+                      </tr>
 
                       </tbody>
                     
@@ -635,9 +355,9 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
                             </button> -->
 
                             
-                            <button class="btn btn-flat btn-info btn_save btn_action btn_save_back" type="submit" id="btn_save" data-stype='back' title="save and back to the list (Ctrl+d)">
+                            <button class="btn btn-flat btn-primary btn_save btn_action btn_save_back" type="submit" id="btn_save" data-stype='back' title="Créer un proforma">
 
-                            <i class="fa fa-check" ></i> Confirmer
+                            <i class="fa fa-save" ></i> Enregistrer
 
                             </button>
 
@@ -817,7 +537,7 @@ if ($query->num_rows() > 0)  //Ensure that there is at least one result
 
         $.ajax({
 
-          url: BASE_URL + '/administrator/project_proforma/save_list_proforma',
+          url: BASE_URL + '/administrator/project_proforma/add_save',
 
           type: 'POST',
 
