@@ -23,7 +23,9 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 <div class="row">
-        <div class="col-md-4">
+  <div class="col-lg-10 col-md-10" style="margin-left: 40px !important;padding: 0px !important;">
+<div class="row">
+        <div class="col-md-5">
             <div class="info-box bg-purple"> <span class="info-box-icon"><i class="fa fa-random"></i></span>
                 <div class="info-box-content"> <a href="" id="commandes"><span class="info-box-text"><h4 style="color: white">
                     COMMANDES       </h4></span></a>
@@ -33,9 +35,9 @@
                     <span class="progress-description"></span> </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-1">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="info-box bg-red"> <span class="info-box-icon"><i class="fa fa-cog"></i></span>
                 <div class="info-box-content"> <a href="" id="gammes"><span class="info-box-text"><h4 style="color: white">
                     GAMMES         </h4></span></a>
@@ -64,7 +66,7 @@
 
 
 <!-- <form method="post" id="insert_form1"> -->
-<div class="row">
+<div class="row"style="margin-left: 40px !important;padding: 0px !important;">
   <div class="col-md-8">
           <div class="form-group">
             
@@ -281,7 +283,7 @@
                               </div>
                             </div>
                             <div class="row">
-         <!-- 
+         
                               <div class="col-md-6">
                                 <div class="form-group">
                                           <div class="input-group">
@@ -294,7 +296,7 @@
                                                     <input type="number" name="validOff" class="form-control delai" id="validOff" value="3">
                                               </div>
                                     </div>
-                                </div> -->
+                                </div> 
                                 
                                   <div class="col-md-4" hidden>
                                     <div class="form-group">
@@ -446,6 +448,8 @@
         </div>
     </div>
     </form>
+</div>
+</div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
